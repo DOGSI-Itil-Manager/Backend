@@ -15,6 +15,9 @@
 	<description>TP2 DOGSI - ITIL</description>
 	<properties>
 		<java.version>11</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<spring-boot.version>2.4.0</spring-boot.version>
 	</properties>
 	<dependencies>
 
