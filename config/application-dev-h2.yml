@@ -1,0 +1,19 @@
+server:
+  port: 8080
+  
+spring:
+  application.name: itil-api
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: test
+    password: test
+  jpa.database-platform: org.hibernate.dialect.H2Dialect
+  h2.console.enabled: true
+
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
