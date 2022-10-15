@@ -101,7 +101,7 @@ public class HardwareServiceTest {
     }
 
     @Test
-    void shouldDeleteASoftware(){
+    void shouldDeleteAHardware(){
         var dto = new HardwareDto();
         dto.setName("Name");
         dto.setAdditionDate(Instant.now());
@@ -124,7 +124,7 @@ public class HardwareServiceTest {
 
 
     @Test
-    void shouldUpdateASoftware(){
+    void shouldUpdateAHardware(){
         var dto = new HardwareDto();
         dto.setName("Name");
         dto.setAdditionDate(Instant.now());
