@@ -1,3 +1,6 @@
+auth0:
+  audience: http:localhost:8080/api
+
 spring:
   application.name: itil-api
   datasource:
@@ -14,3 +17,9 @@ spring:
         show_sql: false
         use_sql_comments: true
         format_sql: true
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-vo4z2t6v.us.auth0.com/
