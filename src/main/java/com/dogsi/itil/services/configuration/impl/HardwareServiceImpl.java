@@ -30,7 +30,6 @@ public class HardwareServiceImpl implements HardwareService{
             .provider(dto.getProvider())
             .price(dto.getPrice())
             .additionDate(dto.getAdditionDate())
-            .capacity(dto.getCapacity())
             .description(dto.getDescription())
             .build();
         repository.save(hardware);
@@ -51,7 +50,6 @@ public class HardwareServiceImpl implements HardwareService{
         hardware.setProvider(dto.getProvider());
         hardware.setPrice(dto.getPrice());
         hardware.setAdditionDate(dto.getAdditionDate());
-        hardware.setCapacity(dto.getCapacity());
         hardware.setDescription(dto.getDescription());
         repository.save(hardware);
     }

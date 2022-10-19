@@ -44,7 +44,6 @@ public class HardwareServiceTest {
         dto.setSerialNumber("SerialNumber");
         dto.setType("type");
         dto.setPrice(122f);
-        dto.setCapacity(1f);
 
         service.saveHardware(dto);
 
@@ -65,7 +64,6 @@ public class HardwareServiceTest {
         dto.setSerialNumber("SerialNumber");
         dto.setType("type");
         dto.setPrice(122f);
-        dto.setCapacity(1f);
 
         service.saveHardware(dto);
         service.saveHardware(dto);
@@ -86,7 +84,6 @@ public class HardwareServiceTest {
         dto.setSerialNumber("SerialNumber");
         dto.setType("type");
         dto.setPrice(122f);
-        dto.setCapacity(1f);
 
         assertThrows(ItemNotFoundException.class, () -> {
             service.updateHardware(1L, dto);
@@ -111,7 +108,6 @@ public class HardwareServiceTest {
         dto.setSerialNumber("SerialNumber");
         dto.setType("type");
         dto.setPrice(122f);
-        dto.setCapacity(1f);
 
         service.saveHardware(dto);
         assertEquals(1, repository.count());
@@ -134,7 +130,6 @@ public class HardwareServiceTest {
         dto.setSerialNumber("SerialNumber");
         dto.setType("type");
         dto.setPrice(122f);
-        dto.setCapacity(1f);
 
         service.saveHardware(dto);
         assertEquals(1, repository.count());

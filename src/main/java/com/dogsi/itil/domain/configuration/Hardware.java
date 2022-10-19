@@ -51,14 +51,11 @@ public class Hardware {
     private Instant additionDate;
 
     @Column
-    private Float capacity; // De que es la capacidad
-
-    @Column
     private String description;
 
     @Builder
     public Hardware(String name, String type, String serialNumber, String location, String provider, Float price,
-            Instant additionDate, Float capacity, String description) {
+            Instant additionDate, String description) {
         this.name = name;
         this.type = type;
         this.serialNumber = serialNumber;
@@ -66,7 +63,6 @@ public class Hardware {
         this.provider = provider;
         this.price = price;
         this.additionDate = additionDate;
-        this.capacity = capacity;
         this.description = description;
     }
 }
