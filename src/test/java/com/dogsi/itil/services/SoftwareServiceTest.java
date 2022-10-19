@@ -142,6 +142,12 @@ public class SoftwareServiceTest {
         assertEquals(1, repository.count());
         saved = repository.findAll().get(0);
         assertEquals("Name2", saved.getName());
+        assertEquals(1, saved.getVersions().size());
 
+        service.updateSoftware(saved.getId(), dto);
+
+        assertEquals(1, repository.count());
+        saved = repository.findAll().get(0);
+        assertEquals(2, saved.getVersions().size());
     }
 }

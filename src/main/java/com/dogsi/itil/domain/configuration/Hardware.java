@@ -1,9 +1,14 @@
 package com.dogsi.itil.domain.configuration;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.OneToMany;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -53,6 +58,9 @@ public class Hardware {
     @Column
     private String description;
 
+    @OneToMany(mappedBy = "hardware",fetch = FetchType.EAGER ,cascade = CascadeType.ALL)
+    private List<HardwareVersions> versions;
+    
     @Builder
     public Hardware(String name, String type, String serialNumber, String location, String provider, Float price,
             Instant additionDate, String description) {
@@ -64,5 +72,10 @@ public class Hardware {
         this.price = price;
         this.additionDate = additionDate;
         this.description = description;
+        this.versions = new ArrayList<>();
+    }
+
+    public void addVersion(HardwareVersions version){
+        versions.add(version);
     }
 }

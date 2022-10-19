@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dogsi.itil.domain.configuration.SLA;
+import com.dogsi.itil.domain.configuration.SLAVersion;
 import com.dogsi.itil.dto.SlaDto;
 import com.dogsi.itil.exceptions.ItemNotFoundException;
 import com.dogsi.itil.repositories.SlaRepository;
@@ -42,6 +43,8 @@ public class SlaServiceImpl implements SlaService{
     @Override
     public void updateSla(Long id, SlaDto dto) {
         var sla = repository.findById(id).orElseThrow(() -> {throw new ItemNotFoundException("SLA with id " + id + " not found");});
+        var version = new SLAVersion(sla.getVersions().size(), sla);
+        sla.addVersion(version);
         sla.setName(dto.getName());
         sla.setDescription(dto.getDescription());
         sla.setCrucial(dto.getCrucial());

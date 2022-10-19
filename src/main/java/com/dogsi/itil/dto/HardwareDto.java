@@ -19,6 +19,5 @@ public class HardwareDto {
     private @NotBlank String provider;
     private @NotNull Float price;
     private @NotNull Instant additionDate;
-    private Float capacity; // De que es la capacidad
     private String description;
 }

@@ -144,5 +144,12 @@ public class SlaServiceTest {
         assertEquals(1, repository.count());
         saved = repository.findAll().get(0);
         assertFalse(saved.isCrucial());
+        assertEquals(1, saved.getVersions().size());
+
+        service.updateSla(saved.getId(), dto);
+
+        assertEquals(1, repository.count());
+        saved = repository.findAll().get(0);
+        assertEquals(2, saved.getVersions().size());
     }
 }
