@@ -151,4 +151,32 @@ public class HardwareServiceTest {
         assertEquals(2, saved.getVersions().size());
 
     }
+
+    @Test
+    void shouldGetAHardwareById(){
+        var dto = new HardwareDto();
+        dto.setName("Name");
+        dto.setAdditionDate(Instant.now());
+        dto.setDescription("description");
+        dto.setLocation("Location");
+        dto.setProvider("Provider");
+        dto.setSerialNumber("SerialNumber");
+        dto.setType("type");
+        dto.setPrice(122f);
+
+        service.saveHardware(dto);
+        assertEquals(1, repository.count());
+        var saved = repository.findAll().get(0);
+
+        var itemById = service.getHardwareById(saved.getId());
+
+        assertEquals(dto.getName(), itemById.getName());
+    }
+
+    @Test
+    void shouldThrowAnExceptionIfTheHardwareIsNotFoundWhenGettingById(){
+        assertThrows(ItemNotFoundException.class, () -> {
+            service.getHardwareById(1L);
+        });
+    }
 }

@@ -65,4 +65,9 @@ public class HardwareServiceImpl implements HardwareService{
             throw new ItemNotFoundException("Hardware with id " + id + " not found");
         }
     }
+
+    @Override
+    public Hardware getHardwareById(Long id) {
+        return repository.findById(id).orElseThrow(() -> {throw new ItemNotFoundException("Hardware with id " + id + " not found");});
+    }
 }

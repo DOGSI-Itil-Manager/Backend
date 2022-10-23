@@ -150,4 +150,32 @@ public class SoftwareServiceTest {
         saved = repository.findAll().get(0);
         assertEquals(2, saved.getVersions().size());
     }
+
+    @Test
+    void shouldGetASoftwareById(){
+        var dto = new SoftwareDto();
+        dto.setName("Name");
+        dto.setAcceptanceDate(Instant.now());
+        dto.setDescription("description");
+        dto.setLicense("License");
+        dto.setProvider("Provider");
+        dto.setOrigin("Origin");
+        dto.setType("type");
+        dto.setVersion("Version");
+
+        service.saveSoftware(dto);
+        assertEquals(1, repository.count());
+        var saved = repository.findAll().get(0);
+
+        var itemById = service.getSoftwareById(saved.getId());
+
+        assertEquals(dto.getName(), itemById.getName());
+    }
+
+    @Test
+    void shouldThrowAnExceptionIfTheSoftwareIsNotFoundWhenGettingById(){
+        assertThrows(ItemNotFoundException.class, () -> {
+            service.getSoftwareById(1L);
+        });
+    }
 }

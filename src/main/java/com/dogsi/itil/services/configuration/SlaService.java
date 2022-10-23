@@ -14,4 +14,6 @@ public interface SlaService {
     void updateSla(Long id, SlaDto dto);
 
     void deleteSla(Long id);
+
+    SLA getSlaById(Long id);
 }

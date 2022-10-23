@@ -63,5 +63,10 @@ public class SlaServiceImpl implements SlaService{
             throw new ItemNotFoundException("SLA with id " + id + " not found");
         }
     }
+
+    @Override
+    public SLA getSlaById(Long id) {
+        return repository.findById(id).orElseThrow(() -> {throw new ItemNotFoundException("SLA with id " + id + " not found");});
+    }
     
 }

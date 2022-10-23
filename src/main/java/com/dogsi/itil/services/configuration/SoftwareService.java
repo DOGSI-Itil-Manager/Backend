@@ -14,4 +14,6 @@ public interface SoftwareService {
     void updateSoftware(Long id, SoftwareDto software);
 
     void deleteSoftware(Long id);
+
+    Software getSoftwareById(Long id);
 }

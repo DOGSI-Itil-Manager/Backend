@@ -64,4 +64,9 @@ public class SoftwareServiceImpl implements SoftwareService{
             throw new ItemNotFoundException("Software with id " + id + " not found");
         }
     }
+
+    @Override
+    public Software getSoftwareById(Long id) {
+        return repository.findById(id).orElseThrow(() -> {throw new ItemNotFoundException("Software with id " + id + " not found");});
+    }
 }
