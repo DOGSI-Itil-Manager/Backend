@@ -66,4 +66,8 @@ public class IncidentServiceImpl implements IncidentService {
             throw new ItemNotFoundException("Incident with id " + id + " not found");
         }
     }
+
+    public Incident getIncidentById(Long id) {
+        return repository.findById(id).orElseThrow(() -> {throw new ItemNotFoundException("Incident with id " + id + " not found");});
+    }
 }

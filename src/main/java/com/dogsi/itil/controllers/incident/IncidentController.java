@@ -20,13 +20,20 @@ import com.dogsi.itil.dto.IncidentDto;
 import com.dogsi.itil.services.incident.IncidentService;
 
 @RestController
-@RequestMapping("api/v1/incident/incident")
+@RequestMapping("api/v1/incident")
 public class IncidentController {
 
     private IncidentService service;
     
     public IncidentController(IncidentService service) {
         this.service = service;
+    }
+
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateIncident(@PathVariable Long id){
+        service.getIncidentById(id, incidentDto);
     }
 
     @PostMapping
