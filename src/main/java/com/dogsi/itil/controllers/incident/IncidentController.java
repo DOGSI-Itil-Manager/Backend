@@ -33,7 +33,7 @@ public class IncidentController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateIncident(@PathVariable Long id){
-        service.getIncidentById(id, incidentDto);
+        service.getIncidentById(id);
     }
 
     @PostMapping

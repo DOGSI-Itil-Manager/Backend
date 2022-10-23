@@ -7,7 +7,7 @@ import com.dogsi.itil.domain.incident.Incident;
 import com.dogsi.itil.dto.IncidentDto;
 
 public interface IncidentService {
-    
+
     void saveIncident(IncidentDto incident);
 
     Page<Incident> getIncident(Pageable pageable);
@@ -15,4 +15,6 @@ public interface IncidentService {
     void updateIncident(Long id, IncidentDto incident);
 
     void deleteIncident(Long id);
+
+    public Incident getIncidentById(Long id);
 }
