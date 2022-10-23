@@ -35,13 +35,13 @@ public class Incident {
 
     @Column(nullable = false)
     private String category;
-
+    //FIXME: terminar de definir los valores posibles
     @Column(nullable = false)
     private String priority;
-
+    //FIXME: terminar de definir los valores posibles
     @Column(nullable = false)
     private String impact;
-
+    //FIXME: terminar de definir los valores posibles
     @Column(nullable = false)
     private String state;
 

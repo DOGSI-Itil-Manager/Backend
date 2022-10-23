@@ -14,8 +14,11 @@ public class IncidentDto {
 
     private @NotBlank String name;
     private @NotBlank String category;
+    //FIXME: terminar de definir los valores posibles
     private @NotBlank String priority;
+    //FIXME: terminar de definir los valores posibles
     private @NotBlank String impact;
+    //FIXME: terminar de definir los valores posibles
     private @NotBlank String state;
     private String assignee;
     private String description;
