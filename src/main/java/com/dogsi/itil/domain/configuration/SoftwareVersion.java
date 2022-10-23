@@ -1,17 +1,18 @@
 package com.dogsi.itil.domain.configuration;
 
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.CascadeType;
+
+import java.time.Instant;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Builder;
@@ -20,19 +21,30 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.AccessLevel;
 
+
 @Getter
 @Setter
 @Entity
-@Table(name="software")
+@Table(name="software_versions")
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-public class Software {
-
+public class SoftwareVersion {
     private static final long serialVersionUID=1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="software_id")
+    @Column(name="software_version_id")
     private Long id;
+
+    @Column(nullable = false)
+    private Instant changeInstant;
+
+    @Column(nullable = false)
+    private Integer version;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name="software_id")
+    private Software software;
 
     @Column(nullable = false)
     private String name;
@@ -41,7 +53,7 @@ public class Software {
     private String type;
 
     @Column(nullable = false)
-    private String version;
+    private String softwareVersion;
 
     @Column(nullable = false)
     private String provider;
@@ -58,24 +70,17 @@ public class Software {
     @Column
     private String description;
 
-    @OneToMany(mappedBy = "software",fetch = FetchType.EAGER ,cascade = CascadeType.ALL)
-    private List<SoftwareVersion> versions;
-
-    @Builder
-    public Software(String name, String type, String version, String provider, String license, String origin,
-            Instant acceptanceDate, String description) {
-        this.name = name;
-        this.type = type;
+    public SoftwareVersion(Integer version, Software software) {
         this.version = version;
-        this.provider = provider;
-        this.license = license;
-        this.origin = origin;
-        this.acceptanceDate = acceptanceDate;
-        this.description = description;
-        this.versions = new ArrayList<>();
-    }
-
-    public void addVersion(SoftwareVersion version){
-        versions.add(version);
+        this.software = software;
+        this.changeInstant = Instant.now();
+        this.name = software.getName();
+        this.type =software.getType();
+        this.softwareVersion =software.getVersion();
+        this.provider =software.getProvider();
+        this.license =software.getLicense();
+        this.origin =software.getOrigin();
+        this.acceptanceDate =software.getAcceptanceDate();
+        this.description =software.getDescription();
     }
 }

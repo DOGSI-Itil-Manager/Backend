@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dogsi.itil.domain.configuration.Software;
+import com.dogsi.itil.domain.configuration.SoftwareVersion;
 import com.dogsi.itil.dto.SoftwareDto;
 import com.dogsi.itil.exceptions.ItemNotFoundException;
 import com.dogsi.itil.repositories.SoftwareRepository;
@@ -42,6 +43,9 @@ public class SoftwareServiceImpl implements SoftwareService{
     @Override
     public void updateSoftware(Long id, SoftwareDto dto) {
         var software = repository.findById(id).orElseThrow(() -> {throw new ItemNotFoundException("Software with id " + id + " not found");});
+        var version = new SoftwareVersion(software.getVersions().size(), software);
+        software.addVersion(version);
+        
         software.setName(dto.getName());
         software.setType(dto.getType());
         software.setProvider(dto.getProvider());
@@ -59,5 +63,10 @@ public class SoftwareServiceImpl implements SoftwareService{
         if (deleted == 0){
             throw new ItemNotFoundException("Software with id " + id + " not found");
         }
+    }
+
+    @Override
+    public Software getSoftwareById(Long id) {
+        return repository.findById(id).orElseThrow(() -> {throw new ItemNotFoundException("Software with id " + id + " not found");});
     }
 }

@@ -48,6 +48,11 @@ public class SoftwareController {
         return service.getSoftware(pageable);
     }
 
+    @GetMapping("/{id}")
+    public Software getSoftwareById(@PathVariable Long id){
+        return service.getSoftwareById(id);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteSoftware(@PathVariable Long id){

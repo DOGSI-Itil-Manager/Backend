@@ -47,6 +47,11 @@ public class HardwareController {
         return service.getHardware(pageable);
     }
 
+    @GetMapping("/{id}")
+    public Hardware getHardwareById(@PathVariable Long id){
+        return service.getHardwareById(id);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteHardware(@PathVariable Long id){

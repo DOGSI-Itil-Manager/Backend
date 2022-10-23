@@ -45,6 +45,12 @@ public class SlaController {
         return service.getSla(pageable);
     }
 
+    @GetMapping("/{id}")
+    public SLA getSlaById(@PathVariable Long id){
+        return service.getSlaById(id);
+    }
+
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteSla(@PathVariable Long id){
