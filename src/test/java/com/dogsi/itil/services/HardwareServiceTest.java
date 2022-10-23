@@ -44,7 +44,6 @@ public class HardwareServiceTest {
         dto.setSerialNumber("SerialNumber");
         dto.setType("type");
         dto.setPrice(122f);
-        dto.setCapacity(1f);
 
         service.saveHardware(dto);
 
@@ -65,7 +64,6 @@ public class HardwareServiceTest {
         dto.setSerialNumber("SerialNumber");
         dto.setType("type");
         dto.setPrice(122f);
-        dto.setCapacity(1f);
 
         service.saveHardware(dto);
         service.saveHardware(dto);
@@ -86,7 +84,6 @@ public class HardwareServiceTest {
         dto.setSerialNumber("SerialNumber");
         dto.setType("type");
         dto.setPrice(122f);
-        dto.setCapacity(1f);
 
         assertThrows(ItemNotFoundException.class, () -> {
             service.updateHardware(1L, dto);
@@ -111,7 +108,6 @@ public class HardwareServiceTest {
         dto.setSerialNumber("SerialNumber");
         dto.setType("type");
         dto.setPrice(122f);
-        dto.setCapacity(1f);
 
         service.saveHardware(dto);
         assertEquals(1, repository.count());
@@ -134,7 +130,6 @@ public class HardwareServiceTest {
         dto.setSerialNumber("SerialNumber");
         dto.setType("type");
         dto.setPrice(122f);
-        dto.setCapacity(1f);
 
         service.saveHardware(dto);
         assertEquals(1, repository.count());
@@ -147,6 +142,41 @@ public class HardwareServiceTest {
         assertEquals(1, repository.count());
         saved = repository.findAll().get(0);
         assertEquals("Name2", saved.getName());
+        assertEquals(1, saved.getVersions().size());
 
+        service.updateHardware(saved.getId(), dto);
+
+        assertEquals(1, repository.count());
+        saved = repository.findAll().get(0);
+        assertEquals(2, saved.getVersions().size());
+
+    }
+
+    @Test
+    void shouldGetAHardwareById(){
+        var dto = new HardwareDto();
+        dto.setName("Name");
+        dto.setAdditionDate(Instant.now());
+        dto.setDescription("description");
+        dto.setLocation("Location");
+        dto.setProvider("Provider");
+        dto.setSerialNumber("SerialNumber");
+        dto.setType("type");
+        dto.setPrice(122f);
+
+        service.saveHardware(dto);
+        assertEquals(1, repository.count());
+        var saved = repository.findAll().get(0);
+
+        var itemById = service.getHardwareById(saved.getId());
+
+        assertEquals(dto.getName(), itemById.getName());
+    }
+
+    @Test
+    void shouldThrowAnExceptionIfTheHardwareIsNotFoundWhenGettingById(){
+        assertThrows(ItemNotFoundException.class, () -> {
+            service.getHardwareById(1L);
+        });
     }
 }

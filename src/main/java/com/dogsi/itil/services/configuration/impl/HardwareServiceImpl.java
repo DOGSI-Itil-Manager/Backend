@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dogsi.itil.domain.configuration.Hardware;
+import com.dogsi.itil.domain.configuration.HardwareVersions;
 import com.dogsi.itil.dto.HardwareDto;
 import com.dogsi.itil.exceptions.ItemNotFoundException;
 import com.dogsi.itil.repositories.HardwareRepository;
@@ -30,7 +31,6 @@ public class HardwareServiceImpl implements HardwareService{
             .provider(dto.getProvider())
             .price(dto.getPrice())
             .additionDate(dto.getAdditionDate())
-            .capacity(dto.getCapacity())
             .description(dto.getDescription())
             .build();
         repository.save(hardware);
@@ -44,6 +44,9 @@ public class HardwareServiceImpl implements HardwareService{
     @Override
     public void updateHardware(Long id, HardwareDto dto) {
         var hardware = repository.findById(id).orElseThrow(() -> {throw new ItemNotFoundException("Hardware with id " + id + " not found");});
+        var version = new HardwareVersions(hardware.getVersions().size() + 1, hardware);
+        hardware.addVersion(version);
+        
         hardware.setName(dto.getName());
         hardware.setType(dto.getType());
         hardware.setSerialNumber(dto.getSerialNumber());
@@ -51,7 +54,6 @@ public class HardwareServiceImpl implements HardwareService{
         hardware.setProvider(dto.getProvider());
         hardware.setPrice(dto.getPrice());
         hardware.setAdditionDate(dto.getAdditionDate());
-        hardware.setCapacity(dto.getCapacity());
         hardware.setDescription(dto.getDescription());
         repository.save(hardware);
     }
@@ -62,5 +64,10 @@ public class HardwareServiceImpl implements HardwareService{
         if (deleted == 0){
             throw new ItemNotFoundException("Hardware with id " + id + " not found");
         }
+    }
+
+    @Override
+    public Hardware getHardwareById(Long id) {
+        return repository.findById(id).orElseThrow(() -> {throw new ItemNotFoundException("Hardware with id " + id + " not found");});
     }
 }

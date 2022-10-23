@@ -144,5 +144,40 @@ public class SlaServiceTest {
         assertEquals(1, repository.count());
         saved = repository.findAll().get(0);
         assertFalse(saved.isCrucial());
+        assertEquals(1, saved.getVersions().size());
+
+        service.updateSla(saved.getId(), dto);
+
+        assertEquals(1, repository.count());
+        saved = repository.findAll().get(0);
+        assertEquals(2, saved.getVersions().size());
+    }
+
+    @Test
+    void shouldGetASLAById(){
+        var dto = new SlaDto();
+        dto.setCrucial(true);
+        dto.setName("Name");
+        dto.setStartDate(Instant.now());
+        dto.setEndDate(Instant.now().plusSeconds(1600));
+        dto.setService("Service");
+        dto.setDescription("description");
+        dto.setManager("manager");
+        dto.setClient("Client");
+
+        service.saveSla(dto);
+        assertEquals(1, repository.count());
+        var saved = repository.findAll().get(0);
+
+        var itemById = service.getSlaById(saved.getId());
+
+        assertEquals(dto.getName(), itemById.getName());
+    }
+
+    @Test
+    void shouldThrowAnExceptionIfTheSLAIsNotFoundWhenGettingById(){
+        assertThrows(ItemNotFoundException.class, () -> {
+            service.getSlaById(1L);
+        });
     }
 }

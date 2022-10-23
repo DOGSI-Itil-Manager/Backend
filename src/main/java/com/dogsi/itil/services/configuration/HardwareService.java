@@ -16,4 +16,6 @@ public interface HardwareService {
     void updateHardware(Long id, HardwareDto hardware);
 
     void deleteHardware(Long id);
+
+    Hardware getHardwareById(Long id);
 }

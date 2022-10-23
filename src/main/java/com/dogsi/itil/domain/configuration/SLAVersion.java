@@ -1,38 +1,51 @@
 package com.dogsi.itil.domain.configuration;
 
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
+import java.time.Instant;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.AccessLevel;
+import lombok.Builder;
 
 @Getter
 @Setter
 @Entity
-@Table(name="sla")
+@Table(name="sla_versions")
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-public class SLA {
+public class SLAVersion {
     private static final long serialVersionUID=1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="software_id")
+    @Column(name="sla_version_id")
     private Long id;
 
+    @Column(nullable = false)
+    private Instant changeInstant;
+
+    @Column(nullable = false)
+    private Integer version;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name="sla_id")
+    private SLA sla;
+
+    
     @Column(nullable = false)
     private String name;
 
@@ -57,24 +70,17 @@ public class SLA {
     @Column
     private String description;
 
-    @OneToMany(mappedBy = "sla",fetch = FetchType.EAGER ,cascade = CascadeType.ALL)
-    private List<SLAVersion> versions;
-
-    @Builder
-    public SLA(String name, String service, boolean crucial, String manager, String client, Instant startDate,
-            Instant endDate, String description) {
-        this.name = name;
-        this.service = service;
-        this.crucial = crucial;
-        this.manager = manager;
-        this.client = client;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.description = description;
-        this.versions = new ArrayList<>();
-    }
-
-    public void addVersion(SLAVersion version){
-        versions.add(version);
+    public SLAVersion(Integer version, SLA sla) {
+        this.version = version;
+        this.sla = sla;
+        this.changeInstant = Instant.now();
+        this.name = sla.getName();
+        this.service = sla.getService();
+        this.crucial = sla.isCrucial();
+        this.manager = sla.getManager();
+        this.client = sla.getClient();
+        this.startDate = sla.getStartDate();
+        this.endDate = sla.getEndDate();
+        this.description = sla.getDescription();
     }
 }
