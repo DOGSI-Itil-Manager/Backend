@@ -45,7 +45,7 @@ public class Incident {
     @Column(nullable = false)
     private String state;
 
-    @Column(nullable = false)
+    @Column
     private String assignee;
 
     @Column

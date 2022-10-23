@@ -17,7 +17,7 @@ public class IncidentDto {
     private @NotBlank String priority;
     private @NotBlank String impact;
     private @NotBlank String state;
-    private @NotBlank String assignee;
+    private String assignee;
     private String description;
     private @NotNull Instant reportedDate;
     private Date closedDate;
