@@ -29,27 +29,23 @@ public class IncidentController {
         this.service = service;
     }
 
-    @CrossOrigin
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void addIncident( @RequestBody @Valid IncidentDto incidentDto){
         service.saveIncident(incidentDto);
     }
 
-    @CrossOrigin
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateIncident(@PathVariable Long id, @RequestBody @Valid IncidentDto incidentDto){
         service.updateIncident(id, incidentDto);
     }
 
-    @CrossOrigin
     @GetMapping
     public Page<Incident> getIncident(Pageable pageable){
         return service.getIncident(pageable);
     }
 
-    @CrossOrigin
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteIncident(@PathVariable Long id){
