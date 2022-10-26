@@ -2,6 +2,8 @@ package com.dogsi.itil.domain.problem;
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.OneToMany;
+import javax.persistence.FetchType;
+import javax.persistence.CascadeType;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -16,14 +21,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import com.dogsi.itil.domain.incident.Incident;
+
 @Getter
 @Setter
 @Entity
 @Table(name = "problem")
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class Problem {
-
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,6 +58,9 @@ public class Problem {
 
     @Column
     private Date closedDate;
+
+    @OneToMany(mappedBy = "problem",fetch = FetchType.EAGER ,cascade = CascadeType.ALL)
+    private List<Incident> incidents;
 
     @Builder
     public Problem(String name, String category, String priority, String impact, String state, String description,

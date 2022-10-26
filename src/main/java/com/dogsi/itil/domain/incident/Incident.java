@@ -9,12 +9,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.FetchType;
 
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import com.dogsi.itil.domain.problem.Problem;
 
 @Getter
 @Setter
@@ -56,6 +62,11 @@ public class Incident {
 
     @Column
     private Date closedDate;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name="problem_id")
+    private Problem problem;
 
     @Builder
     public Incident(String name, String category, String priority, String impact, String state, String assignee, String description,
