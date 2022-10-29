@@ -36,7 +36,7 @@ public class IncidentController {
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public Incident getIncident(@PathVariable Long id, @RequestBody @Valid IncidentDto incidentDto){
         return service.getIncidentById(id);
     }
