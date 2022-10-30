@@ -20,9 +20,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+<<<<<<< HEAD
 import com.dogsi.itil.domain.incident.enums.*;
 import com.dogsi.itil.domain.problem.Problem;
 
+=======
+>>>>>>> [EDIT] Remove unused property
 @Getter
 @Setter
 @Entity
@@ -61,6 +64,7 @@ public class Incident {
     @Column
     private Date closedDate;
 
+<<<<<<< HEAD
     @Column
     private Satisfaction satisfaction;
     
@@ -69,6 +73,8 @@ public class Incident {
     @JoinColumn(name="problem_id")
     private Problem problem;
 
+=======
+>>>>>>> [EDIT] Remove unused property
     @Builder
     public Incident(String name, String category, Priority priority, Impact impact, State state, String assignee, String description,
             Instant reportedDate, Date closedDate, Satisfaction satisfaction) {
