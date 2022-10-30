@@ -119,9 +119,8 @@ public class ProblemServiceTest {
         assertEquals(0, repository.count());
     }
 
-
     @Test
-    void shouldUpdateAnProblem(){
+    void shouldUpdateAProblem(){
         var dto = new ProblemDto();
         dto.setName("Name");
         dto.setCategory("capa 8");

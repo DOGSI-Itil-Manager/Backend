@@ -6,17 +6,23 @@ import org.springframework.stereotype.Service;
 
 import com.dogsi.itil.domain.problem.Problem;
 import com.dogsi.itil.dto.ProblemDto;
+import com.dogsi.itil.dto.ProblemIncidentDto;
 import com.dogsi.itil.exceptions.ItemNotFoundException;
 import com.dogsi.itil.repositories.ProblemRepository;
+import com.dogsi.itil.repositories.IncidentRepository;
 import com.dogsi.itil.services.problem.ProblemService;
+
+import com.dogsi.itil.domain.incident.Incident;
 
 @Service
 public class ProblemServiceImpl implements ProblemService {
 
     private ProblemRepository repository;
+    private IncidentRepository incidentRepository;
 
-    public ProblemServiceImpl(ProblemRepository repository) {
+    public ProblemServiceImpl(ProblemRepository repository, IncidentRepository incidentRepository) {
         this.repository = repository;
+        this.incidentRepository = incidentRepository;
     }
 
     @Override
@@ -44,6 +50,7 @@ public class ProblemServiceImpl implements ProblemService {
         var problem = repository.findById(id).orElseThrow(() -> {
             throw new ItemNotFoundException("Problem with id " + id + " not found");
         });
+
         problem.setName(dto.getName());
         problem.setCategory(dto.getCategory());
         problem.setPriority(dto.getPriority());
@@ -57,6 +64,20 @@ public class ProblemServiceImpl implements ProblemService {
     }
 
     @Override
+    public void addIncident(Long id, ProblemIncidentDto piDto) {
+        var problem = repository.findById(id).orElseThrow(() -> {
+            throw new ItemNotFoundException("Problem with id " + id + " not found");
+        });
+
+        var incident = incidentRepository.findById(piDto.getIncidentId()).orElseThrow(() -> {
+            throw new ItemNotFoundException("Incident with id " + id + " not found");
+        });
+        problem.addIncident(incident);
+
+        repository.save(problem);
+    }
+
+    @Override
     public void deleteProblem(Long id) {
         int deleted = repository.deleteProblemById(id);
         if (deleted == 0) {
@@ -64,7 +85,10 @@ public class ProblemServiceImpl implements ProblemService {
         }
     }
 
+    @Override
     public Problem getProblemById(Long id) {
         return repository.findById(id).orElseThrow(() -> {throw new ItemNotFoundException("Problem with id " + id + " not found");});
     }
+
+
 }
