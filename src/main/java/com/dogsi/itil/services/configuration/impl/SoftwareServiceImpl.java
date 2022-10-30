@@ -30,7 +30,7 @@ public class SoftwareServiceImpl implements SoftwareService{
             .acceptanceDate(dto.getAcceptanceDate())
             .description(dto.getDescription())
             .origin(dto.getOrigin())
-            .version(dto.getVersion())
+            .softwareVersion(dto.getSoftwareVersion())
             .build();
         repository.save(software);
     }
@@ -52,7 +52,7 @@ public class SoftwareServiceImpl implements SoftwareService{
         software.setDescription(dto.getDescription());
         software.setAcceptanceDate(dto.getAcceptanceDate());
         software.setLicense(dto.getLicense());
-        software.setVersion(dto.getVersion());
+        software.setSoftwareVersion(dto.getSoftwareVersion());
         software.setOrigin(dto.getOrigin());
         repository.save(software);
     }

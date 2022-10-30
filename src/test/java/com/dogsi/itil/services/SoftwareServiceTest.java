@@ -43,7 +43,7 @@ public class SoftwareServiceTest {
         dto.setProvider("Provider");
         dto.setOrigin("Origin");
         dto.setType("type");
-        dto.setVersion("Version");
+        dto.setSoftwareVersion("Version");
 
         service.saveSoftware(dto);
 
@@ -63,7 +63,7 @@ public class SoftwareServiceTest {
         dto.setProvider("Provider");
         dto.setOrigin("Origin");
         dto.setType("type");
-        dto.setVersion("Version");
+        dto.setSoftwareVersion("Version");
 
         service.saveSoftware(dto);
         service.saveSoftware(dto);
@@ -83,7 +83,7 @@ public class SoftwareServiceTest {
         dto.setProvider("Provider");
         dto.setOrigin("Origin");
         dto.setType("type");
-        dto.setVersion("Version");
+        dto.setSoftwareVersion("Version");
 
         assertThrows(ItemNotFoundException.class, () -> {
             service.updateSoftware(1L, dto);
@@ -107,7 +107,7 @@ public class SoftwareServiceTest {
         dto.setProvider("Provider");
         dto.setOrigin("Origin");
         dto.setType("type");
-        dto.setVersion("Version");
+        dto.setSoftwareVersion("Version");
 
         service.saveSoftware(dto);
         assertEquals(1, repository.count());
@@ -129,7 +129,7 @@ public class SoftwareServiceTest {
         dto.setProvider("Provider");
         dto.setOrigin("Origin");
         dto.setType("type");
-        dto.setVersion("Version");
+        dto.setSoftwareVersion("Version");
 
         service.saveSoftware(dto);
         assertEquals(1, repository.count());
@@ -161,7 +161,7 @@ public class SoftwareServiceTest {
         dto.setProvider("Provider");
         dto.setOrigin("Origin");
         dto.setType("type");
-        dto.setVersion("Version");
+        dto.setSoftwareVersion("Version");
 
         service.saveSoftware(dto);
         assertEquals(1, repository.count());

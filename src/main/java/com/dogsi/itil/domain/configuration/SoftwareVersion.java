@@ -76,7 +76,7 @@ public class SoftwareVersion {
         this.changeInstant = Instant.now();
         this.name = software.getName();
         this.type =software.getType();
-        this.softwareVersion =software.getVersion();
+        this.softwareVersion =software.getSoftwareVersion();
         this.provider =software.getProvider();
         this.license =software.getLicense();
         this.origin =software.getOrigin();
