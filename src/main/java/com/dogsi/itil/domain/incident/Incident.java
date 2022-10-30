@@ -20,8 +20,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import com.dogsi.itil.domain.problem.Problem;
-
 @Getter
 @Setter
 @Entity
@@ -62,11 +60,6 @@ public class Incident {
 
     @Column
     private Date closedDate;
-
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name="problem_id")
-    private Problem problem;
 
     @Builder
     public Incident(String name, String category, String priority, String impact, String state, String assignee, String description,
