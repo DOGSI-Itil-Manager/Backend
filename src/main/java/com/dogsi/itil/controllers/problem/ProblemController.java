@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dogsi.itil.domain.problem.Problem;
 import com.dogsi.itil.dto.ProblemDto;
+import com.dogsi.itil.dto.ProblemIncidentDto;
 import com.dogsi.itil.services.problem.ProblemService;
 
 @RestController
@@ -45,6 +46,12 @@ public class ProblemController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateProblem(@PathVariable Long id, @RequestBody @Valid ProblemDto problemDto){
         service.updateProblem(id, problemDto);
+    }
+
+    @PutMapping("/{id}/addIncident")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void addIncident(@PathVariable Long id, @RequestBody @Valid ProblemIncidentDto piDto){
+        service.addIncident(id, piDto);
     }
 
     @GetMapping
