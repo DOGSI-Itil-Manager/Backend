@@ -76,7 +76,7 @@ public class Problem {
         this.incidents = new ArrayList<>();
     }
 
-    public void addIncident(Incident incident){
+    public void addIncident(Incident incident) {
         incidents.add(incident);
     }
 }

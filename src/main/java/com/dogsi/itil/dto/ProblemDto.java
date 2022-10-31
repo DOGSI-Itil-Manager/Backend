@@ -20,4 +20,5 @@ public class ProblemDto {
     private String description;
     private @NotNull Instant reportedDate;
     private Date closedDate;
+    private Long incidentId;
 }
