@@ -13,6 +13,7 @@ public class SlaMetrics {
     
     private List<SlasByField> slasByManager;
     private List<SlasByField> slasByClient;
+    private List<SlasByField> slasByProvider;
     private List<SlasByField> slasByService;
     private int crucialSlas;
 }

@@ -25,8 +25,11 @@ public interface SlaRepository extends JpaRepository<SLA, Long>{
     @Query("SELECT new com.dogsi.itil.dto.SlasByField(s.manager,COUNT(s.id)) FROM SLA s GROUP BY s.manager")
     List<SlasByField> countSlasByManager();
 
-    @Query("SELECT new com.dogsi.itil.dto.SlasByField(s.client,COUNT(s.id)) FROM SLA s GROUP BY s.client")
+    @Query("SELECT new com.dogsi.itil.dto.SlasByField(s.sideName,COUNT(s.id)) FROM SLA s WHERE s.sideType=com.dogsi.itil.domain.SLASide.CLIENT GROUP BY s.sideName")
     List<SlasByField> countSlasByClient();
+
+    @Query("SELECT new com.dogsi.itil.dto.SlasByField(s.sideName,COUNT(s.id)) FROM SLA s WHERE s.sideType=com.dogsi.itil.domain.SLASide.PROVIDER GROUP BY s.sideName")
+    List<SlasByField> countSlasByProvider();
 
     @Query("SELECT new com.dogsi.itil.dto.SlasByField(s.service,COUNT(s.id)) FROM SLA s GROUP BY s.service")
     List<SlasByField> countSlasByService();

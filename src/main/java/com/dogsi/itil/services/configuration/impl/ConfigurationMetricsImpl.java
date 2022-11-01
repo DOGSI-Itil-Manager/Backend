@@ -27,7 +27,8 @@ public class ConfigurationMetricsImpl implements ConfigurationMetrics{
         var crucialSlas = slaRepository.countCrucialSlas();
         var countByManager = slaRepository.countSlasByManager();
         var countByClient = slaRepository.countSlasByClient();
+        var countByProvider = slaRepository.countSlasByProvider();
         var countByService = slaRepository.countSlasByService();
-        return new SlaMetrics(countByManager,countByClient,countByService,crucialSlas);
+        return new SlaMetrics(countByManager,countByClient,countByProvider,countByService,crucialSlas);
     }
 }
