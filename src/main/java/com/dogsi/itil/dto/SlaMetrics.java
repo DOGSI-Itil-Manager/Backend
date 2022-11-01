@@ -16,4 +16,6 @@ public class SlaMetrics {
     private List<SlasByField> slasByProvider;
     private List<SlasByField> slasByService;
     private int crucialSlas;
+    private Long totalSlas;
+    private float slaChangeSpeed;
 }
