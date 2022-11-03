@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.junit.jupiter.api.AfterEach;
@@ -14,9 +15,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
 
+import com.dogsi.itil.dto.IncidentDto;
 import com.dogsi.itil.dto.ProblemDto;
 import com.dogsi.itil.exceptions.ItemNotFoundException;
 import com.dogsi.itil.repositories.ProblemRepository;
+import com.dogsi.itil.services.incident.IncidentService;
 import com.dogsi.itil.services.problem.ProblemService;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "spring.main.allow-bean-definition-overriding=true")
@@ -28,6 +31,9 @@ public class ProblemServiceTest {
 
     @Autowired
     private ProblemService service;
+
+    @Autowired
+    private IncidentService incidentService;
 
     @AfterEach
     void tearDown(){
@@ -119,7 +125,7 @@ public class ProblemServiceTest {
         assertEquals(0, repository.count());
     }
 
-    //@Test
+    @Test
     void shouldUpdateAProblem(){
         var dto = new ProblemDto();
         dto.setName("Name");
@@ -129,8 +135,11 @@ public class ProblemServiceTest {
         dto.setReportedDate(Instant.now());
         dto.setDescription("description");
         dto.setState("Open");
-        dto.setClosedDate(new Date());
-        dto.setIncidentId(new Long(0));
+        // dto.setClosedDate(new Date());
+        var incidentIds = new ArrayList<Long>();
+
+        dto.setIncidentIds(incidentIds);
+        dto.setEmailOfUserInCharge("test@test.com");
 
         service.saveProblem(dto);
         assertEquals(1, repository.count());
@@ -144,4 +153,45 @@ public class ProblemServiceTest {
         saved = repository.findAll().get(0);
         assertEquals("Name2", saved.getName());
     }
+
+        @Test
+        void shouldAssignAnInidentToAProblem(){
+            var incident = new IncidentDto();
+            incident.setName("Name");
+            incident.setCategory("capa 8");
+            incident.setPriority("P1");
+            incident.setImpact("High");
+            incident.setReportedDate(Instant.now());
+            incident.setDescription("description");
+            incident.setState("Open");
+            incident.setAssignee("Nadie");
+            incident.setClosedDate(new Date());
+    
+            incidentService.saveIncident(incident);
+            var incidents = incidentService.getIncident(Pageable.unpaged());
+            assertEquals(1, incidents.getContent().size());
+            var incidentId = incidents.getContent().get(0).getId();
+
+            var dto = new ProblemDto();
+            dto.setName("Name");
+            dto.setCategory("capa 8");
+            dto.setPriority("P1");
+            dto.setImpact("High");
+            dto.setReportedDate(Instant.now());
+            dto.setDescription("description");
+            dto.setState("Open");
+            // dto.setClosedDate(new Date());
+            var incidentIds = new ArrayList<Long>();
+            incidentIds.add(incidentId);
+            dto.setIncidentIds(incidentIds);
+            dto.setEmailOfUserInCharge("test@test.com");
+    
+            service.saveProblem(dto);
+            assertEquals(1, repository.count());
+            var saved = repository.findAll().get(0);
+    
+            assertEquals("Name", saved.getName());
+            assertEquals(1, saved.getIncidents().size());
+            assertEquals(incidentId, saved.getIncidents().get(0).getId());
+        }
 }

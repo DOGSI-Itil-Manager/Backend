@@ -10,8 +10,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.OneToMany;
+
 import javax.persistence.FetchType;
 import javax.persistence.CascadeType;
 
@@ -59,12 +62,19 @@ public class Problem {
     @Column
     private Date closedDate;
 
-    @OneToMany(mappedBy = "problem",fetch = FetchType.EAGER ,cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "problem_incident_relation", 
+        joinColumns = @JoinColumn(name = "problem_id"), 
+        inverseJoinColumns = @JoinColumn(name = "incident_id"))
     private List<Incident> incidents;
+
+    @Column
+    private String emailOfUserInCharge;
 
     @Builder
     public Problem(String name, String category, String priority, String impact, String state, String description,
-            Instant reportedDate, Date closedDate) {
+            Instant reportedDate, Date closedDate, String emailOfUserInCharge) {
         this.name = name;
         this.category = category;
         this.priority = priority;
@@ -74,9 +84,11 @@ public class Problem {
         this.reportedDate = reportedDate;
         this.closedDate = closedDate;
         this.incidents = new ArrayList<>();
+        this.emailOfUserInCharge = emailOfUserInCharge;
     }
 
-    public void addIncident(Incident incident) {
-        incidents.add(incident);
+    public void addIncidents(List<Incident> incidents) {
+        this.incidents.clear();
+        this.incidents.addAll(incidents);
     }
 }
