@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class SlasByField {
+public class ItemByField {
     private String field;
     private long count;
 }

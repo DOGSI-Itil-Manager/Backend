@@ -11,10 +11,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SlaMetrics {
     
-    private List<SlasByField> slasByManager;
-    private List<SlasByField> slasByClient;
-    private List<SlasByField> slasByProvider;
-    private List<SlasByField> slasByService;
+    private List<ItemByField> slasByManager;
+    private List<ItemByField> slasByClient;
+    private List<ItemByField> slasByProvider;
+    private List<ItemByField> slasByService;
     private int crucialSlas;
     private Long totalSlas;
     private float slaChangeSpeed;

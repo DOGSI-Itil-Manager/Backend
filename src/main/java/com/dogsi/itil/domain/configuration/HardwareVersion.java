@@ -24,7 +24,7 @@ import lombok.AccessLevel;
 @Entity
 @Table(name="hardware_versions")
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-public class HardwareVersions {
+public class HardwareVersion {
     
     private static final long serialVersionUID=1L;
 
@@ -68,7 +68,7 @@ public class HardwareVersions {
     @Column
     private String description;
 
-    public HardwareVersions(Integer version, Hardware hardware) {
+    public HardwareVersion(Integer version, Hardware hardware) {
         this.version = version;
         this.changeInstant = Instant.now();
         this.hardware = hardware;
