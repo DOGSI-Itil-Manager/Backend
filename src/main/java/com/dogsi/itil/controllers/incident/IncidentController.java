@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dogsi.itil.domain.incident.Incident;
+import com.dogsi.itil.dto.IdWithNamesOfIncident;
 import com.dogsi.itil.dto.IncidentDto;
 import com.dogsi.itil.services.incident.IncidentService;
 
@@ -57,5 +58,10 @@ public class IncidentController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteIncident(@PathVariable Long id){
         service.deleteIncident(id);
+    }
+
+    @GetMapping("/ids-with-names")
+    public Page<IdWithNamesOfIncident> getIncidentIdsWithNames(Pageable pageable){
+        return service.getIncidentIdsWithNames(pageable);
     }
 }
