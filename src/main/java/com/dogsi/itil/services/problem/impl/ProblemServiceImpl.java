@@ -35,7 +35,17 @@ public class ProblemServiceImpl implements ProblemService {
                 .description(dto.getDescription())
                 .reportedDate(dto.getReportedDate())
                 .closedDate(dto.getClosedDate())
+                .emailOfUserInCharge(dto.getEmailOfUserInCharge())
                 .build();
+        var ids = dto.getIncidentIds();
+        if(ids!=null && !ids.isEmpty()){
+            var incidents = incidentRepository.findAllById(dto.getIncidentIds());
+            if(incidents.size() != dto.getIncidentIds().size()) {
+                throw new ItemNotFoundException("Incident not found");
+            }
+            problem.addIncidents(incidents);
+        }
+
         repository.save(problem);
     }
 
@@ -50,10 +60,14 @@ public class ProblemServiceImpl implements ProblemService {
             throw new ItemNotFoundException("Problem with id " + id + " not found");
         });
 
-        var incident = incidentRepository.findById(dto.getIncidentId()).orElseThrow(() -> {
-            throw new ItemNotFoundException("Incident with id " + id + " not found");
-        });
-        problem.addIncident(incident);
+        var ids = dto.getIncidentIds();
+        if(ids!=null && !ids.isEmpty()){
+            var incidents = incidentRepository.findAllById(dto.getIncidentIds());
+            if(incidents.size() != dto.getIncidentIds().size()) {
+                throw new ItemNotFoundException("Incident not found");
+            }
+            problem.addIncidents(incidents);
+        }
         
         problem.setName(dto.getName());
         problem.setCategory(dto.getCategory());
@@ -63,10 +77,10 @@ public class ProblemServiceImpl implements ProblemService {
         problem.setDescription(dto.getDescription());
         problem.setReportedDate(dto.getReportedDate());
         problem.setClosedDate(dto.getClosedDate());
+        problem.setEmailOfUserInCharge(dto.getEmailOfUserInCharge());
 
         repository.save(problem);
 
-        //if (true) throw new RuntimeException(problem.getIncidents().toString());
     }
 
     @Override
