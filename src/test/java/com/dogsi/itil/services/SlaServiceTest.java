@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
 
+import com.dogsi.itil.domain.SLASide;
 import com.dogsi.itil.dto.SlaDto;
 import com.dogsi.itil.exceptions.ItemNotFoundException;
 import com.dogsi.itil.repositories.SlaRepository;
@@ -44,7 +45,8 @@ public class SlaServiceTest {
         dto.setService("Service");
         dto.setDescription("description");
         dto.setManager("manager");
-        dto.setClient("Client");
+        dto.setSideName("Client");
+        dto.setSideType(SLASide.CLIENT);
 
         service.saveSla(dto);
 
@@ -65,7 +67,8 @@ public class SlaServiceTest {
         dto.setService("Service");
         dto.setDescription("description");
         dto.setManager("manager");
-        dto.setClient("Client");
+        dto.setSideName("Client");
+        dto.setSideType(SLASide.CLIENT);
 
         service.saveSla(dto);
         service.saveSla(dto);
@@ -85,7 +88,8 @@ public class SlaServiceTest {
         dto.setService("Service");
         dto.setDescription("description");
         dto.setManager("manager");
-        dto.setClient("Client");
+        dto.setSideName("Client");
+        dto.setSideType(SLASide.CLIENT);
 
         assertThrows(ItemNotFoundException.class, () -> {
             service.updateSla(1L, dto);
@@ -109,7 +113,8 @@ public class SlaServiceTest {
         dto.setService("Service");
         dto.setDescription("description");
         dto.setManager("manager");
-        dto.setClient("Client");
+        dto.setSideName("Client");
+        dto.setSideType(SLASide.CLIENT);
 
         service.saveSla(dto);
         assertEquals(1, repository.count());
@@ -131,7 +136,8 @@ public class SlaServiceTest {
         dto.setService("Service");
         dto.setDescription("description");
         dto.setManager("manager");
-        dto.setClient("Client");
+        dto.setSideName("Client");
+        dto.setSideType(SLASide.CLIENT);
 
         service.saveSla(dto);
         assertEquals(1, repository.count());
@@ -163,7 +169,8 @@ public class SlaServiceTest {
         dto.setService("Service");
         dto.setDescription("description");
         dto.setManager("manager");
-        dto.setClient("Client");
+        dto.setSideName("Client");
+        dto.setSideType(SLASide.CLIENT);
 
         service.saveSla(dto);
         assertEquals(1, repository.count());

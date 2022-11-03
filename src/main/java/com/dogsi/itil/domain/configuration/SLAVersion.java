@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.dogsi.itil.domain.SLASide;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
@@ -59,8 +60,11 @@ public class SLAVersion {
     private String manager;
 
     @Column(nullable = false)
-    private String client;
+    private String sideName;
 
+    @Column(nullable = false)
+    private SLASide sideType;
+    
     @Column(nullable = false)
     private Instant startDate;
 
@@ -78,7 +82,8 @@ public class SLAVersion {
         this.service = sla.getService();
         this.crucial = sla.isCrucial();
         this.manager = sla.getManager();
-        this.client = sla.getClient();
+        this.sideName = sla.getSideName();
+        this.sideType = sla.getSideType();
         this.startDate = sla.getStartDate();
         this.endDate = sla.getEndDate();
         this.description = sla.getDescription();
