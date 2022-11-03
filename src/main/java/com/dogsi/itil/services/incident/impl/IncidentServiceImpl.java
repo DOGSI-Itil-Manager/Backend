@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dogsi.itil.domain.incident.Incident;
+import com.dogsi.itil.dto.IdWithNamesOfIncident;
 import com.dogsi.itil.dto.IncidentDto;
 import com.dogsi.itil.exceptions.ItemNotFoundException;
 import com.dogsi.itil.repositories.IncidentRepository;
@@ -69,5 +70,10 @@ public class IncidentServiceImpl implements IncidentService {
 
     public Incident getIncidentById(Long id) {
         return repository.findById(id).orElseThrow(() -> {throw new ItemNotFoundException("Incident with id " + id + " not found");});
+    }
+
+    @Override
+    public Page<IdWithNamesOfIncident> getIncidentIdsWithNames(Pageable pageable) {
+        return repository.getIdsAndNamesOfIncidents(pageable);
     }
 }
