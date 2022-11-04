@@ -16,6 +16,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import com.dogsi.itil.domain.incident.enums.*;
+
 @Getter
 @Setter
 @Entity
@@ -35,15 +37,12 @@ public class Incident {
 
     @Column(nullable = false)
     private String category;
-    //FIXME: terminar de definir los valores posibles
     @Column(nullable = false)
-    private String priority;
-    //FIXME: terminar de definir los valores posibles
+    private Priority priority;
     @Column(nullable = false)
-    private String impact;
-    //FIXME: terminar de definir los valores posibles
+    private Impact impact;
     @Column(nullable = false)
-    private String state;
+    private State state;
 
     @Column
     private String assignee;
@@ -58,7 +57,7 @@ public class Incident {
     private Date closedDate;
 
     @Builder
-    public Incident(String name, String category, String priority, String impact, String state, String assignee, String description,
+    public Incident(String name, String category, Priority priority, Impact impact, State state, String assignee, String description,
             Instant reportedDate, Date closedDate) {
         this.name = name;
         this.category = category;
