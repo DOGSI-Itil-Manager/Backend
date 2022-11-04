@@ -15,7 +15,7 @@ public class SoftwareDto {
 
     private @NotBlank String name;
     private @NotBlank String type;
-    private String version;
+    private String softwareVersion;
     private @NotBlank String provider;
     private String license;
     private String origin;

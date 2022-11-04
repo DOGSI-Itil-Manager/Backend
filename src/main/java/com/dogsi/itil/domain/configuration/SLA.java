@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.dogsi.itil.domain.SLASide;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,7 +48,10 @@ public class SLA {
     private String manager;
 
     @Column(nullable = false)
-    private String client;
+    private String sideName;
+
+    @Column(nullable = false)
+    private SLASide sideType;
 
     @Column(nullable = false)
     private Instant startDate;
@@ -61,13 +66,14 @@ public class SLA {
     private List<SLAVersion> versions;
 
     @Builder
-    public SLA(String name, String service, boolean crucial, String manager, String client, Instant startDate,
-            Instant endDate, String description) {
+    public SLA(String name, String service, boolean crucial, String manager, String sideName, Instant startDate,
+            Instant endDate, String description, SLASide sideType) {
         this.name = name;
         this.service = service;
         this.crucial = crucial;
         this.manager = manager;
-        this.client = client;
+        this.sideName = sideName;
+        this.sideType = sideType;
         this.startDate = startDate;
         this.endDate = endDate;
         this.description = description;

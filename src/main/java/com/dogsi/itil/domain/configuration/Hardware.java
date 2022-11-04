@@ -59,7 +59,7 @@ public class Hardware {
     private String description;
 
     @OneToMany(mappedBy = "hardware",fetch = FetchType.EAGER ,cascade = CascadeType.ALL)
-    private List<HardwareVersions> versions;
+    private List<HardwareVersion> versions;
     
     @Builder
     public Hardware(String name, String type, String serialNumber, String location, String provider, Float price,
@@ -75,7 +75,7 @@ public class Hardware {
         this.versions = new ArrayList<>();
     }
 
-    public void addVersion(HardwareVersions version){
+    public void addVersion(HardwareVersion version){
         versions.add(version);
     }
 }

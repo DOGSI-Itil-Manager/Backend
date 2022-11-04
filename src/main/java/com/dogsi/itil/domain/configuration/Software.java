@@ -41,7 +41,7 @@ public class Software {
     private String type;
 
     @Column(nullable = false)
-    private String version;
+    private String softwareVersion;
 
     @Column(nullable = false)
     private String provider;
@@ -62,11 +62,11 @@ public class Software {
     private List<SoftwareVersion> versions;
 
     @Builder
-    public Software(String name, String type, String version, String provider, String license, String origin,
+    public Software(String name, String type, String softwareVersion, String provider, String license, String origin,
             Instant acceptanceDate, String description) {
         this.name = name;
         this.type = type;
-        this.version = version;
+        this.softwareVersion = softwareVersion;
         this.provider = provider;
         this.license = license;
         this.origin = origin;

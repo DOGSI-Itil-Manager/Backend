@@ -26,7 +26,8 @@ public class SlaServiceImpl implements SlaService{
             .name(dto.getName())
             .description(dto.getDescription())
             .crucial(dto.getCrucial())
-            .client(dto.getClient())
+            .sideName(dto.getSideName())
+            .sideType(dto.getSideType())
             .startDate(dto.getStartDate())
             .endDate(dto.getEndDate())
             .service(dto.getService())
@@ -48,7 +49,8 @@ public class SlaServiceImpl implements SlaService{
         sla.setName(dto.getName());
         sla.setDescription(dto.getDescription());
         sla.setCrucial(dto.getCrucial());
-        sla.setClient(dto.getClient());
+        sla.setSideName(dto.getSideName());
+        sla.setSideType(dto.getSideType());
         sla.setStartDate(dto.getStartDate());
         sla.setEndDate(dto.getEndDate());
         sla.setService(dto.getService());
