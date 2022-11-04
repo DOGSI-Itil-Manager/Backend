@@ -56,9 +56,12 @@ public class Incident {
     @Column
     private Date closedDate;
 
+    @Column
+    private Satisfaction satisfaction;
+
     @Builder
     public Incident(String name, String category, Priority priority, Impact impact, State state, String assignee, String description,
-            Instant reportedDate, Date closedDate) {
+            Instant reportedDate, Date closedDate, Satisfaction satisfaction) {
         this.name = name;
         this.category = category;
         this.priority = priority;
@@ -68,5 +71,6 @@ public class Incident {
         this.description = description;
         this.reportedDate = reportedDate;
         this.closedDate = closedDate;
+        this.satisfaction = satisfaction;
     }
 }

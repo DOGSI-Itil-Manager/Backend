@@ -48,6 +48,7 @@ public class IncidentServiceTest {
         dto.setState(State.ABIERTO);
         dto.setAssignee("Nadie");
         dto.setClosedDate(new Date());
+        dto.setSatisfaction(Satisfaction.ALTA);
 
         service.saveIncident(dto);
 
@@ -69,6 +70,7 @@ public class IncidentServiceTest {
         dto.setState(State.ABIERTO);
         dto.setAssignee("Nadie");
         dto.setClosedDate(new Date());
+        dto.setSatisfaction(Satisfaction.ALTA);
 
         service.saveIncident(dto);
         service.saveIncident(dto);
@@ -90,6 +92,8 @@ public class IncidentServiceTest {
         dto.setState(State.ABIERTO);
         dto.setAssignee("Nadie");
         dto.setClosedDate(new Date());
+        dto.setSatisfaction(Satisfaction.ALTA);
+
 
         assertThrows(ItemNotFoundException.class, () -> {
             service.updateIncident(1L, dto);
@@ -115,6 +119,7 @@ public class IncidentServiceTest {
         dto.setState(State.ABIERTO);
         dto.setAssignee("Nadie");
         dto.setClosedDate(new Date());
+        dto.setSatisfaction(Satisfaction.ALTA);
 
         service.saveIncident(dto);
         assertEquals(1, repository.count());
@@ -138,6 +143,7 @@ public class IncidentServiceTest {
         dto.setState(State.ABIERTO);
         dto.setAssignee("Nadie");
         dto.setClosedDate(new Date());
+        dto.setSatisfaction(Satisfaction.ALTA);
 
         service.saveIncident(dto);
         assertEquals(1, repository.count());

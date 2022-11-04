@@ -24,4 +24,5 @@ public class IncidentDto {
     private String description;
     private @NotNull Instant reportedDate;
     private Date closedDate;
+    private Satisfaction satisfaction;
 }
