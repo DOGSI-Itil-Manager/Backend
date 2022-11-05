@@ -29,11 +29,16 @@ public class IncidentController {
         this.service = service;
     }
 
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateIncident(@PathVariable Long id, @RequestBody @Valid IncidentDto incidentDto){
+        service.updateIncident(id, incidentDto);
+    }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateIncident(@PathVariable Long id){
-        service.getIncidentById(id);
+    @ResponseStatus(HttpStatus.OK)
+    public Incident getIncident(@PathVariable Long id){
+        return service.getIncidentById(id);
     }
 
     @PostMapping
@@ -42,14 +47,8 @@ public class IncidentController {
         service.saveIncident(incidentDto);
     }
 
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateIncident(@PathVariable Long id, @RequestBody @Valid IncidentDto incidentDto){
-        service.updateIncident(id, incidentDto);
-    }
-
     @GetMapping
-    public Page<Incident> getIncident(Pageable pageable){
+    public Page<Incident> getIncidents(Pageable pageable){
         return service.getIncident(pageable);
     }
 

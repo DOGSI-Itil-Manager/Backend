@@ -19,6 +19,8 @@ import com.dogsi.itil.exceptions.ItemNotFoundException;
 import com.dogsi.itil.repositories.IncidentRepository;
 import com.dogsi.itil.services.incident.IncidentService;
 
+import com.dogsi.itil.domain.incident.enums.*;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "spring.main.allow-bean-definition-overriding=true")
 @ActiveProfiles("test-h2")
 public class IncidentServiceTest {
@@ -39,13 +41,14 @@ public class IncidentServiceTest {
         var dto = new IncidentDto();
         dto.setName("Name");
         dto.setCategory("capa 8");
-        dto.setPriority("P1");
-        dto.setImpact("High");
+        dto.setPriority(Priority.BAJA);
+        dto.setImpact(Impact.CRITICO);
         dto.setReportedDate(Instant.now());
         dto.setDescription("description");
-        dto.setState("Open");
+        dto.setState(State.ABIERTO);
         dto.setAssignee("Nadie");
         dto.setClosedDate(new Date());
+        dto.setSatisfaction(Satisfaction.ALTA);
 
         service.saveIncident(dto);
 
@@ -60,13 +63,14 @@ public class IncidentServiceTest {
         var dto = new IncidentDto();
         dto.setName("Name");
         dto.setCategory("capa 8");
-        dto.setPriority("P1");
-        dto.setImpact("High");
+        dto.setPriority(Priority.BAJA);
+        dto.setImpact(Impact.CRITICO);
         dto.setReportedDate(Instant.now());
         dto.setDescription("description");
-        dto.setState("Open");
+        dto.setState(State.ABIERTO);
         dto.setAssignee("Nadie");
         dto.setClosedDate(new Date());
+        dto.setSatisfaction(Satisfaction.ALTA);
 
         service.saveIncident(dto);
         service.saveIncident(dto);
@@ -81,13 +85,15 @@ public class IncidentServiceTest {
         var dto = new IncidentDto();
         dto.setName("Name");
         dto.setCategory("capa 8");
-        dto.setPriority("P1");
-        dto.setImpact("High");
+        dto.setPriority(Priority.BAJA);
+        dto.setImpact(Impact.CRITICO);
         dto.setReportedDate(Instant.now());
         dto.setDescription("description");
-        dto.setState("Open");
+        dto.setState(State.ABIERTO);
         dto.setAssignee("Nadie");
         dto.setClosedDate(new Date());
+        dto.setSatisfaction(Satisfaction.ALTA);
+
 
         assertThrows(ItemNotFoundException.class, () -> {
             service.updateIncident(1L, dto);
@@ -106,13 +112,14 @@ public class IncidentServiceTest {
         var dto = new IncidentDto();
         dto.setName("Name");
         dto.setCategory("capa 8");
-        dto.setPriority("P1");
-        dto.setImpact("High");
+        dto.setPriority(Priority.BAJA);
+        dto.setImpact(Impact.CRITICO);
         dto.setReportedDate(Instant.now());
         dto.setDescription("description");
-        dto.setState("Open");
+        dto.setState(State.ABIERTO);
         dto.setAssignee("Nadie");
         dto.setClosedDate(new Date());
+        dto.setSatisfaction(Satisfaction.ALTA);
 
         service.saveIncident(dto);
         assertEquals(1, repository.count());
@@ -129,13 +136,14 @@ public class IncidentServiceTest {
         var dto = new IncidentDto();
         dto.setName("Name");
         dto.setCategory("capa 8");
-        dto.setPriority("P1");
-        dto.setImpact("High");
+        dto.setPriority(Priority.BAJA);
+        dto.setImpact(Impact.CRITICO);
         dto.setReportedDate(Instant.now());
         dto.setDescription("description");
-        dto.setState("Open");
+        dto.setState(State.ABIERTO);
         dto.setAssignee("Nadie");
         dto.setClosedDate(new Date());
+        dto.setSatisfaction(Satisfaction.ALTA);
 
         service.saveIncident(dto);
         assertEquals(1, repository.count());
