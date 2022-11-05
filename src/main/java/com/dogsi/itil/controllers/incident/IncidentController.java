@@ -37,7 +37,7 @@ public class IncidentController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Incident getIncident(@PathVariable Long id, @RequestBody @Valid IncidentDto incidentDto){
+    public Incident getIncident(@PathVariable Long id){
         return service.getIncidentById(id);
     }
 
@@ -48,7 +48,7 @@ public class IncidentController {
     }
 
     @GetMapping
-    public Page<Incident> getIncident(Pageable pageable){
+    public Page<Incident> getIncidents(Pageable pageable){
         return service.getIncident(pageable);
     }
 
