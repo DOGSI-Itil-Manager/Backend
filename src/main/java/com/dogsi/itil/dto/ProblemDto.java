@@ -10,15 +10,17 @@ import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import com.dogsi.itil.domain.incident.enums.*;
+
 @Setter
 @Getter
 public class ProblemDto {
 
     private @NotBlank String name;
     private @NotBlank String category;
-    private @NotBlank String priority;
-    private @NotBlank String impact;
-    private @NotBlank String state;
+    private @NotNull Priority priority;
+    private @NotNull Impact impact;
+    private @NotNull State state;
     private String description;
     private @NotNull Instant reportedDate;
     private Date closedDate;
