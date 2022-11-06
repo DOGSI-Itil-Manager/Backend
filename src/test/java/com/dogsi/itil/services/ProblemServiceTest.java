@@ -20,6 +20,9 @@ import com.dogsi.itil.dto.ProblemDto;
 import com.dogsi.itil.exceptions.ItemNotFoundException;
 import com.dogsi.itil.repositories.ProblemRepository;
 import com.dogsi.itil.services.incident.IncidentService;
+import com.dogsi.itil.domain.incident.enums.Priority;
+import com.dogsi.itil.domain.incident.enums.State;
+import com.dogsi.itil.domain.incident.enums.Impact;
 import com.dogsi.itil.services.problem.ProblemService;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "spring.main.allow-bean-definition-overriding=true")
@@ -159,11 +162,11 @@ public class ProblemServiceTest {
             var incident = new IncidentDto();
             incident.setName("Name");
             incident.setCategory("capa 8");
-            incident.setPriority("P1");
-            incident.setImpact("High");
+            incident.setPriority(Priority.ALTA);
+            incident.setImpact(Impact.CRITICO);
             incident.setReportedDate(Instant.now());
             incident.setDescription("description");
-            incident.setState("Open");
+            incident.setState(State.ABIERTO);
             incident.setAssignee("Nadie");
             incident.setClosedDate(new Date());
     
