@@ -25,6 +25,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import com.dogsi.itil.domain.incident.Incident;
+import com.dogsi.itil.domain.incident.enums.*;
 
 @Getter
 @Setter
@@ -45,13 +46,13 @@ public class Problem {
     private String category;
     
     @Column(nullable = false)
-    private String priority;
+    private Priority priority;
 
     @Column(nullable = false)
-    private String impact;
+    private Impact impact;
 
     @Column(nullable = false)
-    private String state;
+    private State state;
 
     @Column
     private String description;
@@ -73,7 +74,7 @@ public class Problem {
     private String emailOfUserInCharge;
 
     @Builder
-    public Problem(String name, String category, String priority, String impact, String state, String description,
+    public Problem(String name, String category, Priority priority, Impact impact, State state, String description,
             Instant reportedDate, Date closedDate, String emailOfUserInCharge) {
         this.name = name;
         this.category = category;
