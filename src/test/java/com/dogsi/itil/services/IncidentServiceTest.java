@@ -34,6 +34,7 @@ public class IncidentServiceTest {
     @AfterEach
     void tearDown(){
         repository.deleteAll();
+        repository.flush();
     }
 
     @Test
