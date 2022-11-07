@@ -48,11 +48,11 @@ public class ProblemServiceTest {
         var dto = new ProblemDto();
         dto.setName("Name");
         dto.setCategory("capa 8");
-        dto.setPriority("P1");
-        dto.setImpact("High");
+        dto.setPriority(Priority.ALTA);
+        dto.setImpact(Impact.CRITICO);
         dto.setReportedDate(Instant.now());
         dto.setDescription("description");
-        dto.setState("Open");
+        dto.setState(State.ABIERTO);
         dto.setClosedDate(new Date());
 
         service.saveProblem(dto);
@@ -68,11 +68,11 @@ public class ProblemServiceTest {
         var dto = new ProblemDto();
         dto.setName("Name");
         dto.setCategory("capa 8");
-        dto.setPriority("P1");
-        dto.setImpact("High");
+        dto.setPriority(Priority.ALTA);
+        dto.setImpact(Impact.CRITICO);
         dto.setReportedDate(Instant.now());
         dto.setDescription("description");
-        dto.setState("Open");
+        dto.setState(State.ABIERTO);
         dto.setClosedDate(new Date());
 
         service.saveProblem(dto);
@@ -88,11 +88,11 @@ public class ProblemServiceTest {
         var dto = new ProblemDto();
         dto.setName("Name");
         dto.setCategory("capa 8");
-        dto.setPriority("P1");
-        dto.setImpact("High");
+        dto.setPriority(Priority.ALTA);
+        dto.setImpact(Impact.CRITICO);
         dto.setReportedDate(Instant.now());
         dto.setDescription("description");
-        dto.setState("Open");
+        dto.setState(State.ABIERTO);
         dto.setClosedDate(new Date());
 
         assertThrows(ItemNotFoundException.class, () -> {
@@ -112,11 +112,11 @@ public class ProblemServiceTest {
         var dto = new ProblemDto();
         dto.setName("Name");
         dto.setCategory("capa 8");
-        dto.setPriority("P1");
-        dto.setImpact("High");
+        dto.setPriority(Priority.ALTA);
+        dto.setImpact(Impact.CRITICO);
         dto.setReportedDate(Instant.now());
         dto.setDescription("description");
-        dto.setState("Open");
+        dto.setState(State.ABIERTO);
         dto.setClosedDate(new Date());
 
         service.saveProblem(dto);
@@ -133,11 +133,11 @@ public class ProblemServiceTest {
         var dto = new ProblemDto();
         dto.setName("Name");
         dto.setCategory("capa 8");
-        dto.setPriority("P1");
-        dto.setImpact("High");
+        dto.setPriority(Priority.ALTA);
+        dto.setImpact(Impact.CRITICO);
         dto.setReportedDate(Instant.now());
         dto.setDescription("description");
-        dto.setState("Open");
+        dto.setState(State.ABIERTO);
         // dto.setClosedDate(new Date());
         var incidentIds = new ArrayList<Long>();
 
@@ -178,11 +178,11 @@ public class ProblemServiceTest {
             var dto = new ProblemDto();
             dto.setName("Name");
             dto.setCategory("capa 8");
-            dto.setPriority("P1");
-            dto.setImpact("High");
+            dto.setPriority(Priority.ALTA);
+            dto.setImpact(Impact.CRITICO);
             dto.setReportedDate(Instant.now());
             dto.setDescription("description");
-            dto.setState("Open");
+            dto.setState(State.ABIERTO);
             // dto.setClosedDate(new Date());
             var incidentIds = new ArrayList<Long>();
             incidentIds.add(incidentId);
