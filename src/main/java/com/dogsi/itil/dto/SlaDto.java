@@ -7,11 +7,15 @@ import javax.validation.constraints.NotNull;
 
 import com.dogsi.itil.domain.SLASide;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class SlaDto {
 
     private @NotBlank String name;
