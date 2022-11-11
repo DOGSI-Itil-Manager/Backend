@@ -7,13 +7,17 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import com.dogsi.itil.domain.incident.enums.*;
 
 @Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProblemDto {
 
     private @NotBlank String name;
