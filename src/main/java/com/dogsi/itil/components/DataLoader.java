@@ -11,12 +11,12 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import com.dogsi.itil.domain.Impact;
+import com.dogsi.itil.domain.Priority;
 import com.dogsi.itil.domain.SLASide;
+import com.dogsi.itil.domain.Satisfaction;
+import com.dogsi.itil.domain.State;
 import com.dogsi.itil.domain.incident.Incident;
-import com.dogsi.itil.domain.incident.enums.Impact;
-import com.dogsi.itil.domain.incident.enums.Priority;
-import com.dogsi.itil.domain.incident.enums.Satisfaction;
-import com.dogsi.itil.domain.incident.enums.State;
 import com.dogsi.itil.dto.HardwareDto;
 import com.dogsi.itil.dto.IncidentDto;
 import com.dogsi.itil.dto.ProblemDto;

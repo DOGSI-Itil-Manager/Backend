@@ -15,14 +15,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
 
+import com.dogsi.itil.domain.Impact;
+import com.dogsi.itil.domain.Priority;
+import com.dogsi.itil.domain.State;
 import com.dogsi.itil.dto.IncidentDto;
 import com.dogsi.itil.dto.ProblemDto;
 import com.dogsi.itil.exceptions.ItemNotFoundException;
 import com.dogsi.itil.repositories.ProblemRepository;
 import com.dogsi.itil.services.incident.IncidentService;
-import com.dogsi.itil.domain.incident.enums.Priority;
-import com.dogsi.itil.domain.incident.enums.State;
-import com.dogsi.itil.domain.incident.enums.Impact;
 import com.dogsi.itil.services.problem.ProblemService;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "spring.main.allow-bean-definition-overriding=true")

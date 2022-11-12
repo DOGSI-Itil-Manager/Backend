@@ -14,9 +14,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.dogsi.itil.domain.Impact;
+import com.dogsi.itil.domain.Priority;
 import com.dogsi.itil.domain.incident.Incident;
-import com.dogsi.itil.domain.incident.enums.Impact;
-import com.dogsi.itil.domain.incident.enums.Priority;
 import com.dogsi.itil.domain.problem.Problem;
 
 import lombok.Getter;

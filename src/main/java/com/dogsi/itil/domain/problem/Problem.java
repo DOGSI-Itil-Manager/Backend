@@ -24,8 +24,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import com.dogsi.itil.domain.Impact;
+import com.dogsi.itil.domain.Priority;
+import com.dogsi.itil.domain.State;
 import com.dogsi.itil.domain.incident.Incident;
-import com.dogsi.itil.domain.incident.enums.*;
+
 
 @Getter
 @Setter
