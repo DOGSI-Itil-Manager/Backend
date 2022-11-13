@@ -1,6 +1,8 @@
 package com.dogsi.itil.domain.changes;
 
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -57,6 +59,9 @@ public class Change {
     private String description;
 
     @Column
+    private Date openedDate;
+
+    @Column
     private Date closedDate;
     
     @Column(nullable = false)
@@ -93,6 +98,7 @@ public class Change {
         this.emailOfUserInCharge = emailOfUserInCharge;
         this.incidents = new ArrayList<>();
         this.problems = new ArrayList<>();
+        this.openedDate = Date.from(Instant.now());
     }
 
     public void addIncidents(List<Incident> incidents) {

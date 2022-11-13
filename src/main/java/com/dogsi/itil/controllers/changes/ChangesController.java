@@ -17,6 +17,8 @@ import org.springframework.http.HttpStatus;
 
 import com.dogsi.itil.domain.changes.Change;
 import com.dogsi.itil.dto.ChangeDto;
+import com.dogsi.itil.dto.ChangeMetricsDto;
+import com.dogsi.itil.services.change.ChangeMetrics;
 import com.dogsi.itil.services.change.ChangeService;
 
 @RestController
@@ -24,9 +26,11 @@ import com.dogsi.itil.services.change.ChangeService;
 public class ChangesController {
     
     private ChangeService service;
+    private ChangeMetrics metrics;
     
-    public ChangesController(ChangeService service) {
+    public ChangesController(ChangeService service, ChangeMetrics metrics) {
         this.service = service;
+        this.metrics = metrics;
     }
 
     @PutMapping("/{id}")
@@ -56,6 +60,11 @@ public class ChangesController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteChange(@PathVariable Long id){
         service.deleteChange(id);
+    }
+
+    @GetMapping("/metrics")
+    public ChangeMetricsDto getMetrics(){
+        return metrics.getChangeMetrics();
     }
 
 }
