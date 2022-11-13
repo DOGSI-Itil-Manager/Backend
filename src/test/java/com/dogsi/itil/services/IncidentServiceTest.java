@@ -61,27 +61,27 @@ public class IncidentServiceTest {
         assertEquals("Name", saved.getName());
     }
 
-    // @Test
-    // void shouldReturnAllIncident(){
-    //     var dto = new IncidentDto();
-    //     dto.setName("Name");
-    //     dto.setCategory("capa 8");
-    //     dto.setPriority(Priority.BAJA);
-    //     dto.setImpact(Impact.CRITICO);
-    //     dto.setReportedDate(Instant.now());
-    //     dto.setDescription("description");
-    //     dto.setState(State.ABIERTO);
-    //     dto.setAssignee("Nadie");
-    //     dto.setClosedDate(new Date());
-    //     dto.setSatisfaction(Satisfaction.ALTA);
+    @Test
+    void shouldReturnAllIncident(){
+        var dto = new IncidentDto();
+        dto.setName("Name");
+        dto.setCategory("capa 8");
+        dto.setPriority(Priority.BAJA);
+        dto.setImpact(Impact.CRITICO);
+        dto.setReportedDate(Instant.now());
+        dto.setDescription("description");
+        dto.setState(State.ABIERTO);
+        dto.setAssignee("Nadie");
+        dto.setClosedDate(new Date());
+        dto.setSatisfaction(Satisfaction.ALTA);
 
-    //     service.saveIncident(dto);
-    //     service.saveIncident(dto);
-    //     service.saveIncident(dto);
+        service.saveIncident(dto);
+        service.saveIncident(dto);
+        service.saveIncident(dto);
 
-    //     var results = service.getIncident(Pageable.unpaged());
-    //     assertEquals(3, results.getTotalElements());
-    // }
+        var results = service.getIncident(Pageable.unpaged());
+        assertEquals(3, results.getTotalElements());
+    }
 
     @Test
     void shouldThrowAnExceptionIfTheIncidentIsNotFoundWhenUpdating(){

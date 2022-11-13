@@ -21,6 +21,7 @@ import com.dogsi.itil.domain.State;
 import com.dogsi.itil.dto.IncidentDto;
 import com.dogsi.itil.dto.ProblemDto;
 import com.dogsi.itil.exceptions.ItemNotFoundException;
+import com.dogsi.itil.repositories.IncidentRepository;
 import com.dogsi.itil.repositories.ProblemRepository;
 import com.dogsi.itil.services.incident.IncidentService;
 import com.dogsi.itil.services.problem.ProblemService;
@@ -38,9 +39,13 @@ public class ProblemServiceTest {
     @Autowired
     private IncidentService incidentService;
 
+    @Autowired
+    private IncidentRepository incidentRepository;
+
     @AfterEach
     void tearDown(){
         repository.deleteAll();
+        incidentRepository.deleteAll();
     }
 
     @Test
