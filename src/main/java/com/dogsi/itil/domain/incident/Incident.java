@@ -24,8 +24,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import com.dogsi.itil.domain.incident.enums.*;
-import com.dogsi.itil.domain.problem.Problem;
+import com.dogsi.itil.domain.Impact;
+import com.dogsi.itil.domain.Priority;
+import com.dogsi.itil.domain.Satisfaction;
+import com.dogsi.itil.domain.State;
+import com.dogsi.itil.domain.changes.Change;
+
 
 @Getter
 @Setter
@@ -68,9 +72,13 @@ public class Incident {
     @Column
     private Satisfaction satisfaction;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "incidents")
-    private List<Problem> problems;
+    // @JsonIgnore
+    // @ManyToMany(mappedBy = "incidents")
+    // private List<Problem> problems;
+
+    // @JsonIgnore
+    // @ManyToMany(mappedBy = "incidents")
+    // private List<Change> changes;
 
     @Builder
     public Incident(String name, String category, Priority priority, Impact impact, State state, String assignee, String description,

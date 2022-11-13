@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dogsi.itil.domain.incident.Incident;
-import com.dogsi.itil.dto.IdWithNamesOfIncident;
+import com.dogsi.itil.dto.IdWithName;
 
 public interface IncidentRepository extends JpaRepository<Incident, Long>{
     
@@ -18,7 +18,7 @@ public interface IncidentRepository extends JpaRepository<Incident, Long>{
     @Query("DELETE FROM Incident i WHERE i.id = :id")
     int deleteIncidentById(@Param("id") Long id);
 
-    @Query("SELECT new com.dogsi.itil.dto.IdWithNamesOfIncident(i.id,i.name) FROM Incident i")
-    Page<IdWithNamesOfIncident> getIdsAndNamesOfIncidents(Pageable pageable);
+    @Query("SELECT new com.dogsi.itil.dto.IdWithName(i.id,i.name) FROM Incident i")
+    Page<IdWithName> getIdsAndNamesOfIncidents(Pageable pageable);
 
 }

@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.dogsi.itil.domain.problem.Problem;
+import com.dogsi.itil.dto.IdWithName;
 import com.dogsi.itil.dto.ProblemDto;
 
 public interface ProblemService {
@@ -16,5 +17,7 @@ public interface ProblemService {
 
     void deleteProblem(Long id);
 
-    public Problem getProblemById(Long id);
+    Problem getProblemById(Long id);
+
+    Page<IdWithName> getProblemIdsWithNames(Pageable pageable);
 }

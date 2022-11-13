@@ -1,47 +1,46 @@
-package com.dogsi.itil.domain.problem;
+package com.dogsi.itil.domain.changes;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
-import javax.persistence.FetchType;
-import javax.persistence.CascadeType;
-
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import com.dogsi.itil.domain.Impact;
 import com.dogsi.itil.domain.Priority;
 import com.dogsi.itil.domain.State;
-import com.dogsi.itil.domain.changes.Change;
 import com.dogsi.itil.domain.incident.Incident;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.dogsi.itil.domain.problem.Problem;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.AccessLevel;
+import lombok.Builder;
 
 
 @Getter
 @Setter
 @Entity
-@Table(name = "problem")
+@Table(name = "changes")
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-public class Problem {
-
+public class Change {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "problem_id")
+    @Column(name = "change_id")
     private Long id;
 
     @Column(nullable = false)
@@ -56,49 +55,59 @@ public class Problem {
     @Column(nullable = false)
     private Impact impact;
 
-    @Column(nullable = false)
-    private State state;
-
     @Column
     private String description;
 
-    @Column(nullable = false)
-    private Instant reportedDate;
+    @Column
+    private Date openedDate;
 
     @Column
     private Date closedDate;
+    
+    @Column(nullable = false)
+    private State state;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(
-        name = "problem_incident_relation", 
-        joinColumns = @JoinColumn(name = "problem_id"), 
+        name = "change_incident_relation", 
+        joinColumns = @JoinColumn(name = "change_id"), 
         inverseJoinColumns = @JoinColumn(name = "incident_id"))
     private List<Incident> incidents;
 
-    // @JsonIgnore
-    // @ManyToMany(mappedBy = "problems")
-    // private List<Change> changes;
-    
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "change_problem_relation", 
+        joinColumns = @JoinColumn(name = "change_id"), 
+        inverseJoinColumns = @JoinColumn(name = "problem_id"))
+    private List<Problem> problems;
+
     @Column
     private String emailOfUserInCharge;
 
+
     @Builder
-    public Problem(String name, String category, Priority priority, Impact impact, State state, String description,
-            Instant reportedDate, Date closedDate, String emailOfUserInCharge) {
+    public Change(String name, String category, Priority priority, Impact impact, String description, Date closedDate,
+            State state, String emailOfUserInCharge) {
         this.name = name;
         this.category = category;
         this.priority = priority;
         this.impact = impact;
-        this.state = state;
         this.description = description;
-        this.reportedDate = reportedDate;
         this.closedDate = closedDate;
-        this.incidents = new ArrayList<>();
+        this.state = state;
         this.emailOfUserInCharge = emailOfUserInCharge;
+        this.incidents = new ArrayList<>();
+        this.problems = new ArrayList<>();
+        this.openedDate = Date.from(Instant.now());
     }
 
     public void addIncidents(List<Incident> incidents) {
         this.incidents.clear();
         this.incidents.addAll(incidents);
+    }
+
+    public void addProblems(List<Problem> problems) {
+        this.problems.clear();
+        this.problems.addAll(problems);
     }
 }

@@ -18,8 +18,10 @@ import com.dogsi.itil.dto.IncidentDto;
 import com.dogsi.itil.exceptions.ItemNotFoundException;
 import com.dogsi.itil.repositories.IncidentRepository;
 import com.dogsi.itil.services.incident.IncidentService;
-
-import com.dogsi.itil.domain.incident.enums.*;
+import com.dogsi.itil.domain.Impact;
+import com.dogsi.itil.domain.Priority;
+import com.dogsi.itil.domain.Satisfaction;
+import com.dogsi.itil.domain.State;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "spring.main.allow-bean-definition-overriding=true")
 @ActiveProfiles("test-h2")

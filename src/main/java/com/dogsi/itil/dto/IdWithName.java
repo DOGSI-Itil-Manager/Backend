@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class IdWithNamesOfIncident {
+public class IdWithName {
     private Long id;
     private String name;
 }
