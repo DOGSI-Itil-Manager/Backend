@@ -4,7 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.dogsi.itil.domain.incident.Incident;
-import com.dogsi.itil.dto.IdWithNamesOfIncident;
+import com.dogsi.itil.dto.IdWithName;
 import com.dogsi.itil.dto.IncidentDto;
 
 public interface IncidentService {
@@ -19,5 +19,5 @@ public interface IncidentService {
 
     public Incident getIncidentById(Long id);
 
-    Page<IdWithNamesOfIncident> getIncidentIdsWithNames(Pageable pageable);
+    Page<IdWithName> getIncidentIdsWithNames(Pageable pageable);
 }

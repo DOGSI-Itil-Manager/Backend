@@ -27,7 +27,9 @@ import lombok.Setter;
 import com.dogsi.itil.domain.Impact;
 import com.dogsi.itil.domain.Priority;
 import com.dogsi.itil.domain.State;
+import com.dogsi.itil.domain.changes.Change;
 import com.dogsi.itil.domain.incident.Incident;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Getter
@@ -73,6 +75,10 @@ public class Problem {
         inverseJoinColumns = @JoinColumn(name = "incident_id"))
     private List<Incident> incidents;
 
+    // @JsonIgnore
+    // @ManyToMany(mappedBy = "problems")
+    // private List<Change> changes;
+    
     @Column
     private String emailOfUserInCharge;
 

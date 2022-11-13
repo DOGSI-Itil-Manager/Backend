@@ -5,13 +5,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dogsi.itil.domain.problem.Problem;
+import com.dogsi.itil.dto.IdWithName;
 import com.dogsi.itil.dto.ProblemDto;
 import com.dogsi.itil.exceptions.ItemNotFoundException;
 import com.dogsi.itil.repositories.ProblemRepository;
 import com.dogsi.itil.repositories.IncidentRepository;
 import com.dogsi.itil.services.problem.ProblemService;
 
-import com.dogsi.itil.domain.incident.Incident;
 
 @Service
 public class ProblemServiceImpl implements ProblemService {
@@ -39,8 +39,8 @@ public class ProblemServiceImpl implements ProblemService {
                 .build();
         var ids = dto.getIncidentIds();
         if(ids!=null && !ids.isEmpty()){
-            var incidents = incidentRepository.findAllById(dto.getIncidentIds());
-            if(incidents.size() != dto.getIncidentIds().size()) {
+            var incidents = incidentRepository.findAllById(ids);
+            if(incidents.size() != ids.size()) {
                 throw new ItemNotFoundException("Incident not found");
             }
             problem.addIncidents(incidents);
@@ -94,6 +94,11 @@ public class ProblemServiceImpl implements ProblemService {
     @Override
     public Problem getProblemById(Long id) {
         return repository.findById(id).orElseThrow(() -> {throw new ItemNotFoundException("Problem with id " + id + " not found");});
+    }
+
+    @Override
+    public Page<IdWithName> getProblemIdsWithNames(Pageable pageable) {
+        return repository.getIdsAndNamesOfProblems(pageable);
     }
 
 }

@@ -1,8 +1,10 @@
 package com.dogsi.itil.domain.changes;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +18,7 @@ import javax.persistence.Table;
 
 import com.dogsi.itil.domain.Impact;
 import com.dogsi.itil.domain.Priority;
+import com.dogsi.itil.domain.State;
 import com.dogsi.itil.domain.incident.Incident;
 import com.dogsi.itil.domain.problem.Problem;
 
@@ -23,6 +26,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.AccessLevel;
+import lombok.Builder;
 
 
 @Getter
@@ -54,15 +58,18 @@ public class Change {
 
     @Column
     private Date closedDate;
+    
+    @Column(nullable = false)
+    private State state;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(
         name = "change_incident_relation", 
         joinColumns = @JoinColumn(name = "change_id"), 
         inverseJoinColumns = @JoinColumn(name = "incident_id"))
     private List<Incident> incidents;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(
         name = "change_problem_relation", 
         joinColumns = @JoinColumn(name = "change_id"), 
@@ -72,15 +79,20 @@ public class Change {
     @Column
     private String emailOfUserInCharge;
 
+
+    @Builder
     public Change(String name, String category, Priority priority, Impact impact, String description, Date closedDate,
-            String emailOfUserInCharge) {
+            State state, String emailOfUserInCharge) {
         this.name = name;
         this.category = category;
         this.priority = priority;
         this.impact = impact;
         this.description = description;
         this.closedDate = closedDate;
+        this.state = state;
         this.emailOfUserInCharge = emailOfUserInCharge;
+        this.incidents = new ArrayList<>();
+        this.problems = new ArrayList<>();
     }
 
     public void addIncidents(List<Incident> incidents) {

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dogsi.itil.domain.incident.Incident;
-import com.dogsi.itil.dto.IdWithNamesOfIncident;
+import com.dogsi.itil.dto.IdWithName;
 import com.dogsi.itil.dto.IncidentDto;
 import com.dogsi.itil.services.incident.IncidentService;
 
@@ -60,7 +60,7 @@ public class IncidentController {
     }
 
     @GetMapping("/ids-with-names")
-    public Page<IdWithNamesOfIncident> getIncidentIdsWithNames(Pageable pageable){
+    public Page<IdWithName> getIncidentIdsWithNames(Pageable pageable){
         return service.getIncidentIdsWithNames(pageable);
     }
 }
