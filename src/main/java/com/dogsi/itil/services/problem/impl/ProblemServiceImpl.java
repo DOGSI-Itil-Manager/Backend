@@ -56,6 +56,8 @@ public class ProblemServiceImpl implements ProblemService {
 
     @Override
     public void updateProblem(Long id, ProblemDto dto) {
+        repository.deleteIncidentRelationships(id);
+
         var problem = repository.findById(id).orElseThrow(() -> {
             throw new ItemNotFoundException("Problem with id " + id + " not found");
         });

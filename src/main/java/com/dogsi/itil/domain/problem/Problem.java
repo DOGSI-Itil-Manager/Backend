@@ -98,7 +98,6 @@ public class Problem {
     }
 
     public void addIncidents(List<Incident> incidents) {
-        this.incidents.clear();
         this.incidents.addAll(incidents);
     }
 }

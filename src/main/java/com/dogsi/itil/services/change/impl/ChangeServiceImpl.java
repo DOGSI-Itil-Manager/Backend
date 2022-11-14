@@ -70,6 +70,9 @@ public class ChangeServiceImpl implements ChangeService {
 
     @Override
     public void updateChange(Long id, ChangeDto dto) {
+        changeRepository.deleteIncidentRelationships(id);
+        changeRepository.deleteProblemRelationships(id);
+
         var change = changeRepository.findById(id).orElseThrow(() -> {
             throw new ItemNotFoundException("Change with id " + id + " not found");
         });

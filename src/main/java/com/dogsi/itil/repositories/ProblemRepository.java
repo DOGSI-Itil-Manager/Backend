@@ -26,4 +26,9 @@ public interface ProblemRepository extends JpaRepository<Problem, Long>{
 
     @Query("SELECT new com.dogsi.itil.dto.IdWithName(p.id,p.name) FROM Problem p")
     Page<IdWithName> getIdsAndNamesOfProblems(Pageable pageable);
+
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true,value = "DELETE FROM problem_incident_relation p WHERE p.problem_id = :id")
+    int deleteIncidentRelationships(@Param("id")Long id);
 }

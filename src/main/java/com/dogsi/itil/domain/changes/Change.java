@@ -102,12 +102,10 @@ public class Change {
     }
 
     public void addIncidents(List<Incident> incidents) {
-        this.incidents.clear();
         this.incidents.addAll(incidents);
     }
 
     public void addProblems(List<Problem> problems) {
-        this.problems.clear();
         this.problems.addAll(problems);
     }
 }

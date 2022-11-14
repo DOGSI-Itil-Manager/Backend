@@ -34,5 +34,14 @@ public interface ChangeRepository extends JpaRepository<Change, Long>{
     @Query("SELECT COUNT(c) FROM Change c WHERE c.state = com.dogsi.itil.domain.State.CANCELADO")
     Long countCancelledChanges();
 
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true,value = "DELETE FROM change_incident_relation c WHERE c.change_id = :id")
+    int deleteIncidentRelationships(@Param("id") Long id);
+
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true,value = "DELETE FROM change_problem_relation c WHERE c.change_id = :id")
+    int deleteProblemRelationships(@Param("id") Long id);
 
 }
