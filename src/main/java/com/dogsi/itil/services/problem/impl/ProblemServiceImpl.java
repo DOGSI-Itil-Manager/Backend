@@ -37,7 +37,7 @@ public class ProblemServiceImpl implements ProblemService {
                 .closedDate(dto.getClosedDate())
                 .emailOfUserInCharge(dto.getEmailOfUserInCharge())
                 .build();
-        var ids = dto.getIncidentIds();
+        var ids = dto.getIncidents();
         if(ids!=null && !ids.isEmpty()){
             var incidents = incidentRepository.findAllById(ids);
             if(incidents.size() != ids.size()) {
@@ -60,10 +60,10 @@ public class ProblemServiceImpl implements ProblemService {
             throw new ItemNotFoundException("Problem with id " + id + " not found");
         });
 
-        var ids = dto.getIncidentIds();
+        var ids = dto.getIncidents();
         if(ids!=null && !ids.isEmpty()){
-            var incidents = incidentRepository.findAllById(dto.getIncidentIds());
-            if(incidents.size() != dto.getIncidentIds().size()) {
+            var incidents = incidentRepository.findAllById(dto.getIncidents());
+            if(incidents.size() != dto.getIncidents().size()) {
                 throw new ItemNotFoundException("Incident not found");
             }
             problem.addIncidents(incidents);

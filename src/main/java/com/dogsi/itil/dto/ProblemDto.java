@@ -31,6 +31,6 @@ public class ProblemDto {
     private String description;
     private @NotNull Instant reportedDate;
     private Date closedDate;
-    private List<Long> incidentIds;
+    private List<Long> incidents;
     private String emailOfUserInCharge;
 }

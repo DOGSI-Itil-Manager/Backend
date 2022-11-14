@@ -146,7 +146,7 @@ public class ProblemServiceTest {
         // dto.setClosedDate(new Date());
         var incidentIds = new ArrayList<Long>();
 
-        dto.setIncidentIds(incidentIds);
+        dto.setIncidents(incidentIds);
         dto.setEmailOfUserInCharge("test@test.com");
 
         service.saveProblem(dto);
@@ -191,7 +191,7 @@ public class ProblemServiceTest {
             // dto.setClosedDate(new Date());
             var incidentIds = new ArrayList<Long>();
             incidentIds.add(incidentId);
-            dto.setIncidentIds(incidentIds);
+            dto.setIncidents(incidentIds);
             dto.setEmailOfUserInCharge("test@test.com");
     
             service.saveProblem(dto);
