@@ -9,19 +9,24 @@ import com.dogsi.itil.dto.ProblemDto;
 import com.dogsi.itil.exceptions.ItemNotFoundException;
 import com.dogsi.itil.repositories.ProblemRepository;
 import com.dogsi.itil.repositories.IncidentRepository;
+import com.dogsi.itil.repositories.WorkaroundRepository;
 import com.dogsi.itil.services.problem.ProblemService;
 
 import com.dogsi.itil.domain.incident.Incident;
+import com.dogsi.itil.domain.problem.workaround.Workaround;
 
 @Service
 public class ProblemServiceImpl implements ProblemService {
 
     private ProblemRepository repository;
     private IncidentRepository incidentRepository;
+    private WorkaroundRepository workaroundRepository;
 
-    public ProblemServiceImpl(ProblemRepository repository, IncidentRepository incidentRepository) {
+    public ProblemServiceImpl(ProblemRepository repository, IncidentRepository incidentRepository,
+    WorkaroundRepository workaroundRepository) {
         this.repository = repository;
         this.incidentRepository = incidentRepository;
+        this.workaroundRepository = workaroundRepository;
     }
 
     @Override
@@ -35,8 +40,10 @@ public class ProblemServiceImpl implements ProblemService {
                 .description(dto.getDescription())
                 .reportedDate(dto.getReportedDate())
                 .closedDate(dto.getClosedDate())
+                .rootCause(dto.getRootCause())
                 .emailOfUserInCharge(dto.getEmailOfUserInCharge())
                 .build();
+
         var ids = dto.getIncidentIds();
         if(ids!=null && !ids.isEmpty()){
             var incidents = incidentRepository.findAllById(dto.getIncidentIds());
@@ -68,6 +75,15 @@ public class ProblemServiceImpl implements ProblemService {
             }
             problem.addIncidents(incidents);
         }
+
+        var workaround_ids = dto.getWorkaroundIds();
+        if(workaround_ids!=null && !workaround_ids.isEmpty()){
+            var workarounds = workaroundRepository.findAllById(dto.getWorkaroundIds());
+            if(workarounds.size() != dto.getWorkaroundIds().size()) {
+                throw new ItemNotFoundException("Workaround not found");
+            }
+            problem.addWorkarounds(workarounds);
+        }
         
         problem.setName(dto.getName());
         problem.setCategory(dto.getCategory());
@@ -77,6 +93,7 @@ public class ProblemServiceImpl implements ProblemService {
         problem.setDescription(dto.getDescription());
         problem.setReportedDate(dto.getReportedDate());
         problem.setClosedDate(dto.getClosedDate());
+        problem.setRootCause(dto.getRootCause());
         problem.setEmailOfUserInCharge(dto.getEmailOfUserInCharge());
 
         repository.save(problem);

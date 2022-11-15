@@ -26,4 +26,6 @@ public class ProblemDto {
     private Date closedDate;
     private List<Long> incidentIds;
     private String emailOfUserInCharge;
+    private String rootCause;
+    private List<Long> workaroundIds;
 }
