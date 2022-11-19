@@ -24,7 +24,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import com.dogsi.itil.domain.problem.workaround.Workaround;
 import com.dogsi.itil.domain.incident.Incident;
 import com.dogsi.itil.domain.incident.enums.*;
 
@@ -74,12 +73,6 @@ public class Problem {
     @Column
     private String emailOfUserInCharge;
 
-    @Column
-    private String rootCause;
-
-    @Column
-    private List<Workaround> workarounds;
-
     @Builder
     public Problem(String name, String category, Priority priority, Impact impact, State state, String description,
             Instant reportedDate, Date closedDate, String emailOfUserInCharge) {
@@ -92,8 +85,6 @@ public class Problem {
         this.reportedDate = reportedDate;
         this.closedDate = closedDate;
         this.incidents = new ArrayList<>();
-        this.rootCause = "";
-        this.workarounds = new ArrayList<>();
         this.emailOfUserInCharge = emailOfUserInCharge;
     }
 
@@ -101,10 +92,4 @@ public class Problem {
         this.incidents.clear();
         this.incidents.addAll(incidents);
     }
-
-    public void addWorarounds(List<Workaround> workarounds) {
-        this.workarounds.clear();
-        this.workarounds.addAll(workarounds);
-    }
-
 }
