@@ -1,6 +1,7 @@
 package com.dogsi.itil.domain.changes;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -23,6 +24,7 @@ import com.dogsi.itil.domain.Priority;
 import com.dogsi.itil.domain.State;
 import com.dogsi.itil.domain.incident.Incident;
 import com.dogsi.itil.domain.problem.Problem;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -59,7 +61,7 @@ public class Change {
     private String description;
 
     @Column
-    private Date openedDate;
+    private LocalDate openedDate;
 
     @Column
     private Date closedDate;
@@ -98,7 +100,8 @@ public class Change {
         this.emailOfUserInCharge = emailOfUserInCharge;
         this.incidents = new ArrayList<>();
         this.problems = new ArrayList<>();
-        this.openedDate = Date.from(Instant.now());
+        this.openedDate = LocalDate.now();
+        
     }
 
     public void addIncidents(List<Incident> incidents) {

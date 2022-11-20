@@ -10,7 +10,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dogsi.itil.domain.changes.Change;
+import com.dogsi.itil.dto.ItemByDay;
 import com.dogsi.itil.dto.ItemByField;
+import com.dogsi.itil.dto.ItemByPriority;
 
 public interface ChangeRepository extends JpaRepository<Change, Long>{
 
@@ -44,4 +46,11 @@ public interface ChangeRepository extends JpaRepository<Change, Long>{
     @Query(nativeQuery = true,value = "DELETE FROM change_problem_relation c WHERE c.change_id = :id")
     int deleteProblemRelationships(@Param("id") Long id);
 
+    @Query("SELECT new com.dogsi.itil.dto.ItemByPriority(c.priority,COUNT(c.id)) FROM Change c GROUP BY c.priority")
+    List<ItemByPriority> countChangeByPriority();
+
+    @Query(value = "SELECT new com.dogsi.itil.dto.ItemByDay(c.openedDate, COUNT(c.id)) "
+        + " FROM Change c" 
+        + " GROUP BY c.openedDate")
+    List<ItemByDay> countChangeByDay();
 }

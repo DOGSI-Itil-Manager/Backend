@@ -23,9 +23,11 @@ public class ChangeMetricsImpl implements ChangeMetrics {
         var problemsInChanges = changeRepository.countProblemsInChanges();
         var cancelledChanges = changeRepository.countCancelledChanges();
         var changesByCategory = changeRepository.countChangeByCategory();
+        var changesByPriority = changeRepository.countChangeByPriority();
+        var changesByDay = changeRepository.countChangeByDay();
         var averageIncidents = totalChanges == 0 ? 0f :(float) incidentsInChanges / (float) totalChanges;
         var averageProblems = totalChanges == 0 ? 0f :(float) problemsInChanges / (float) totalChanges;
-        return new ChangeMetricsDto(totalChanges, notTakenChanges, averageIncidents,averageProblems,cancelledChanges,changesByCategory);
+        return new ChangeMetricsDto(totalChanges, notTakenChanges, averageIncidents,averageProblems,cancelledChanges,changesByCategory,changesByPriority,changesByDay);
     }
     
 }
