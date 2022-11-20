@@ -157,44 +157,44 @@ public class ProblemServiceTest {
         assertEquals("Name2", saved.getName());
     }
 
-        @Test
-        void shouldAssignAnInidentToAProblem(){
-            var incident = new IncidentDto();
-            incident.setName("Name");
-            incident.setCategory("capa 8");
-            incident.setPriority(Priority.ALTA);
-            incident.setImpact(Impact.CRITICO);
-            incident.setReportedDate(Instant.now());
-            incident.setDescription("description");
-            incident.setState(State.ABIERTO);
-            incident.setAssignee("Nadie");
-            incident.setClosedDate(new Date());
-    
-            incidentService.saveIncident(incident);
-            var incidents = incidentService.getIncident(Pageable.unpaged());
-            assertEquals(1, incidents.getContent().size());
-            var incidentId = incidents.getContent().get(0).getId();
+    @Test
+    void shouldAssignAnInidentToAProblem(){
+        var incident = new IncidentDto();
+        incident.setName("Name");
+        incident.setCategory("capa 8");
+        incident.setPriority(Priority.ALTA);
+        incident.setImpact(Impact.CRITICO);
+        incident.setReportedDate(Instant.now());
+        incident.setDescription("description");
+        incident.setState(State.ABIERTO);
+        incident.setAssignee("Nadie");
+        incident.setClosedDate(new Date());
 
-            var dto = new ProblemDto();
-            dto.setName("Name");
-            dto.setCategory("capa 8");
-            dto.setPriority(Priority.ALTA);
-            dto.setImpact(Impact.CRITICO);
-            dto.setReportedDate(Instant.now());
-            dto.setDescription("description");
-            dto.setState(State.ABIERTO);
-            // dto.setClosedDate(new Date());
-            var incidentIds = new ArrayList<Long>();
-            incidentIds.add(incidentId);
-            dto.setIncidentIds(incidentIds);
-            dto.setEmailOfUserInCharge("test@test.com");
-    
-            service.saveProblem(dto);
-            assertEquals(1, repository.count());
-            var saved = repository.findAll().get(0);
-    
-            assertEquals("Name", saved.getName());
-            assertEquals(1, saved.getIncidents().size());
-            assertEquals(incidentId, saved.getIncidents().get(0).getId());
-        }
+        incidentService.saveIncident(incident);
+        var incidents = incidentService.getIncident(Pageable.unpaged());
+        assertEquals(1, incidents.getContent().size());
+        var incidentId = incidents.getContent().get(0).getId();
+
+        var dto = new ProblemDto();
+        dto.setName("Name");
+        dto.setCategory("capa 8");
+        dto.setPriority(Priority.ALTA);
+        dto.setImpact(Impact.CRITICO);
+        dto.setReportedDate(Instant.now());
+        dto.setDescription("description");
+        dto.setState(State.ABIERTO);
+        // dto.setClosedDate(new Date());
+        var incidentIds = new ArrayList<Long>();
+        incidentIds.add(incidentId);
+        dto.setIncidentIds(incidentIds);
+        dto.setEmailOfUserInCharge("test@test.com");
+
+        service.saveProblem(dto);
+        assertEquals(1, repository.count());
+        var saved = repository.findAll().get(0);
+
+        assertEquals("Name", saved.getName());
+        assertEquals(1, saved.getIncidents().size());
+        assertEquals(incidentId, saved.getIncidents().get(0).getId());
+    }
 }

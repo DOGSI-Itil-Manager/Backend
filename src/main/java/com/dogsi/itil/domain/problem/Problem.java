@@ -13,10 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 import javax.persistence.FetchType;
 import javax.persistence.CascadeType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -26,6 +28,7 @@ import lombok.Setter;
 
 import com.dogsi.itil.domain.incident.Incident;
 import com.dogsi.itil.domain.incident.enums.*;
+import com.dogsi.itil.domain.knownError.KnownError;
 
 @Getter
 @Setter
@@ -72,6 +75,13 @@ public class Problem {
 
     @Column
     private String emailOfUserInCharge;
+
+    @OnetoOne(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "problem_knownError_relation", 
+        joinColumns = @JoinColumn(name = "problem_id"), 
+        inverseJoinColumns = @JoinColumn(name = "knownError_id"))
+    private KnownError knownError;
 
     @Builder
     public Problem(String name, String category, Priority priority, Impact impact, State state, String description,
