@@ -3,6 +3,7 @@ package com.dogsi.itil.domain.incident;
 import com.dogsi.itil.domain.problem.Problem;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -64,7 +66,7 @@ public class Incident {
     private String description;
 
     @Column(nullable = false)
-    private Instant reportedDate;
+    private LocalDate reportedDate;
 
     @Column
     private Date closedDate;
@@ -82,7 +84,7 @@ public class Incident {
 
     @Builder
     public Incident(String name, String category, Priority priority, Impact impact, State state, String assignee, String description,
-            Instant reportedDate, Date closedDate, Satisfaction satisfaction) {
+        LocalDate reportedDate, Date closedDate, Satisfaction satisfaction) {
         this.name = name;
         this.category = category;
         this.priority = priority;
@@ -94,4 +96,6 @@ public class Incident {
         this.closedDate = closedDate;
         this.satisfaction = satisfaction;
     }
+
+
 }

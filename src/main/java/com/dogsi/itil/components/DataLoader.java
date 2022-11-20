@@ -2,6 +2,7 @@ package com.dogsi.itil.components;
 
 import java.sql.Date;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,11 +97,11 @@ public class DataLoader implements ApplicationRunner {
 
     private void loadIncidentData() {
         incidentService.saveIncident(new IncidentDto("Falla en inicio de Windows 10 2","OS",Priority.MEDIA,Impact.SERIO,
-            State.ABIERTO,"","Tiro pantalla azul",Instant.now(), null,null));
+            State.ABIERTO,"","Tiro pantalla azul",LocalDate.now().minusDays(1), null,null));
         incidentService.saveIncident(new IncidentDto("Falla en inicio de Photoshop","Edicion",Priority.MEDIA,Impact.MARGINAL,
-            State.ASIGNADO,"Joaquin Ortiz","No se logro abrir correctamente el programa",Instant.now(), null,null));
+            State.ASIGNADO,"Joaquin Ortiz","No se logro abrir correctamente el programa",LocalDate.now(), null,null));
         incidentService.saveIncident(new IncidentDto("Falla en inicio de Windows 10 1","OS",Priority.MEDIA,Impact.SERIO,
-            State.CERRADO,"Joaquin Ortiz","Tiro pantalla azul",Instant.now().minusSeconds(50000), Date.from(Instant.now()),Satisfaction.MEDIA));
+            State.CERRADO,"Joaquin Ortiz","Tiro pantalla azul",LocalDate.now().minusDays(3), Date.from(Instant.now()),Satisfaction.MEDIA));
     }
 
     private void loadSlaData() {

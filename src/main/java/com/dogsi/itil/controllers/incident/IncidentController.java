@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dogsi.itil.domain.incident.Incident;
 import com.dogsi.itil.dto.IdWithName;
 import com.dogsi.itil.dto.IncidentDto;
+import com.dogsi.itil.dto.IncidentMetricsDto;
+import com.dogsi.itil.services.incident.IncidentMetricsService;
 import com.dogsi.itil.services.incident.IncidentService;
 
 @RestController
@@ -25,9 +27,11 @@ import com.dogsi.itil.services.incident.IncidentService;
 public class IncidentController {
 
     private IncidentService service;
+    private IncidentMetricsService metrics;
     
-    public IncidentController(IncidentService service) {
+    public IncidentController(IncidentService service, IncidentMetricsService metrics) {
         this.service = service;
+        this.metrics = metrics;
     }
 
     @PutMapping("/{id}")
@@ -62,5 +66,10 @@ public class IncidentController {
     @GetMapping("/ids-with-names")
     public Page<IdWithName> getIncidentIdsWithNames(Pageable pageable){
         return service.getIncidentIdsWithNames(pageable);
+    }
+
+    @GetMapping("/metrics")
+    public IncidentMetricsDto getIncidentIdsWithNames(){
+        return metrics.getMetrics();
     }
 }

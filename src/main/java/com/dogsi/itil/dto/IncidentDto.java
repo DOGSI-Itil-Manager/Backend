@@ -29,7 +29,7 @@ public class IncidentDto {
     private @NotNull State state;
     private String assignee;
     private String description;
-    private @NotNull Instant reportedDate;
+    private @NotNull LocalDate reportedDate;
     private Date closedDate;
     private Satisfaction satisfaction;
 }

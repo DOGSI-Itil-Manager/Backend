@@ -33,6 +33,7 @@ public class IncidentServiceImpl implements IncidentService {
                 .description(dto.getDescription())
                 .reportedDate(dto.getReportedDate())
                 .closedDate(dto.getClosedDate())
+                .satisfaction(dto.getSatisfaction())
                 .build();
         repository.save(incident);
     }

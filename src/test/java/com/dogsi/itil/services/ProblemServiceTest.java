@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -169,7 +170,7 @@ public class ProblemServiceTest {
             incident.setCategory("capa 8");
             incident.setPriority(Priority.ALTA);
             incident.setImpact(Impact.CRITICO);
-            incident.setReportedDate(Instant.now());
+            incident.setReportedDate(LocalDate.now());
             incident.setDescription("description");
             incident.setState(State.ABIERTO);
             incident.setAssignee("Nadie");

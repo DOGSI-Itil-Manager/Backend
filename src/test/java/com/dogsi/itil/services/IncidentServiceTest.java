@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.junit.jupiter.api.AfterEach;
@@ -46,7 +47,7 @@ public class IncidentServiceTest {
         dto.setCategory("capa 8");
         dto.setPriority(Priority.BAJA);
         dto.setImpact(Impact.CRITICO);
-        dto.setReportedDate(Instant.now());
+        dto.setReportedDate(LocalDate.now());
         dto.setDescription("description");
         dto.setState(State.ABIERTO);
         dto.setAssignee("Nadie");
@@ -68,7 +69,7 @@ public class IncidentServiceTest {
         dto.setCategory("capa 8");
         dto.setPriority(Priority.BAJA);
         dto.setImpact(Impact.CRITICO);
-        dto.setReportedDate(Instant.now());
+        dto.setReportedDate(LocalDate.now());
         dto.setDescription("description");
         dto.setState(State.ABIERTO);
         dto.setAssignee("Nadie");
@@ -90,7 +91,7 @@ public class IncidentServiceTest {
         dto.setCategory("capa 8");
         dto.setPriority(Priority.BAJA);
         dto.setImpact(Impact.CRITICO);
-        dto.setReportedDate(Instant.now());
+        dto.setReportedDate(LocalDate.now());
         dto.setDescription("description");
         dto.setState(State.ABIERTO);
         dto.setAssignee("Nadie");
@@ -117,7 +118,7 @@ public class IncidentServiceTest {
         dto.setCategory("capa 8");
         dto.setPriority(Priority.BAJA);
         dto.setImpact(Impact.CRITICO);
-        dto.setReportedDate(Instant.now());
+        dto.setReportedDate(LocalDate.now());
         dto.setDescription("description");
         dto.setState(State.ABIERTO);
         dto.setAssignee("Nadie");
@@ -141,7 +142,7 @@ public class IncidentServiceTest {
         dto.setCategory("capa 8");
         dto.setPriority(Priority.BAJA);
         dto.setImpact(Impact.CRITICO);
-        dto.setReportedDate(Instant.now());
+        dto.setReportedDate(LocalDate.now());
         dto.setDescription("description");
         dto.setState(State.ABIERTO);
         dto.setAssignee("Nadie");
