@@ -76,11 +76,9 @@ public class Problem {
     @Column
     private String emailOfUserInCharge;
 
-    @OnetoOne(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "problem_knownError_relation", 
-        joinColumns = @JoinColumn(name = "problem_id"), 
-        inverseJoinColumns = @JoinColumn(name = "knownError_id"))
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "knownError_id", referencedColumnName = "knownError_id")
     private KnownError knownError;
 
     @Builder
