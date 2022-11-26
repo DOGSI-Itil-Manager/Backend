@@ -36,9 +36,9 @@ public class ChangeDto {
 
     private @NotNull State state;
 
-    private List<Long> incidentIds;
+    private List<Long> incidents;
 
-    private List<Long> problemIds;
+    private List<Long> problems;
 
     private String emailOfUserInCharge;
 }

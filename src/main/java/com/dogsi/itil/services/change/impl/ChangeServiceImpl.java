@@ -41,7 +41,7 @@ public class ChangeServiceImpl implements ChangeService {
             .priority(dto.getPriority())
             .build();
 
-        var incidentIds = dto.getIncidentIds();
+        var incidentIds = dto.getIncidents();
         if(incidentIds!=null && !incidentIds.isEmpty()){
             var incidents = incidentRepository.findAllById(incidentIds);
             if(incidents.size() != incidentIds.size()) {
@@ -50,7 +50,7 @@ public class ChangeServiceImpl implements ChangeService {
             change.addIncidents(incidents);
         }
 
-        var problemIds = dto.getProblemIds();
+        var problemIds = dto.getProblems();
         if(problemIds!=null && !problemIds.isEmpty()){
             var problems = problemRepository.findAllById(problemIds);
             if(problems.size() != problemIds.size()) {
@@ -77,7 +77,7 @@ public class ChangeServiceImpl implements ChangeService {
             throw new ItemNotFoundException("Change with id " + id + " not found");
         });
 
-        var incidentIds = dto.getIncidentIds();
+        var incidentIds = dto.getIncidents();
         if(incidentIds!=null && !incidentIds.isEmpty()){
             var incidents = incidentRepository.findAllById(incidentIds);
             if(incidents.size() != incidentIds.size()) {
@@ -86,7 +86,7 @@ public class ChangeServiceImpl implements ChangeService {
             change.addIncidents(incidents);
         }
 
-        var problemIds = dto.getProblemIds();
+        var problemIds = dto.getProblems();
         if(problemIds!=null && !problemIds.isEmpty()){
             var problems = problemRepository.findAllById(problemIds);
             if(problems.size() != problemIds.size()) {
