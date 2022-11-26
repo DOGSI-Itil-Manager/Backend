@@ -37,88 +37,99 @@ public class KnownErrorServiceTest {
 
     @Autowired
     private ProblemService problemService;
+    
+    @Autowired
+    private ProblemRepository problemRepository;
 
     @AfterEach
     void tearDown(){
+        problemRepository.deleteAll();
         repository.deleteAll();
     }
 
-    //@Test
-    void shouldSaveAKnownError(){
-        var problemdto = new ProblemDto();
-        problemdto.setName("Problem name");
-        problemdto.setCategory("Problem category");
-        problemdto.setReportedDate(Instant.now());
-        problemdto.setDescription("Problem description");
-        problemdto.setEmailOfUserInCharge("test@test.com");
-        problemdto.setPriority(Priority.ALTA);
-        problemdto.setImpact(Impact.CRITICO);
-        problemdto.setState(State.ABIERTO);
-        problemService.saveProblem(problemdto);
+    Long createProblemId(){
+        var problemDto = new ProblemDto();
+        problemDto.setName("Problem name");
+        problemDto.setCategory("Problem category");
+        problemDto.setReportedDate(Instant.now());
+        problemDto.setPriority(Priority.ALTA);
+        problemDto.setImpact(Impact.CRITICO);
+        problemDto.setState(State.ABIERTO);
+        problemService.saveProblem(problemDto);
         var problem = problemService.getProblem(Pageable.unpaged());
-        assertEquals(1, problem.getContent().size());
-        var pid = problem.getContent().get(0).getId();
+        return problem.getContent().get(0).getId();
+    }
+
+    @Test
+    void shouldSaveAKnownError(){
+        //var pid = createProblemId();
 
         var dto = new KnownErrorDto();
         dto.setName("Known Error name");
         dto.setCategory("known error category");
-        dto.setDescription("known error description");
         dto.setCreationDate(Instant.now());
+        dto.setDescription("known error description");
         dto.setRootcause("known error root cause");
-        dto.setProblemId(pid);
+        //dto.setProblemIds(pid);
 
         service.saveKnownError(dto);
-
         assertEquals(1, repository.count());
-
         var saved = repository.findAll().get(0);
         assertEquals("Known Error name", saved.getName());
-        
     }
 
-    //@Test
+    @Test
     void shouldReturnAllKnownError(){
-        var dto = new KnownErrorDto();
-        dto.setName("Known Error name");
-        dto.setCategory("Known Error category");
-        dto.setCreationDate(Instant.now());
-        dto.setDescription("Known Error description");
-        dto.setRootcause("Known Error rootcause");
-        service.saveKnownError(dto);
+        for (var i=0;i<3;i++){
+            var dto = new KnownErrorDto();
+            dto.setName("Known Error name");
+            dto.setCategory("Known Error category");
+            dto.setCreationDate(Instant.now());
+            dto.setDescription("Known Error description");
+            dto.setRootcause("Known Error rootcause");
+        
+            //var pid = createProblemId();
+            //dto.setProblemIds(pid);
+
+            service.saveKnownError(dto);
+        }
 
         var results = service.getKnownError(Pageable.unpaged());
         assertEquals(3, results.getTotalElements());
     }
 
-    //@Test
+    @Test
     void shouldThrowAnExceptionIfTheKnownErrorIsNotFoundWhenUpdating(){
         var dto = new KnownErrorDto();
-        dto.setName("Known Error name");
-        dto.setCategory("Known Error category");
-        dto.setRootcause("Known Error rootcause");
+        dto.setName("Known Error updated name");
+        dto.setCategory("Known Error updated category");
         dto.setCreationDate(Instant.now());
-        dto.setDescription("Known Error description");
+        dto.setRootcause("Known Error updated rootcause");
+        dto.setDescription("Known Error updated description");
 
         assertThrows(ItemNotFoundException.class, () -> {
             service.updateKnownError(1L, dto);
         });
     }
 
-    //@Test
+    @Test
     void shouldThrowAnExceptionIfTheKnownErrorIsNotFoundWhenDeleting(){
         assertThrows(ItemNotFoundException.class, () -> {
             service.deleteKnownError(1L);
         });
     }
 
-    //@Test
+    @Test
     void shouldDeleteAKnownError(){
+        //var pid = createProblemId();
+
         var dto = new KnownErrorDto();
         dto.setName("Known Error name");
         dto.setCategory("Known Error category");
-        dto.setRootcause("Known Error rootcause");
         dto.setCreationDate(Instant.now());
+        dto.setRootcause("Known Error rootcause");
         dto.setDescription("Known Error description");
+        //dto.setProblemIds(pid);
 
         service.saveKnownError(dto);
         assertEquals(1, repository.count());
@@ -129,25 +140,28 @@ public class KnownErrorServiceTest {
         assertEquals(0, repository.count());
     }
 
-    //@Test
+    @Test
     void shouldUpdateAKnownError(){
+        //var pid = createProblemId();
+
         var dto = new KnownErrorDto();
         dto.setName("Known Error name");
         dto.setCategory("Known Error category");
-        dto.setRootcause("Known Error rootcause");
         dto.setCreationDate(Instant.now());
+        dto.setRootcause("Known Error rootcause");
         dto.setDescription("Known Error description");
+        //dto.setProblemIds(pid);
 
         service.saveKnownError(dto);
         assertEquals(1, repository.count());
         var saved = repository.findAll().get(0);
 
-        dto.setName("Name2");
+        dto.setName("Known Error name2");
         
         service.updateKnownError(saved.getId(), dto);
 
         assertEquals(1, repository.count());
         saved = repository.findAll().get(0);
-        assertEquals("Name2", saved.getName());
+        assertEquals("Known Error name2", saved.getName());
     }
 }

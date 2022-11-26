@@ -27,23 +27,22 @@ public class KnownErrorServiceImpl implements KnownErrorService {
     @Override
     public void saveKnownError(KnownErrorDto dto) {
         var knownError = KnownError.builder()
-                .name(dto.getName())
-                .category(dto.getCategory())
-                .description(dto.getDescription())
-                .creationDate(dto.getCreationDate())
-                .rootcause(dto.getRootcause())
-                .build();
+            .name(dto.getName())
+            .category(dto.getCategory())
+            .description(dto.getDescription())
+            .creationDate(dto.getCreationDate())
+            .rootcause(dto.getRootcause())
+            .build();        
 
-        //var ids = dto.getProblemId();
-        //if(ids!=null){
-        //    var problem = problemRepository.findById(dto.getProblemId());
-        //    if(!problem.isPresent()) {
-        //        throw new ItemNotFoundException("Problem not found");
-        //    }
-        //    problem.get().setState(State.CERRADO);
-        //    knownError.setProblem(problem.get());
-        //}
-
+        var ids = dto.getProblemIds();
+        if(ids!=null && !ids.isEmpty()){
+            var problems = problemRepository.findAllById(dto.getProblemIds());
+            if(problems.size() != dto.getProblemIds().size()) {
+                throw new ItemNotFoundException("Problem not found");
+            }
+            knownError.addProblems(problems);
+        }
+        
         repository.save(knownError);
     }
 
@@ -57,17 +56,16 @@ public class KnownErrorServiceImpl implements KnownErrorService {
         var knownError = repository.findById(id).orElseThrow(() -> {
             throw new ItemNotFoundException("KnownError with id " + id + " not found");
         });
-
-        var ids = dto.getProblemId();
-        if(ids!=null){
-            var problem = problemRepository.findById(dto.getProblemId());
-            if(!problem.isPresent()) {
+        
+        var ids = dto.getProblemIds();
+        if(ids!=null && !ids.isEmpty()){
+            var problems = problemRepository.findAllById(dto.getProblemIds());
+            if(problems.size() != dto.getProblemIds().size()) {
                 throw new ItemNotFoundException("Problem not found");
             }
-            problem.get().setState(State.CERRADO);
-            knownError.setProblem(problem.get());
+            knownError.addProblems(problems);
         }
-        
+
         knownError.setName(dto.getName());
         knownError.setCategory(dto.getCategory());
         knownError.setDescription(dto.getDescription());

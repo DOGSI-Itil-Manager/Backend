@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +18,7 @@ public class KnownErrorDto {
     private @NotBlank String category;
     private String description;
     private @NotNull Instant creationDate;
-    private @NotNull Long problemId;
+    private List<Long> problemIds;
     private String rootcause;
     //private @NotNull List<Long> solutionIds;
 }

@@ -10,9 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-//import javax.persistence.JoinTable;
+import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -52,8 +52,13 @@ public class KnownError {
     @Column(nullable = false)
     private Instant creationDate;
 
-    @OneToOne(mappedBy = "knownError")
-    private Problem problem;
+    //@OneToOne(mappedBy = "knownError")
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "knownError_problem_relation", 
+        joinColumns = @JoinColumn(name = "knownError_id"), 
+        inverseJoinColumns = @JoinColumn(name = "problem_id"))
+    private List<Problem> problems;
 
     @Column
     private String rootcause;
@@ -63,15 +68,20 @@ public class KnownError {
 
     @Builder
     public KnownError(String name, String category, String description,
-            Instant creationDate, String rootcause, Problem problem) {
+            Instant creationDate, String rootcause) {
         this.name = name;
         this.category = category;
         this.description = description;
         this.creationDate = creationDate;
         this.rootcause = rootcause;
-        this.problem = problem;
+        this.problems = new ArrayList<>();
         //this.solutions = new ArrayList<>();
     }
+    public void addProblems(List<Problem> problems) {
+        this.problems.clear();
+        this.problems.addAll(problems);
+    }
+    
 /*
     public void addSolutions(List<Solution> solutions) {
         this.solutions.clear();

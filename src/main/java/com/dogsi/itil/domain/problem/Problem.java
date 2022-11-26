@@ -77,9 +77,8 @@ public class Problem {
     private String emailOfUserInCharge;
 
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "knownError_id", referencedColumnName = "knownError_id")
-    private KnownError knownError;
+    @ManyToMany(mappedBy = "problems")
+    private List<KnownError> knownErrors;
 
     @Builder
     public Problem(String name, String category, Priority priority, Impact impact, State state, String description,
