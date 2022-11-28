@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -17,14 +18,16 @@ import com.dogsi.itil.domain.Priority;
 import com.dogsi.itil.domain.SLASide;
 import com.dogsi.itil.domain.Satisfaction;
 import com.dogsi.itil.domain.State;
+import com.dogsi.itil.domain.changes.Change;
 import com.dogsi.itil.domain.incident.Incident;
-import com.dogsi.itil.domain.problem.Problem;
+
 import com.dogsi.itil.dto.ChangeDto;
 import com.dogsi.itil.dto.HardwareDto;
 import com.dogsi.itil.dto.IncidentDto;
 import com.dogsi.itil.dto.ProblemDto;
 import com.dogsi.itil.dto.SlaDto;
 import com.dogsi.itil.dto.SoftwareDto;
+import com.dogsi.itil.repositories.ChangeRepository;
 import com.dogsi.itil.services.change.ChangeService;
 import com.dogsi.itil.services.configuration.HardwareService;
 import com.dogsi.itil.services.configuration.SlaService;
@@ -57,6 +60,9 @@ public class DataLoader implements ApplicationRunner {
     @Autowired
     private ChangeService changeService;
 
+    @Autowired
+    private ChangeRepository changeRepository;
+
     public void run(ApplicationArguments args) {
 
         loadHardwareData();
@@ -82,6 +88,30 @@ public class DataLoader implements ApplicationRunner {
             State.ABIERTO,incidentIds,
             problemsIds,""));
 
+        for(int i=0;i<20;i++){
+            var priority = Priority.values()[(int) (Math.random() * 100) % 4];
+            var impact = Impact.values()[(int) (Math.random() * 100) % 4];
+            var daysToSubstract = (long) (Math.random() * 100) % 24;
+            var openedDate = LocalDate.now().minusDays(daysToSubstract+5);
+            var category = "Example category " + String.valueOf((int)(Math.random() * 100) % 4);
+            var name = "A change name " + String.valueOf(i);
+            var state = State.values()[(int) (Math.random() * 100) % 6];
+            var assignee = state.equals(State.ABIERTO) ? "" : "email@test.com" + String.valueOf(i % 5);
+            var description = "A description " + String.valueOf(i);
+            var closedDate = state.equals(State.ABIERTO) ? null : Date.valueOf(LocalDate.now().minusDays(daysToSubstract).plusDays(5));
+            var change = Change.builder()
+                .name(name)
+                .category(category)
+                .closedDate(closedDate)
+                .description(description)
+                .emailOfUserInCharge(assignee)
+                .impact(impact)
+                .state(state)
+                .priority(priority)
+                .build();
+            change.setOpenedDate(openedDate);
+            changeRepository.save(change);
+        }
     }
 
     private void loadProblemData() {
@@ -96,12 +126,32 @@ public class DataLoader implements ApplicationRunner {
     }
 
     private void loadIncidentData() {
+
         incidentService.saveIncident(new IncidentDto("Falla en inicio de Windows 10 2","OS",Priority.MEDIA,Impact.SERIO,
             State.ABIERTO,"","Tiro pantalla azul",LocalDate.now().minusDays(1), null,null));
         incidentService.saveIncident(new IncidentDto("Falla en inicio de Photoshop","Edicion",Priority.MEDIA,Impact.MARGINAL,
             State.ASIGNADO,"Joaquin Ortiz","No se logro abrir correctamente el programa",LocalDate.now(), null,null));
         incidentService.saveIncident(new IncidentDto("Falla en inicio de Windows 10 1","OS",Priority.MEDIA,Impact.SERIO,
             State.CERRADO,"Joaquin Ortiz","Tiro pantalla azul",LocalDate.now().minusDays(3), Date.from(Instant.now()),Satisfaction.MEDIA));
+    
+        
+
+        for(int i=0;i<27;i++){
+            var priority = Priority.values()[(int) (Math.random() * 100) % 4];
+            var impact = Impact.values()[(int) (Math.random() * 100) % 4];
+            var daysToSubstract = (long) (Math.random() * 100) % 24;
+            var openedDate = LocalDate.now().minusDays(daysToSubstract+5);
+            var category = "Example category " + String.valueOf((int)(Math.random() * 100) % 6);
+            var name = "An incident name " + String.valueOf(i);
+            var state = State.values()[(int) (Math.random() * 100) % 6];
+            var assignee = state.equals(State.ABIERTO) ? "" : "An asignee name" + String.valueOf(i % 5);
+            var description = "A description " + String.valueOf(i);
+            var closedDate = state.equals(State.ABIERTO) ? null : Date.valueOf(LocalDate.now().minusDays(daysToSubstract).plusDays(5));
+            var satisfaction = state.equals(State.ABIERTO) ? null : Satisfaction.values()[(int) (Math.random() * 100) % 5];
+            var testIncident = new IncidentDto(name, category, priority, impact, state, assignee, description, openedDate, closedDate, satisfaction);
+            incidentService.saveIncident(testIncident);
+        }
+    
     }
 
     private void loadSlaData() {
