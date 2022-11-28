@@ -25,7 +25,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//import com.dogsi.itil.domain.knownError.solution.Solution;
+import com.dogsi.itil.domain.knownError.solution.Solution;
 import com.dogsi.itil.domain.problem.Problem;
 
 @Getter
@@ -53,18 +53,19 @@ public class KnownError {
     private Instant creationDate;
 
     //@OneToOne(mappedBy = "knownError")
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "knownError_problem_relation", 
-        joinColumns = @JoinColumn(name = "knownError_id"), 
-        inverseJoinColumns = @JoinColumn(name = "problem_id"))
+    //@OneToMany(fetch = FetchType.EAGER)
+    //@JoinTable(
+    //    name = "knownError_problem_relation", 
+    //    joinColumns = @JoinColumn(name = "knownError_id"), 
+    //    inverseJoinColumns = @JoinColumn(name = "problem_id"))
+    @OneToMany(mappedBy = "problem",fetch = FetchType.EAGER ,cascade = CascadeType.ALL)
     private List<Problem> problems;
 
     @Column
     private String rootcause;
 
-    //@OneToMany(mappedBy = "knownError", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    //private List<Solution> solutions;
+    @OneToMany(mappedBy = "knownError", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Solution> solutions;
 
     @Builder
     public KnownError(String name, String category, String description,
@@ -75,17 +76,15 @@ public class KnownError {
         this.creationDate = creationDate;
         this.rootcause = rootcause;
         this.problems = new ArrayList<>();
-        //this.solutions = new ArrayList<>();
+        this.solutions = new ArrayList<>();
     }
     public void addProblems(List<Problem> problems) {
         this.problems.clear();
         this.problems.addAll(problems);
     }
     
-/*
     public void addSolutions(List<Solution> solutions) {
         this.solutions.clear();
         this.solutions.addAll(solutions);
     }
-*/
 }

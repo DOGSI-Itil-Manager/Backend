@@ -1,4 +1,3 @@
-/*
 package com.dogsi.itil.domain.knownError.solution;
 
 import com.dogsi.itil.domain.knownError.KnownError;
@@ -47,7 +46,8 @@ public class Solution {
     private Instant creationDate;
 
     @JsonIgnore
-    @ManyToOne(mappedBy = "solution")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name="knownError_id")
     private KnownError knownError;
 
     @Builder
@@ -55,5 +55,8 @@ public class Solution {
         this.name = name;
         this.creationDate = creationDate;
     }
+
+    public void addKnownError(KnownError knownError) {
+        this.knownError = knownError;
+    }
 }
-*/

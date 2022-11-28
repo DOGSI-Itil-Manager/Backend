@@ -1,4 +1,3 @@
-/*
 package com.dogsi.itil.repositories;
 
 import java.util.List;
@@ -20,4 +19,3 @@ public interface SolutionRepository extends JpaRepository<Solution, Long>{
     @Query("DELETE FROM Solution i WHERE i.id = :id")
     int deleteSolutionById(@Param("id") Long id);
 }
-*/
