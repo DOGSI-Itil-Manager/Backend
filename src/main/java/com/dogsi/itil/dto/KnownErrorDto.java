@@ -20,5 +20,5 @@ public class KnownErrorDto {
     private @NotNull Instant creationDate;
     private List<Long> problemIds;
     private String rootcause;
-    //private @NotNull List<Long> solutionIds;
+    private @NotNull List<Long> solutionIds;
 }

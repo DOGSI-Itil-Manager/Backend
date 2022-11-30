@@ -1,4 +1,3 @@
-/*
 package com.dogsi.itil.domain.knownError.solution;
 
 import com.dogsi.itil.domain.knownError.KnownError;
@@ -47,8 +46,8 @@ public class Solution {
     private Instant creationDate;
 
     @JsonIgnore
-    @ManyToOne(mappedBy = "solution")
-    private KnownError knownError;
+    @ManyToMany(mappedBy = "solutions")
+    private List<KnownError> knownErrors;
 
     @Builder
     public Solution(String name, Instant creationDate) {
@@ -56,4 +55,3 @@ public class Solution {
         this.creationDate = creationDate;
     }
 }
-*/
