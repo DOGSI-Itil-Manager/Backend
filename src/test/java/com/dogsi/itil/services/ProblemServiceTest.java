@@ -163,6 +163,7 @@ public class ProblemServiceTest {
         assertEquals("Name2", saved.getName());
     }
 
+
         @Test
         void shouldAssignAnInidentToAProblem(){
             var incident = new IncidentDto();
@@ -203,4 +204,5 @@ public class ProblemServiceTest {
             assertEquals(1, saved.getIncidents().size());
             assertEquals(incidentId, saved.getIncidents().get(0).getId());
         }
+
 }

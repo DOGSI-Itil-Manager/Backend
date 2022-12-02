@@ -37,7 +37,9 @@ public class ProblemServiceImpl implements ProblemService {
                 .closedDate(dto.getClosedDate())
                 .emailOfUserInCharge(dto.getEmailOfUserInCharge())
                 .build();
+
         var ids = dto.getIncidents();
+
         if(ids!=null && !ids.isEmpty()){
             var incidents = incidentRepository.findAllById(ids);
             if(incidents.size() != ids.size()) {
