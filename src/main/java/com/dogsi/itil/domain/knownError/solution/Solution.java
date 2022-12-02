@@ -3,7 +3,7 @@ package com.dogsi.itil.domain.knownError.solution;
 import com.dogsi.itil.domain.knownError.KnownError;
 
 import java.time.Instant;
-import java.util.Date;
+
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,11 +12,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.JoinColumn;
+
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import javax.persistence.FetchType;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -24,8 +23,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import com.dogsi.itil.domain.incident.enums.*;
-import com.dogsi.itil.domain.problem.Problem;
 
 @Getter
 @Setter

@@ -23,7 +23,7 @@ import com.dogsi.itil.dto.ProblemDto;
 import com.dogsi.itil.repositories.ProblemRepository;
 import com.dogsi.itil.services.problem.ProblemService;
 import com.dogsi.itil.domain.problem.Problem;
-import com.dogsi.itil.domain.incident.enums.*;
+import com.dogsi.itil.domain.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "spring.main.allow-bean-definition-overriding=true")
 @ActiveProfiles("test-h2")

@@ -10,7 +10,7 @@ import com.dogsi.itil.exceptions.ItemNotFoundException;
 import com.dogsi.itil.repositories.KnownErrorRepository;
 import com.dogsi.itil.repositories.ProblemRepository;
 import com.dogsi.itil.services.knownError.KnownErrorService;
-import com.dogsi.itil.domain.incident.enums.State;
+import com.dogsi.itil.domain.State;
 import com.dogsi.itil.domain.problem.Problem;
 
 @Service

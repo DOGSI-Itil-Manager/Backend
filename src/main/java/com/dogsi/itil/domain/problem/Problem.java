@@ -13,10 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+
 import javax.persistence.Table;
 import javax.persistence.FetchType;
-import javax.persistence.CascadeType;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -29,13 +29,12 @@ import lombok.Setter;
 import com.dogsi.itil.domain.Impact;
 import com.dogsi.itil.domain.Priority;
 import com.dogsi.itil.domain.State;
-import com.dogsi.itil.domain.changes.Change;
+
 import com.dogsi.itil.domain.incident.Incident;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
-import com.dogsi.itil.domain.incident.enums.*;
+
 import com.dogsi.itil.domain.knownError.KnownError;
 
 
