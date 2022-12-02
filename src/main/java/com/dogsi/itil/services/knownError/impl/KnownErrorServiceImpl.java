@@ -34,10 +34,10 @@ public class KnownErrorServiceImpl implements KnownErrorService {
             .rootcause(dto.getRootcause())
             .build();        
 
-        var ids = dto.getProblemIds();
+        var ids = dto.getProblems();
         if(ids!=null && !ids.isEmpty()){
-            var problems = problemRepository.findAllById(dto.getProblemIds());
-            if(problems.size() != dto.getProblemIds().size()) {
+            var problems = problemRepository.findAllById(dto.getProblems());
+            if(problems.size() != dto.getProblems().size()) {
                 throw new ItemNotFoundException("Problem not found");
             }
             knownError.addProblems(problems);
@@ -57,10 +57,10 @@ public class KnownErrorServiceImpl implements KnownErrorService {
             throw new ItemNotFoundException("KnownError with id " + id + " not found");
         });
         
-        var ids = dto.getProblemIds();
+        var ids = dto.getProblems();
         if(ids!=null && !ids.isEmpty()){
-            var problems = problemRepository.findAllById(dto.getProblemIds());
-            if(problems.size() != dto.getProblemIds().size()) {
+            var problems = problemRepository.findAllById(dto.getProblems());
+            if(problems.size() != dto.getProblems().size()) {
                 throw new ItemNotFoundException("Problem not found");
             }
             knownError.addProblems(problems);

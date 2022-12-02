@@ -18,7 +18,7 @@ public class KnownErrorDto {
     private @NotBlank String category;
     private String description;
     private @NotNull Instant creationDate;
-    private List<Long> problemIds;
+    private List<Long> problems;
     private String rootcause;
-    private @NotNull List<Long> solutionIds;
+    private @NotNull List<Long> solutions;
 }
