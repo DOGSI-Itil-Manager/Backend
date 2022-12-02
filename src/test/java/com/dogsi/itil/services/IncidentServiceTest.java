@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.junit.jupiter.api.AfterEach;
@@ -18,8 +19,10 @@ import com.dogsi.itil.dto.IncidentDto;
 import com.dogsi.itil.exceptions.ItemNotFoundException;
 import com.dogsi.itil.repositories.IncidentRepository;
 import com.dogsi.itil.services.incident.IncidentService;
-
-import com.dogsi.itil.domain.incident.enums.*;
+import com.dogsi.itil.domain.Impact;
+import com.dogsi.itil.domain.Priority;
+import com.dogsi.itil.domain.Satisfaction;
+import com.dogsi.itil.domain.State;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "spring.main.allow-bean-definition-overriding=true")
 @ActiveProfiles("test-h2")
@@ -34,6 +37,7 @@ public class IncidentServiceTest {
     @AfterEach
     void tearDown(){
         repository.deleteAll();
+        repository.flush();
     }
 
     @Test
@@ -43,7 +47,7 @@ public class IncidentServiceTest {
         dto.setCategory("capa 8");
         dto.setPriority(Priority.BAJA);
         dto.setImpact(Impact.CRITICO);
-        dto.setReportedDate(Instant.now());
+        dto.setReportedDate(LocalDate.now());
         dto.setDescription("description");
         dto.setState(State.ABIERTO);
         dto.setAssignee("Nadie");
@@ -65,7 +69,7 @@ public class IncidentServiceTest {
         dto.setCategory("capa 8");
         dto.setPriority(Priority.BAJA);
         dto.setImpact(Impact.CRITICO);
-        dto.setReportedDate(Instant.now());
+        dto.setReportedDate(LocalDate.now());
         dto.setDescription("description");
         dto.setState(State.ABIERTO);
         dto.setAssignee("Nadie");
@@ -87,7 +91,7 @@ public class IncidentServiceTest {
         dto.setCategory("capa 8");
         dto.setPriority(Priority.BAJA);
         dto.setImpact(Impact.CRITICO);
-        dto.setReportedDate(Instant.now());
+        dto.setReportedDate(LocalDate.now());
         dto.setDescription("description");
         dto.setState(State.ABIERTO);
         dto.setAssignee("Nadie");
@@ -114,7 +118,7 @@ public class IncidentServiceTest {
         dto.setCategory("capa 8");
         dto.setPriority(Priority.BAJA);
         dto.setImpact(Impact.CRITICO);
-        dto.setReportedDate(Instant.now());
+        dto.setReportedDate(LocalDate.now());
         dto.setDescription("description");
         dto.setState(State.ABIERTO);
         dto.setAssignee("Nadie");
@@ -138,7 +142,7 @@ public class IncidentServiceTest {
         dto.setCategory("capa 8");
         dto.setPriority(Priority.BAJA);
         dto.setImpact(Impact.CRITICO);
-        dto.setReportedDate(Instant.now());
+        dto.setReportedDate(LocalDate.now());
         dto.setDescription("description");
         dto.setState(State.ABIERTO);
         dto.setAssignee("Nadie");

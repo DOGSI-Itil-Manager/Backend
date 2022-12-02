@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dogsi.itil.domain.incident.Incident;
-import com.dogsi.itil.dto.IdWithNamesOfIncident;
+import com.dogsi.itil.dto.IdWithName;
 import com.dogsi.itil.dto.IncidentDto;
 import com.dogsi.itil.exceptions.ItemNotFoundException;
 import com.dogsi.itil.repositories.IncidentRepository;
@@ -33,6 +33,7 @@ public class IncidentServiceImpl implements IncidentService {
                 .description(dto.getDescription())
                 .reportedDate(dto.getReportedDate())
                 .closedDate(dto.getClosedDate())
+                .satisfaction(dto.getSatisfaction())
                 .build();
         repository.save(incident);
     }
@@ -73,7 +74,7 @@ public class IncidentServiceImpl implements IncidentService {
     }
 
     @Override
-    public Page<IdWithNamesOfIncident> getIncidentIdsWithNames(Pageable pageable) {
+    public Page<IdWithName> getIncidentIdsWithNames(Pageable pageable) {
         return repository.getIdsAndNamesOfIncidents(pageable);
     }
 }

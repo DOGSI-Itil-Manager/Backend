@@ -26,3 +26,5 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: https://dev-vo4z2t6v.us.auth0.com/
+
+load-data: true

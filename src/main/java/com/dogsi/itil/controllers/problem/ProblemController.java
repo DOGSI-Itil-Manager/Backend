@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dogsi.itil.domain.problem.Problem;
+import com.dogsi.itil.dto.IdWithName;
 import com.dogsi.itil.dto.ProblemDto;
 import com.dogsi.itil.services.problem.ProblemService;
 
@@ -55,5 +56,10 @@ public class ProblemController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProblem(@PathVariable Long id){
         service.deleteProblem(id);
+    }
+
+    @GetMapping("/ids-with-names")
+    public Page<IdWithName> getProblemIdsWithNames(Pageable pageable){
+        return service.getProblemIdsWithNames(pageable);
     }
 }

@@ -1,4 +1,4 @@
-package com.dogsi.itil.domain.incident.enums;
+package com.dogsi.itil.domain;
 
 public enum Impact {
     MARGINAL, SERIO, CRITICO, CATASTROFICO
