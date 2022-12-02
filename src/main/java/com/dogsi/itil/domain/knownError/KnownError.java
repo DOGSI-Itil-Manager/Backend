@@ -80,15 +80,14 @@ public class KnownError {
         this.problems = new ArrayList<>();
         this.solutions = new ArrayList<>();
     }
+    
     public void addProblems(List<Problem> problems) {
         this.problems.clear();
         this.problems.addAll(problems);
     }
     
-/*
     public void addSolutions(List<Solution> solutions) {
         this.solutions.clear();
         this.solutions.addAll(solutions);
     }
-*/
 }
