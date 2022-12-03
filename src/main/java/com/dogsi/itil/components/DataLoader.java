@@ -123,6 +123,21 @@ public class DataLoader implements ApplicationRunner {
         }
         problemService.saveProblem(new ProblemDto("Falla en Windows 10","OS",Priority.MEDIA,Impact.SERIO,State.ABIERTO,"Windows 10 continua con pantalla azul",LocalDate.now(),null,ids,"jortiz@mail.com"));
 
+        for(int i=0;i<10;i++){
+            var priority = Priority.values()[(int) (Math.random() * 100) % 4];
+            var impact = Impact.values()[(int) (Math.random() * 100) % 4];
+            var daysToSubstract = (long) (Math.random() * 100) % 10;
+            var openedDate = LocalDate.now().minusDays(daysToSubstract+3);
+            var category = "Example category " + String.valueOf((int)(Math.random() * 100) % 6);
+            var name = "A problem name " + String.valueOf(i);
+            var state = State.values()[(int) (Math.random() * 100) % 6];
+            var assignee = state.equals(State.ABIERTO) ? "" : "An asignee email" + String.valueOf(i % 5);
+            var description = "A description " + String.valueOf(i);
+            var closedDate = state.equals(State.ABIERTO) ? null : Date.valueOf(LocalDate.now().minusDays(daysToSubstract).plusDays(3));
+            
+            var testProblem = new ProblemDto(name, category, priority, impact, state, description,openedDate, closedDate,new ArrayList<>(),assignee);
+            problemService.saveProblem(testProblem);
+        }
     }
 
     private void loadIncidentData() {
