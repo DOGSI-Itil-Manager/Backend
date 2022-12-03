@@ -43,4 +43,7 @@ public interface ProblemRepository extends JpaRepository<Problem, Long>{
 
     @Query("SELECT new com.dogsi.itil.dto.ItemByField(i.category,COUNT(i.id)) FROM Problem i GROUP BY i.category")
     List<ItemByField> countProblemByCategory();
+
+    @Query("SELECT COUNT(i) FROM Problem p JOIN p.incidents i")
+    Long countIncidentsInProblems();
 }

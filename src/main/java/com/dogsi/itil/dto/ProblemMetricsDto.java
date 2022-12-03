@@ -10,8 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProblemMetricsDto {
+    Long totalProblems;
     List<ItemByField> countByUserInCharge;
     List<ItemByPriority> byPriority;
     List<ItemByDay> byDay;
     List<ItemByField> byCategory;
+    float incidentPerProblems;
 }

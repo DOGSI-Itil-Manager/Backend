@@ -17,10 +17,13 @@ public class ProblemMetricsServiceImpl implements ProblemMetricsService {
 
     @Override
     public ProblemMetricsDto getProblemMetrics() {
+        var totalProblems = repository.count();
         var countByUserInCharge = repository.countProblemsByUserInCharge();
         var byPriority = repository.countProblemByPriority();
         var byDay = repository.countProblemByDay();
         var byCategory = repository.countProblemByCategory();
-        return new ProblemMetricsDto(countByUserInCharge, byPriority, byDay, byCategory);
+        var totalIncidentsInProblems = (float)repository.countIncidentsInProblems();
+        var incidentsPerProblem = totalIncidentsInProblems / totalProblems;
+        return new ProblemMetricsDto(totalProblems, countByUserInCharge, byPriority, byDay, byCategory,incidentsPerProblem);
     }
 }
