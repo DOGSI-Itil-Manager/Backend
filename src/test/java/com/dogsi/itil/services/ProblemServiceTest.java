@@ -3,7 +3,7 @@ package com.dogsi.itil.services;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,7 +56,7 @@ public class ProblemServiceTest {
         dto.setCategory("capa 8");
         dto.setPriority(Priority.ALTA);
         dto.setImpact(Impact.CRITICO);
-        dto.setReportedDate(Instant.now());
+        dto.setReportedDate(LocalDate.now());
         dto.setDescription("description");
         dto.setState(State.ABIERTO);
         dto.setClosedDate(new Date());
@@ -76,7 +76,7 @@ public class ProblemServiceTest {
         dto.setCategory("capa 8");
         dto.setPriority(Priority.ALTA);
         dto.setImpact(Impact.CRITICO);
-        dto.setReportedDate(Instant.now());
+        dto.setReportedDate(LocalDate.now());
         dto.setDescription("description");
         dto.setState(State.ABIERTO);
         dto.setClosedDate(new Date());
@@ -96,7 +96,7 @@ public class ProblemServiceTest {
         dto.setCategory("capa 8");
         dto.setPriority(Priority.ALTA);
         dto.setImpact(Impact.CRITICO);
-        dto.setReportedDate(Instant.now());
+        dto.setReportedDate(LocalDate.now());
         dto.setDescription("description");
         dto.setState(State.ABIERTO);
         dto.setClosedDate(new Date());
@@ -120,7 +120,7 @@ public class ProblemServiceTest {
         dto.setCategory("capa 8");
         dto.setPriority(Priority.ALTA);
         dto.setImpact(Impact.CRITICO);
-        dto.setReportedDate(Instant.now());
+        dto.setReportedDate(LocalDate.now());
         dto.setDescription("description");
         dto.setState(State.ABIERTO);
         dto.setClosedDate(new Date());
@@ -141,7 +141,7 @@ public class ProblemServiceTest {
         dto.setCategory("capa 8");
         dto.setPriority(Priority.ALTA);
         dto.setImpact(Impact.CRITICO);
-        dto.setReportedDate(Instant.now());
+        dto.setReportedDate(LocalDate.now());
         dto.setDescription("description");
         dto.setState(State.ABIERTO);
         // dto.setClosedDate(new Date());
@@ -187,7 +187,7 @@ public class ProblemServiceTest {
             dto.setCategory("capa 8");
             dto.setPriority(Priority.ALTA);
             dto.setImpact(Impact.CRITICO);
-            dto.setReportedDate(Instant.now());
+            dto.setReportedDate(LocalDate.now());
             dto.setDescription("description");
             dto.setState(State.ABIERTO);
             // dto.setClosedDate(new Date());

@@ -121,7 +121,7 @@ public class DataLoader implements ApplicationRunner {
             if(incident.getCategory().equals("OS"))
                 ids.add(incident.getId());
         }
-        problemService.saveProblem(new ProblemDto("Falla en Windows 10","OS",Priority.MEDIA,Impact.SERIO,State.ABIERTO,"Windows 10 continua con pantalla azul",Instant.now(),null,ids,"jortiz@mail.com"));
+        problemService.saveProblem(new ProblemDto("Falla en Windows 10","OS",Priority.MEDIA,Impact.SERIO,State.ABIERTO,"Windows 10 continua con pantalla azul",LocalDate.now(),null,ids,"jortiz@mail.com"));
 
     }
 

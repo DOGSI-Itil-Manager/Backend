@@ -29,7 +29,7 @@ public class ProblemDto {
     private @NotNull Impact impact;
     private @NotNull State state;
     private String description;
-    private @NotNull Instant reportedDate;
+    private @NotNull LocalDate reportedDate;
     private Date closedDate;
     private List<Long> incidents;
     private String emailOfUserInCharge;

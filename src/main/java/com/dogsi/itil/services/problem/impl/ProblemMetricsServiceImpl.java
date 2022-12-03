@@ -9,15 +9,18 @@ import com.dogsi.itil.services.problem.ProblemMetricsService;
 @Service
 public class ProblemMetricsServiceImpl implements ProblemMetricsService {
     
-    private ProblemRepository problemRepository;
+    private ProblemRepository repository;
 
-    public ProblemMetricsServiceImpl(ProblemRepository problemRepository) {
-        this.problemRepository = problemRepository;
+    public ProblemMetricsServiceImpl(ProblemRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public ProblemMetricsDto getProblemMetrics() {
-        var countByUserInCharge = problemRepository.countProblemsByUserInCharge();
-        return new ProblemMetricsDto(countByUserInCharge);
+        var countByUserInCharge = repository.countProblemsByUserInCharge();
+        var byPriority = repository.countProblemByPriority();
+        var byDay = repository.countProblemByDay();
+        var byCategory = repository.countProblemByCategory();
+        return new ProblemMetricsDto(countByUserInCharge, byPriority, byDay, byCategory);
     }
 }
