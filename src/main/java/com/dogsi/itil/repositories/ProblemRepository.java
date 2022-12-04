@@ -13,6 +13,9 @@ import org.springframework.data.repository.query.Param;
 import com.dogsi.itil.domain.problem.Problem;
 import com.dogsi.itil.dto.IdWithName;
 import com.dogsi.itil.dto.ItemByField;
+import com.dogsi.itil.dto.ItemByDay;
+import com.dogsi.itil.dto.ItemByPriority;
+import com.dogsi.itil.dto.ItemBySatisfaction;
 
 public interface ProblemRepository extends JpaRepository<Problem, Long>{
     
@@ -21,14 +24,26 @@ public interface ProblemRepository extends JpaRepository<Problem, Long>{
     @Query("DELETE FROM Problem i WHERE i.id = :id")
     int deleteProblemById(@Param("id") Long id);
 
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true,value = "DELETE FROM problem_incident_relation p WHERE p.problem_id = :id")
+    int deleteIncidentRelationships(@Param("id")Long id);
+    
     @Query("SELECT new com.dogsi.itil.dto.ItemByField(p.emailOfUserInCharge,COUNT(p.id)) FROM Problem p GROUP BY emailOfUserInCharge")
     List<ItemByField> countProblemsByUserInCharge();
 
     @Query("SELECT new com.dogsi.itil.dto.IdWithName(p.id,p.name) FROM Problem p")
     Page<IdWithName> getIdsAndNamesOfProblems(Pageable pageable);
 
-    @Transactional
-    @Modifying
-    @Query(nativeQuery = true,value = "DELETE FROM problem_incident_relation p WHERE p.problem_id = :id")
-    int deleteIncidentRelationships(@Param("id")Long id);
+    @Query("SELECT new com.dogsi.itil.dto.ItemByPriority(i.priority,COUNT(i.id)) FROM Problem i GROUP BY i.priority")
+    List<ItemByPriority> countProblemByPriority();
+
+    @Query("SELECT new com.dogsi.itil.dto.ItemByDay(i.reportedDate,COUNT(i.id)) FROM Problem i GROUP BY i.reportedDate")
+    List<ItemByDay> countProblemByDay();
+
+    @Query("SELECT new com.dogsi.itil.dto.ItemByField(i.category,COUNT(i.id)) FROM Problem i GROUP BY i.category")
+    List<ItemByField> countProblemByCategory();
+
+    @Query("SELECT COUNT(i) FROM Problem p JOIN p.incidents i")
+    Long countIncidentsInProblems();
 }

@@ -1,6 +1,7 @@
 package com.dogsi.itil.dto;
 
 import java.time.Instant;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -13,5 +14,5 @@ import lombok.Setter;
 public class SolutionDto {
     private @NotBlank String name;
     private @NotNull Instant creationDate;
-    private @NotNull Long knownErrorId;  
+    private @NotNull List<Long> knownErrors;  
 }

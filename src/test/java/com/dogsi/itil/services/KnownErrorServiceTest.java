@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.junit.jupiter.api.AfterEach;
@@ -51,7 +52,7 @@ public class KnownErrorServiceTest {
         var problemDto = new ProblemDto();
         problemDto.setName("Problem name");
         problemDto.setCategory("Problem category");
-        problemDto.setReportedDate(Instant.now());
+        problemDto.setReportedDate(LocalDate.now());
         problemDto.setPriority(Priority.ALTA);
         problemDto.setImpact(Impact.CRITICO);
         problemDto.setState(State.ABIERTO);

@@ -51,4 +51,9 @@ public class Solution {
         this.name = name;
         this.creationDate = creationDate;
     }
+
+    public void addKnownError(List<KnownError> knownErrors) {
+        this.knownErrors.clear();
+        this.knownErrors.addAll(knownErrors);
+    }
 }

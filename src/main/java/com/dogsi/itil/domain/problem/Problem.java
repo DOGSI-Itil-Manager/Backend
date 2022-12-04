@@ -1,6 +1,6 @@
 package com.dogsi.itil.domain.problem;
 
-import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +69,7 @@ public class Problem {
     private String description;
 
     @Column(nullable = false)
-    private Instant reportedDate;
+    private LocalDate reportedDate;
 
     @Column
     private Date closedDate;
@@ -94,7 +94,7 @@ public class Problem {
 
     @Builder
     public Problem(String name, String category, Priority priority, Impact impact, State state, String description,
-            Instant reportedDate, Date closedDate, String emailOfUserInCharge) {
+            LocalDate reportedDate, Date closedDate, String emailOfUserInCharge) {
         this.name = name;
         this.category = category;
         this.priority = priority;

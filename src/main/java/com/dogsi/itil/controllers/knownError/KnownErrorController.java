@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dogsi.itil.domain.knownError.KnownError;
+import com.dogsi.itil.dto.IdWithName;
 import com.dogsi.itil.dto.KnownErrorDto;
 import com.dogsi.itil.services.knownError.KnownErrorService;
 
@@ -55,5 +56,10 @@ public class KnownErrorController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteKnownError(@PathVariable Long id){
         service.deleteKnownError(id);
+    }
+
+    @GetMapping("/ids-with-names")
+    public Page<IdWithName> getIdsWithNames(Pageable pageable){
+        return service.getIncidentIdsWithNames(pageable);
     }
 }
