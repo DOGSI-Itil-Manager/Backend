@@ -31,7 +31,7 @@ import com.dogsi.itil.domain.problem.Problem;
 @Getter
 @Setter
 @Entity
-@Table(name = "knownError")
+@Table(name = "known_error")
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class KnownError {
 
@@ -54,18 +54,18 @@ public class KnownError {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-        name = "knownError_problem_relation", 
-        joinColumns = @JoinColumn(name = "knownError_id"), 
+        name = "known_error_problem_relation", 
+        joinColumns = @JoinColumn(name = "known_error_id"), 
         inverseJoinColumns = @JoinColumn(name = "problem_id"))
     private List<Problem> problems;
 
     @Column
     private String rootcause;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-        name = "knownError_solution_relation", 
-        joinColumns = @JoinColumn(name = "knownError_id"), 
+        name = "solutions_known_errors_relation", 
+        joinColumns = @JoinColumn(name = "known_error_id"), 
         inverseJoinColumns = @JoinColumn(name = "solution_id"))
     private List<Solution> solutions;
 
@@ -82,12 +82,10 @@ public class KnownError {
     }
     
     public void addProblems(List<Problem> problems) {
-        this.problems.clear();
         this.problems.addAll(problems);
     }
     
     public void addSolutions(List<Solution> solutions) {
-        this.solutions.clear();
         this.solutions.addAll(solutions);
     }
 }

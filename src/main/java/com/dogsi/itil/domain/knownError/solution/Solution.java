@@ -43,24 +43,15 @@ public class Solution {
     private String name;
 
     @Column(nullable = false)
+    private String description;
+
+    @Column(nullable = false)
     private Instant creationDate;
 
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "solutions_known_errors_relation", 
-        joinColumns = @JoinColumn(name = "solution_id"), 
-        inverseJoinColumns = @JoinColumn(name = "known_error_id"))
-    private List<KnownError> knownErrors;
-
     @Builder
-    public Solution(String name, Instant creationDate) {
+    public Solution(String name, Instant creationDate, String description) {
         this.name = name;
         this.creationDate = creationDate;
-        this.knownErrors = new ArrayList<>();
-    }
-
-    public void addKnownError(List<KnownError> knownErrors) {
-        this.knownErrors.addAll(knownErrors);
+        this.description = description;
     }
 }
