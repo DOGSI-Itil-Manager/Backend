@@ -4,7 +4,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.dogsi.itil.domain.knownError.solution.Solution;
+import com.dogsi.itil.dto.IdWithName;
 import com.dogsi.itil.dto.SolutionDto;
+import com.dogsi.itil.dto.SolutionsResponseDto;
 
 public interface SolutionService {
 
@@ -16,5 +18,7 @@ public interface SolutionService {
 
     void deleteSolution(Long id);
 
-    public Solution getSolutionById(Long id);
+    public SolutionsResponseDto getSolutionById(Long id);
+
+    Page<IdWithName> getIdsWithNames(Pageable pageable);
 }

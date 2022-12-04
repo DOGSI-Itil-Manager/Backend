@@ -60,6 +60,6 @@ public class KnownErrorController {
 
     @GetMapping("/ids-with-names")
     public Page<IdWithName> getIdsWithNames(Pageable pageable){
-        return service.getIncidentIdsWithNames(pageable);
+        return service.getIdsWithNames(pageable);
     }
 }

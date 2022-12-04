@@ -19,5 +19,5 @@ public interface KnownErrorService {
 
     public KnownError getKnownErrorById(Long id);
 
-    Page<IdWithName> getIncidentIdsWithNames(Pageable pageable);
+    Page<IdWithName> getIdsWithNames(Pageable pageable);
 }

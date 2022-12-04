@@ -90,7 +90,7 @@ public class KnownErrorServiceImpl implements KnownErrorService {
     }
 
     @Override
-    public Page<IdWithName> getIncidentIdsWithNames(Pageable pageable) {
+    public Page<IdWithName> getIdsWithNames(Pageable pageable) {
         return repository.getIdsAndNamesOfIncidents(pageable);
     }
 

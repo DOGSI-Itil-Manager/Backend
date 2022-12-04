@@ -37,7 +37,7 @@ public class KnownError {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "knownError_id")
+    @Column(name = "known_error_id")
     private Long id;
 
     @Column(nullable = false)

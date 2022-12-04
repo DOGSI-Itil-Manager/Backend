@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dogsi.itil.domain.knownError.solution.Solution;
+import com.dogsi.itil.dto.IdWithName;
 import com.dogsi.itil.dto.SolutionDto;
+import com.dogsi.itil.dto.SolutionsResponseDto;
 import com.dogsi.itil.services.knownError.SolutionService;
 
 @RestController
@@ -30,7 +32,7 @@ public class SolutionController {
     }
 
     @GetMapping("/{id}")
-    public Solution getSolutionById(@PathVariable Long id){
+    public SolutionsResponseDto getSolutionById(@PathVariable Long id){
         return service.getSolutionById(id);
     }
 
@@ -55,5 +57,10 @@ public class SolutionController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteSolution(@PathVariable Long id){
         service.deleteSolution(id);
+    }
+
+    @GetMapping("/ids-with-names")
+    public Page<IdWithName> getIdsWithNames(Pageable pageable){
+        return service.getIdsWithNames(pageable);
     }
 }

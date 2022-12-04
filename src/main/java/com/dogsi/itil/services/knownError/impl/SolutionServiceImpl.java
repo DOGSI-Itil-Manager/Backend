@@ -5,7 +5,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dogsi.itil.domain.knownError.solution.Solution;
+import com.dogsi.itil.dto.IdWithName;
 import com.dogsi.itil.dto.SolutionDto;
+import com.dogsi.itil.dto.SolutionsResponseDto;
 import com.dogsi.itil.exceptions.ItemNotFoundException;
 import com.dogsi.itil.repositories.SolutionRepository;
 import com.dogsi.itil.repositories.KnownErrorRepository;
@@ -50,17 +52,19 @@ public class SolutionServiceImpl implements SolutionService {
 
     @Override
     public void updateSolution(Long id, SolutionDto dto) {
+        repository.deleteKnownErrorRelationships(id);
+
         var solution = repository.findById(id).orElseThrow(() -> {
             throw new ItemNotFoundException("Solution with id " + id + " not found");
         });
         
         var ids = dto.getKnownErrors();
         if(ids!=null && !ids.isEmpty()){
-            var problems = knownErrorRepository.findAllById(dto.getKnownErrors());
-            if(problems.size() != dto.getKnownErrors().size()) {
-                throw new ItemNotFoundException("Problem not found");
+            var knownErrors = knownErrorRepository.findAllById(dto.getKnownErrors());
+            if(knownErrors.size() != dto.getKnownErrors().size()) {
+                throw new ItemNotFoundException("Known error not found");
             }
-            solution.addKnownError(problems);
+            solution.addKnownError(knownErrors);
         }
 
         solution.setName(dto.getName());
@@ -78,8 +82,19 @@ public class SolutionServiceImpl implements SolutionService {
     }
 
     @Override
-    public Solution getSolutionById(Long id) {
-        return repository.findById(id).orElseThrow(() -> {throw new ItemNotFoundException("Solution with id " + id + " not found");});
+    public SolutionsResponseDto getSolutionById(Long id) {
+        var solution = repository.findById(id).orElseThrow(() -> {throw new ItemNotFoundException("Solution with id " + id + " not found");});
+        var response = new SolutionsResponseDto();
+        response.setId(solution.getId());
+        response.setKnownErrors(solution.getKnownErrors());
+        response.setName(solution.getName());
+        response.setCreationDate(solution.getCreationDate());
+        return response;
+    }
+
+    @Override
+    public Page<IdWithName> getIdsWithNames(Pageable pageable) {
+        return repository.getIdsAndNames(pageable);
     }
 
 }
