@@ -65,8 +65,8 @@ public class KnownError {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "solutions_known_errors_relation", 
-        joinColumns = @JoinColumn(name = "solution_id"), 
-        inverseJoinColumns = @JoinColumn(name = "known_error_id"))
+        joinColumns = @JoinColumn(name = "known_error_id"), 
+        inverseJoinColumns = @JoinColumn(name = "solution_id"))
     private List<Solution> solutions;
 
     @Builder
