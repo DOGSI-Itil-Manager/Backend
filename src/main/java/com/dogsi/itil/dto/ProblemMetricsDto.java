@@ -16,4 +16,5 @@ public class ProblemMetricsDto {
     List<ItemByDay> byDay;
     List<ItemByField> byCategory;
     float incidentPerProblems;
+    List<ItemByState> byState;
 }

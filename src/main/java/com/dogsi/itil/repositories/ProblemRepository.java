@@ -16,6 +16,7 @@ import com.dogsi.itil.dto.ItemByField;
 import com.dogsi.itil.dto.ItemByDay;
 import com.dogsi.itil.dto.ItemByPriority;
 import com.dogsi.itil.dto.ItemBySatisfaction;
+import com.dogsi.itil.dto.ItemByState;
 
 public interface ProblemRepository extends JpaRepository<Problem, Long>{
     
@@ -35,15 +36,18 @@ public interface ProblemRepository extends JpaRepository<Problem, Long>{
     @Query("SELECT new com.dogsi.itil.dto.IdWithName(p.id,p.name) FROM Problem p")
     Page<IdWithName> getIdsAndNamesOfProblems(Pageable pageable);
 
-    @Query("SELECT new com.dogsi.itil.dto.ItemByPriority(i.priority,COUNT(i.id)) FROM Problem i GROUP BY i.priority")
+    @Query("SELECT new com.dogsi.itil.dto.ItemByPriority(p.priority,COUNT(p.id)) FROM Problem p GROUP BY p.priority")
     List<ItemByPriority> countProblemByPriority();
 
-    @Query("SELECT new com.dogsi.itil.dto.ItemByDay(i.reportedDate,COUNT(i.id)) FROM Problem i GROUP BY i.reportedDate")
+    @Query("SELECT new com.dogsi.itil.dto.ItemByDay(p.reportedDate,COUNT(p.id)) FROM Problem p GROUP BY p.reportedDate")
     List<ItemByDay> countProblemByDay();
 
-    @Query("SELECT new com.dogsi.itil.dto.ItemByField(i.category,COUNT(i.id)) FROM Problem i GROUP BY i.category")
+    @Query("SELECT new com.dogsi.itil.dto.ItemByField(p.category,COUNT(p.id)) FROM Problem p GROUP BY p.category")
     List<ItemByField> countProblemByCategory();
 
     @Query("SELECT COUNT(i) FROM Problem p JOIN p.incidents i")
     Long countIncidentsInProblems();
+
+    @Query("SELECT new com.dogsi.itil.dto.ItemByState(p.state,COUNT(p.id)) FROM Problem p GROUP BY p.state")
+    List<ItemByState> countProblemByState();
 }
