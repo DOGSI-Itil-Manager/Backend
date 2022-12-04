@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dogsi.itil.domain.knownError.KnownError;
+import com.dogsi.itil.dto.IdWithName;
 import com.dogsi.itil.dto.KnownErrorDto;
 import com.dogsi.itil.exceptions.ItemNotFoundException;
 import com.dogsi.itil.repositories.KnownErrorRepository;
@@ -86,6 +87,11 @@ public class KnownErrorServiceImpl implements KnownErrorService {
     @Override
     public KnownError getKnownErrorById(Long id) {
         return repository.findById(id).orElseThrow(() -> {throw new ItemNotFoundException("KnownError with id " + id + " not found");});
+    }
+
+    @Override
+    public Page<IdWithName> getIncidentIdsWithNames(Pageable pageable) {
+        return repository.getIdsAndNamesOfIncidents(pageable);
     }
 
 }
