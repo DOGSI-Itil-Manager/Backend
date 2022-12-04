@@ -27,6 +27,6 @@ public interface SolutionRepository extends JpaRepository<Solution, Long>{
 
     @Transactional
     @Modifying
-    @Query(nativeQuery = true,value = "DELETE FROM solutions_known_errors_relation k WHERE k.solution_id = :id")
-    void deleteKnownErrorRelationships(Long id);
+    @Query(nativeQuery = true,value = "DELETE FROM solutions_known_errors_relation k WHERE k.known_error_id = :id")
+    int deleteSolutionsRelationships(@Param("id")Long id);
 }

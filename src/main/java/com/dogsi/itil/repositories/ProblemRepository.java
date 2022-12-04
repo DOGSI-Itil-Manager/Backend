@@ -29,6 +29,11 @@ public interface ProblemRepository extends JpaRepository<Problem, Long>{
     @Modifying
     @Query(nativeQuery = true,value = "DELETE FROM problem_incident_relation p WHERE p.problem_id = :id")
     int deleteIncidentRelationships(@Param("id")Long id);
+
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true,value = "DELETE FROM known_error_problem_relation k WHERE k.known_error_id = :id")
+    int deleteProblemsKnownErrorRelationships(@Param("id")Long id);
     
     @Query("SELECT new com.dogsi.itil.dto.ItemByField(p.emailOfUserInCharge,COUNT(p.id)) FROM Problem p GROUP BY emailOfUserInCharge")
     List<ItemByField> countProblemsByUserInCharge();

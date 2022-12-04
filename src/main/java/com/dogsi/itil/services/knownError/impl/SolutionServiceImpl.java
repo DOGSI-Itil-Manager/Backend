@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.dogsi.itil.domain.knownError.solution.Solution;
 import com.dogsi.itil.dto.IdWithName;
 import com.dogsi.itil.dto.SolutionDto;
-import com.dogsi.itil.dto.SolutionsResponseDto;
 import com.dogsi.itil.exceptions.ItemNotFoundException;
 import com.dogsi.itil.repositories.SolutionRepository;
 import com.dogsi.itil.repositories.KnownErrorRepository;
@@ -31,16 +30,8 @@ public class SolutionServiceImpl implements SolutionService {
         var solution = Solution.builder()
             .name(dto.getName())
             .creationDate(dto.getCreationDate())
+            .description(dto.getDescription())
             .build();        
-
-        var ids = dto.getKnownErrors();
-        if(ids!=null && !ids.isEmpty()){
-            var problems = knownErrorRepository.findAllById(dto.getKnownErrors());
-            if(problems.size() != dto.getKnownErrors().size()) {
-                throw new ItemNotFoundException("Problem not found");
-            }
-            solution.addKnownError(problems);
-        }
         
         repository.save(solution);
     }
@@ -52,20 +43,10 @@ public class SolutionServiceImpl implements SolutionService {
 
     @Override
     public void updateSolution(Long id, SolutionDto dto) {
-        repository.deleteKnownErrorRelationships(id);
 
         var solution = repository.findById(id).orElseThrow(() -> {
             throw new ItemNotFoundException("Solution with id " + id + " not found");
         });
-        
-        var ids = dto.getKnownErrors();
-        if(ids!=null && !ids.isEmpty()){
-            var knownErrors = knownErrorRepository.findAllById(dto.getKnownErrors());
-            if(knownErrors.size() != dto.getKnownErrors().size()) {
-                throw new ItemNotFoundException("Known error not found");
-            }
-            solution.addKnownError(knownErrors);
-        }
 
         solution.setName(dto.getName());
         solution.setCreationDate(dto.getCreationDate());
@@ -82,14 +63,8 @@ public class SolutionServiceImpl implements SolutionService {
     }
 
     @Override
-    public SolutionsResponseDto getSolutionById(Long id) {
-        var solution = repository.findById(id).orElseThrow(() -> {throw new ItemNotFoundException("Solution with id " + id + " not found");});
-        var response = new SolutionsResponseDto();
-        response.setId(solution.getId());
-        response.setKnownErrors(solution.getKnownErrors());
-        response.setName(solution.getName());
-        response.setCreationDate(solution.getCreationDate());
-        return response;
+    public Solution getSolutionById(Long id) {
+        return repository.findById(id).orElseThrow(() -> {throw new ItemNotFoundException("Solution with id " + id + " not found");});
     }
 
     @Override

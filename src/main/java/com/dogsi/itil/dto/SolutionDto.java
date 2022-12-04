@@ -14,5 +14,5 @@ import lombok.Setter;
 public class SolutionDto {
     private @NotBlank String name;
     private @NotNull Instant creationDate;
-    private @NotNull List<Long> knownErrors;  
+    private String description;
 }
