@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class ItemByState {
-    private State state;
+    private State field;
     private long count;
 }
