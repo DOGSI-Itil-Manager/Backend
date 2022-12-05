@@ -52,7 +52,7 @@ public class KnownError {
     @Column(nullable = false)
     private Instant creationDate;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.DETACH)
     @JoinTable(
         name = "known_error_problem_relation", 
         joinColumns = @JoinColumn(name = "known_error_id"), 
@@ -62,7 +62,7 @@ public class KnownError {
     @Column
     private String rootcause;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.DETACH)
     @JoinTable(
         name = "solutions_known_errors_relation", 
         joinColumns = @JoinColumn(name = "known_error_id"), 

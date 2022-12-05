@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,7 +30,7 @@ import lombok.Setter;
 import com.dogsi.itil.domain.Impact;
 import com.dogsi.itil.domain.Priority;
 import com.dogsi.itil.domain.State;
-
+import com.dogsi.itil.domain.changes.Change;
 import com.dogsi.itil.domain.incident.Incident;
 
 
@@ -74,22 +75,30 @@ public class Problem {
     @Column
     private Date closedDate;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinTable(
         name = "problem_incident_relation", 
         joinColumns = @JoinColumn(name = "problem_id"), 
         inverseJoinColumns = @JoinColumn(name = "incident_id"))
     private List<Incident> incidents;
 
-    // @JsonIgnore
-    // @ManyToMany(mappedBy = "problems")
-    // private List<Change> changes;
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.DETACH)
+    @JoinTable(
+        name = "change_problem_relation", 
+        joinColumns = @JoinColumn(name = "problem_id"), 
+        inverseJoinColumns = @JoinColumn(name = "change_id"))
+    private List<Change> changes;
     
     @Column
     private String emailOfUserInCharge;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "problems")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "known_error_problem_relation", 
+        joinColumns = @JoinColumn(name = "problem_id"), 
+        inverseJoinColumns = @JoinColumn(name = "known_error_id"))
     private List<KnownError> knownErrors;
 
     @Builder

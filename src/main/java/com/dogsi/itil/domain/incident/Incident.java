@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -74,13 +76,21 @@ public class Incident {
     @Column
     private Satisfaction satisfaction;
 
-    // @JsonIgnore
-    // @ManyToMany(mappedBy = "incidents")
-    // private List<Problem> problems;
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinTable(
+        name = "problem_incident_relation", 
+        joinColumns = @JoinColumn(name = "incident_id"), 
+        inverseJoinColumns = @JoinColumn(name = "problem_id"))
+    private List<Problem> problems;
 
-    // @JsonIgnore
-    // @ManyToMany(mappedBy = "incidents")
-    // private List<Change> changes;
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinTable(
+        name = "change_incident_relation", 
+        joinColumns = @JoinColumn(name = "incident_id"), 
+        inverseJoinColumns = @JoinColumn(name = "change_id"))
+    private List<Change> changes;
 
     @Builder
     public Incident(String name, String category, Priority priority, Impact impact, State state, String assignee, String description,

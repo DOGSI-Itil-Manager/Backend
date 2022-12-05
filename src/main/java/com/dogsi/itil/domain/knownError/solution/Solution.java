@@ -6,6 +6,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -48,6 +49,14 @@ public class Solution {
     @Column(nullable = false)
     private Instant creationDate;
 
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.DETACH)
+    @JoinTable(
+        name = "solutions_known_errors_relation", 
+        joinColumns = @JoinColumn(name = "solution_id"), 
+        inverseJoinColumns = @JoinColumn(name = "known_error_id"))
+    private List<KnownError> knownErrors;
+    
     @Builder
     public Solution(String name, Instant creationDate, String description) {
         this.name = name;

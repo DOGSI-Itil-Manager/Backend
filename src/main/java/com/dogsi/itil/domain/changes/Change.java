@@ -69,14 +69,14 @@ public class Change {
     @Column(nullable = false)
     private State state;
 
-    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.DETACH)
     @JoinTable(
         name = "change_incident_relation", 
         joinColumns = @JoinColumn(name = "change_id"), 
         inverseJoinColumns = @JoinColumn(name = "incident_id"))
     private List<Incident> incidents;
 
-    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.DETACH)
     @JoinTable(
         name = "change_problem_relation", 
         joinColumns = @JoinColumn(name = "change_id"), 
