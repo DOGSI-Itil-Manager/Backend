@@ -57,6 +57,7 @@ public class IncidentServiceImpl implements IncidentService {
         incident.setDescription(dto.getDescription());
         incident.setReportedDate(dto.getReportedDate());
         incident.setClosedDate(dto.getClosedDate());
+        incident.setSatisfaction(dto.getSatisfaction());
 
         repository.save(incident);
     }
