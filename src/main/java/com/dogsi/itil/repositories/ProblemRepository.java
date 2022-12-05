@@ -55,4 +55,7 @@ public interface ProblemRepository extends JpaRepository<Problem, Long>{
 
     @Query("SELECT new com.dogsi.itil.dto.ItemByState(p.state,COUNT(p.id)) FROM Problem p GROUP BY p.state")
     List<ItemByState> countProblemByState();
+
+    @Query("SELECT avg(datediff(hour,reportedDate,closedDate)) FROM Problem p")
+    Long averageProblemLifetime();
 }
