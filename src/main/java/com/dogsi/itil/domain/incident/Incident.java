@@ -4,6 +4,7 @@ import com.dogsi.itil.domain.problem.Problem;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +34,9 @@ import com.dogsi.itil.domain.Priority;
 import com.dogsi.itil.domain.Satisfaction;
 import com.dogsi.itil.domain.State;
 import com.dogsi.itil.domain.changes.Change;
+import com.dogsi.itil.domain.configuration.Hardware;
+import com.dogsi.itil.domain.configuration.SLA;
+import com.dogsi.itil.domain.configuration.Software;
 
 
 @Getter
@@ -92,6 +96,27 @@ public class Incident {
         inverseJoinColumns = @JoinColumn(name = "change_id"))
     private List<Change> changes;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinTable(
+        name = "hardware_incident_relation", 
+        joinColumns = @JoinColumn(name = "incident_id"), 
+        inverseJoinColumns = @JoinColumn(name = "hardware_id"))
+    private List<Hardware> hardwares;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinTable(
+        name = "sla_incident_relation", 
+        joinColumns = @JoinColumn(name = "incident_id"), 
+        inverseJoinColumns = @JoinColumn(name = "sla_id"))
+    private List<SLA> slas;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinTable(
+        name = "software_incident_relation", 
+        joinColumns = @JoinColumn(name = "incident_id"), 
+        inverseJoinColumns = @JoinColumn(name = "software_id"))
+    private List<Software> softwares;
+
     @Builder
     public Incident(String name, String category, Priority priority, Impact impact, State state, String assignee, String description,
         LocalDate reportedDate, Date closedDate, Satisfaction satisfaction) {
@@ -105,7 +130,20 @@ public class Incident {
         this.reportedDate = reportedDate;
         this.closedDate = closedDate;
         this.satisfaction = satisfaction;
+        this.softwares = new ArrayList<>();
+        this.slas = new ArrayList<>();
+        this.hardwares = new ArrayList<>();
     }
 
+    public void addHardwares(List<Hardware> hardware) {
+        this.hardwares.addAll(hardware);
+    }
 
+    public void addSoftwares(List<Software> softwares) {
+        this.softwares.addAll(softwares);
+    }
+
+    public void addSlas(List<SLA> slas) {
+        this.slas.addAll(slas);
+    }
 }

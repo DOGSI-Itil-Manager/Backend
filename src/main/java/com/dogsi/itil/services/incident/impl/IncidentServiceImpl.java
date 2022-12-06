@@ -1,6 +1,7 @@
 package com.dogsi.itil.services.incident.impl;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -9,17 +10,27 @@ import com.dogsi.itil.domain.incident.Incident;
 import com.dogsi.itil.dto.IdWithName;
 import com.dogsi.itil.dto.IncidentDto;
 import com.dogsi.itil.exceptions.ItemNotFoundException;
+import com.dogsi.itil.repositories.HardwareRepository;
 import com.dogsi.itil.repositories.IncidentRepository;
+import com.dogsi.itil.repositories.SlaRepository;
+import com.dogsi.itil.repositories.SoftwareRepository;
 import com.dogsi.itil.services.incident.IncidentService;
 
 @Service
 public class IncidentServiceImpl implements IncidentService {
 
+    @Autowired
     private IncidentRepository repository;
 
-    public IncidentServiceImpl(IncidentRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    private HardwareRepository hardwareRepository;
+
+    @Autowired
+    private SoftwareRepository softwareRepository;
+
+    @Autowired
+    private SlaRepository slaRepository;
+
 
     @Override
     public void saveIncident(IncidentDto dto) {
@@ -35,6 +46,33 @@ public class IncidentServiceImpl implements IncidentService {
                 .closedDate(dto.getClosedDate())
                 .satisfaction(dto.getSatisfaction())
                 .build();
+
+        var ids = dto.getHardware();
+        if(ids!=null && !ids.isEmpty()){
+            var hardware = hardwareRepository.findAllById(ids);
+            if(hardware.size() != ids.size()) {
+                throw new ItemNotFoundException("Hardware not found");
+            }
+            incident.addHardwares(hardware);
+        }
+
+        ids = dto.getSla();
+        if(ids!=null && !ids.isEmpty()){
+            var sla = slaRepository.findAllById(ids);
+            if(sla.size() != ids.size()) {
+                throw new ItemNotFoundException("SLA not found");
+            }
+            incident.addSlas(sla);
+        }
+
+        ids = dto.getSoftware();
+        if(ids!=null && !ids.isEmpty()){
+            var software = softwareRepository.findAllById(ids);
+            if(software.size() != ids.size()) {
+                throw new ItemNotFoundException("Software not found");
+            }
+            incident.addSoftwares(software);
+        }
         repository.save(incident);
     }
 
@@ -45,9 +83,43 @@ public class IncidentServiceImpl implements IncidentService {
 
     @Override
     public void updateIncident(Long id, IncidentDto dto) {
+        repository.deleteHardwareRelationships(id);
+        repository.deleteSlaRelationships(id);
+        repository.deleteSoftwareRelationships(id);
+
         var incident = repository.findById(id).orElseThrow(() -> {
             throw new ItemNotFoundException("Incident with id " + id + " not found");
         });
+
+
+        var ids = dto.getHardware();
+        if(ids!=null && !ids.isEmpty()){
+            var hardware = hardwareRepository.findAllById(ids);
+            if(hardware.size() != ids.size()) {
+                throw new ItemNotFoundException("Hardware not found");
+            }
+            incident.addHardwares(hardware);
+        }
+
+        ids = dto.getSla();
+        if(ids!=null && !ids.isEmpty()){
+            var sla = slaRepository.findAllById(ids);
+            if(sla.size() != ids.size()) {
+                throw new ItemNotFoundException("SLA not found");
+            }
+            incident.addSlas(sla);
+        }
+
+        ids = dto.getSoftware();
+        if(ids!=null && !ids.isEmpty()){
+            var software = softwareRepository.findAllById(ids);
+            if(software.size() != ids.size()) {
+                throw new ItemNotFoundException("Software not found");
+            }
+            incident.addSoftwares(software);
+        }
+
+
         incident.setName(dto.getName());
         incident.setCategory(dto.getCategory());
         incident.setPriority(dto.getPriority());

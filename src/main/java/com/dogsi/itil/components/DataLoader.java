@@ -143,11 +143,11 @@ public class DataLoader implements ApplicationRunner {
     private void loadIncidentData() {
 
         incidentService.saveIncident(new IncidentDto("Falla en inicio de Windows 10 2","OS",Priority.MEDIA,Impact.SERIO,
-            State.ABIERTO,"","Tiro pantalla azul",LocalDate.now().minusDays(1), null,null));
+            State.ABIERTO,"","Tiro pantalla azul",LocalDate.now().minusDays(1), null,null,null,null,null));
         incidentService.saveIncident(new IncidentDto("Falla en inicio de Photoshop","Edicion",Priority.MEDIA,Impact.MARGINAL,
-            State.ASIGNADO,"Joaquin Ortiz","No se logro abrir correctamente el programa",LocalDate.now(), null,null));
+            State.ASIGNADO,"Joaquin Ortiz","No se logro abrir correctamente el programa",LocalDate.now(), null,null,null,null,null));
         incidentService.saveIncident(new IncidentDto("Falla en inicio de Windows 10 1","OS",Priority.MEDIA,Impact.SERIO,
-            State.CERRADO,"Joaquin Ortiz","Tiro pantalla azul",LocalDate.now().minusDays(3), Date.from(Instant.now()),Satisfaction.MEDIA));
+            State.CERRADO,"Joaquin Ortiz","Tiro pantalla azul",LocalDate.now().minusDays(3), Date.from(Instant.now()),Satisfaction.MEDIA,null,null,null));
     
         
 
@@ -163,7 +163,7 @@ public class DataLoader implements ApplicationRunner {
             var description = "A description " + String.valueOf(i);
             var closedDate = state.equals(State.ABIERTO) ? null : Date.valueOf(LocalDate.now().minusDays(daysToSubstract).plusDays(5));
             var satisfaction = state.equals(State.ABIERTO) ? null : Satisfaction.values()[(int) (Math.random() * 100) % 5];
-            var testIncident = new IncidentDto(name, category, priority, impact, state, assignee, description, openedDate, closedDate, satisfaction);
+            var testIncident = new IncidentDto(name, category, priority, impact, state, assignee, description, openedDate, closedDate, satisfaction,null,null,null);
             incidentService.saveIncident(testIncident);
         }
     

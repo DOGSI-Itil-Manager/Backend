@@ -2,6 +2,8 @@ package com.dogsi.itil.dto;
 
 import java.time.*;
 import java.util.Date;
+import java.util.List;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -32,4 +34,9 @@ public class IncidentDto {
     private @NotNull LocalDate reportedDate;
     private Date closedDate;
     private Satisfaction satisfaction;
+
+    private List<Long> hardware;
+    private List<Long> sla;
+    private List<Long> software;
+
 }

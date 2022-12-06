@@ -44,4 +44,19 @@ public interface IncidentRepository extends JpaRepository<Incident, Long>{
 
     @Query("SELECT COUNT(i) FROM Incident i WHERE i.assignee='' OR i.assignee IS NULL")
     Long countIncidentsNotTaken();
+
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true,value = "DELETE FROM hardware_incident_relation i WHERE i.incident_id = :id")
+    void deleteHardwareRelationships(Long id);
+
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true,value = "DELETE FROM sla_incident_relation i WHERE i.incident_id = :id")
+    void deleteSlaRelationships(Long id);
+
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true,value = "DELETE FROM software_incident_relation i WHERE i.incident_id = :id")
+    void deleteSoftwareRelationships(Long id);
 }

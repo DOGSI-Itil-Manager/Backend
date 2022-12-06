@@ -12,7 +12,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.dogsi.itil.domain.incident.Incident;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -61,6 +67,14 @@ public class Hardware {
     @OneToMany(mappedBy = "hardware",fetch = FetchType.EAGER ,cascade = CascadeType.ALL)
     private List<HardwareVersion> versions;
     
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinTable(
+        name = "hardware_incident_relation", 
+        joinColumns = @JoinColumn(name = "hardware_id"), 
+        inverseJoinColumns = @JoinColumn(name = "incident_id"))
+    private List<Incident> incidents;
+
     @Builder
     public Hardware(String name, String type, String serialNumber, String location, String provider, Float price,
             Instant additionDate, String description) {

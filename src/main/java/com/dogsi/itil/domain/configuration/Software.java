@@ -11,8 +11,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.dogsi.itil.domain.incident.Incident;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -60,6 +66,14 @@ public class Software {
 
     @OneToMany(mappedBy = "software",fetch = FetchType.EAGER ,cascade = CascadeType.ALL)
     private List<SoftwareVersion> versions;
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinTable(
+        name = "software_incident_relation", 
+        joinColumns = @JoinColumn(name = "software_id"), 
+        inverseJoinColumns = @JoinColumn(name = "incident_id"))
+    private List<Incident> incidents;
 
     @Builder
     public Software(String name, String type, String softwareVersion, String provider, String license, String origin,

@@ -11,10 +11,15 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.dogsi.itil.domain.SLASide;
+import com.dogsi.itil.domain.incident.Incident;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -32,7 +37,7 @@ public class SLA {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="software_id")
+    @Column(name="sla_id")
     private Long id;
 
     @Column(nullable = false)
@@ -64,6 +69,14 @@ public class SLA {
 
     @OneToMany(mappedBy = "sla",fetch = FetchType.EAGER ,cascade = CascadeType.ALL)
     private List<SLAVersion> versions;
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinTable(
+        name = "sla_incident_relation", 
+        joinColumns = @JoinColumn(name = "sla_id"), 
+        inverseJoinColumns = @JoinColumn(name = "incident_id"))
+    private List<Incident> incidents;
 
     @Builder
     public SLA(String name, String service, boolean crucial, String manager, String sideName, Instant startDate,
