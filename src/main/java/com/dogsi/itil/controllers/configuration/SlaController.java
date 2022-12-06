@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dogsi.itil.domain.configuration.SLA;
+import com.dogsi.itil.dto.IdWithName;
 import com.dogsi.itil.dto.SlaDto;
 import com.dogsi.itil.services.configuration.SlaService;
 
@@ -55,5 +56,10 @@ public class SlaController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteSla(@PathVariable Long id){
         service.deleteSla(id);
+    }
+
+    @GetMapping("/ids-with-names")
+    public Page<IdWithName> getIdsWithNames(Pageable pageable){
+        return service.getIdsWithNames(pageable);
     }
 }

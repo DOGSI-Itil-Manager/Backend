@@ -24,8 +24,14 @@ public class IncidentMetricsServiceImpl implements IncidentMetricsService{
         var byDay = repository.countIncidentByDay();
         var bySatisfaction = repository.countIncidentBySatisfaction();
         var byCategory = repository.countIncidentByCategory();
+        var totalHardware = (float) repository.countTotalHardware();
+        var totalSla = (float) repository.countTotalSLa();
+        var totalSoftware = (float) repository.countTotalSoftware();
+        var averageHardware = total == 0 ? 0f : totalHardware / total;
+        var averageSla = total == 0 ? 0f : totalSla / total;
+        var averageSoftware = total == 0 ? 0f : totalSoftware / total;
 
-        return new IncidentMetricsDto(total,notTaken,byPriority,byDay,bySatisfaction,byCategory);
+        return new IncidentMetricsDto(total,notTaken,byPriority,byDay,bySatisfaction,byCategory,averageHardware,averageSla,averageSoftware);
     }
     
 }

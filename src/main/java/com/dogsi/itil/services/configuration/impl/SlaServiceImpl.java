@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.dogsi.itil.domain.configuration.SLA;
 import com.dogsi.itil.domain.configuration.SLAVersion;
+import com.dogsi.itil.dto.IdWithName;
 import com.dogsi.itil.dto.SlaDto;
 import com.dogsi.itil.exceptions.ItemNotFoundException;
 import com.dogsi.itil.repositories.SlaRepository;
@@ -69,6 +70,11 @@ public class SlaServiceImpl implements SlaService{
     @Override
     public SLA getSlaById(Long id) {
         return repository.findById(id).orElseThrow(() -> {throw new ItemNotFoundException("SLA with id " + id + " not found");});
+    }
+
+    @Override
+    public Page<IdWithName> getIdsWithNames(Pageable pageable) {
+        return repository.getIdsAndNames(pageable);
     }
     
 }

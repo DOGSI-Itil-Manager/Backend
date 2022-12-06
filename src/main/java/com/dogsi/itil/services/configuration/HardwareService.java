@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.dogsi.itil.domain.configuration.Hardware;
 import com.dogsi.itil.dto.HardwareDto;
+import com.dogsi.itil.dto.IdWithName;
 
 public interface HardwareService {
     
@@ -18,4 +19,6 @@ public interface HardwareService {
     void deleteHardware(Long id);
 
     Hardware getHardwareById(Long id);
+
+    Page<IdWithName> getIdsWithNames(Pageable pageable);
 }

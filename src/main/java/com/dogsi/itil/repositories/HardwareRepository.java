@@ -2,6 +2,8 @@ package com.dogsi.itil.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -9,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dogsi.itil.domain.configuration.Hardware;
+import com.dogsi.itil.dto.IdWithName;
 import com.dogsi.itil.dto.ItemByField;
 
 public interface HardwareRepository extends JpaRepository<Hardware, Long>{
@@ -23,4 +26,7 @@ public interface HardwareRepository extends JpaRepository<Hardware, Long>{
 
     @Query("SELECT new com.dogsi.itil.dto.ItemByField(h.type,COUNT(h.id)) FROM Hardware h GROUP BY h.type")
     List<ItemByField> countHardwareByType();
+
+    @Query("SELECT new com.dogsi.itil.dto.IdWithName(h.id,h.name) FROM Hardware h")
+    Page<IdWithName> getIdsAndNames(Pageable pageable);
 }

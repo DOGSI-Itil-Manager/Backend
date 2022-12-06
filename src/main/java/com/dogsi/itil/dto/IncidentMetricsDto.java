@@ -16,4 +16,8 @@ public class IncidentMetricsDto {
     List<ItemByDay> byDay;
     List<ItemBySatisfaction> bySatisfaction;
     List<ItemByField> byCategory;
+
+    float averageHardware;
+    float averageSla;
+    float averageSoftware;
 }

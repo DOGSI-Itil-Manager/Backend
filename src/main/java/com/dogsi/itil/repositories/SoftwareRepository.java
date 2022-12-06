@@ -2,6 +2,8 @@ package com.dogsi.itil.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -9,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dogsi.itil.domain.configuration.Software;
+import com.dogsi.itil.dto.IdWithName;
 import com.dogsi.itil.dto.ItemByField;
 
 public interface SoftwareRepository extends JpaRepository<Software, Long>{
@@ -20,4 +23,7 @@ public interface SoftwareRepository extends JpaRepository<Software, Long>{
 
     @Query("SELECT new com.dogsi.itil.dto.ItemByField(s.type,COUNT(s.id)) FROM Software s GROUP BY s.type")
     List<ItemByField> countSoftwareByType();
+
+    @Query("SELECT new com.dogsi.itil.dto.IdWithName(s.id,s.name) FROM Software s")
+    Page<IdWithName> getIdsAndNames(Pageable pageable);
 }

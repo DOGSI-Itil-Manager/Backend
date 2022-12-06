@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dogsi.itil.domain.configuration.Hardware;
 import com.dogsi.itil.dto.HardwareDto;
+import com.dogsi.itil.dto.IdWithName;
 import com.dogsi.itil.services.configuration.HardwareService;
 
 @RestController
@@ -56,5 +57,10 @@ public class HardwareController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteHardware(@PathVariable Long id){
         service.deleteHardware(id);
+    }
+
+    @GetMapping("/ids-with-names")
+    public Page<IdWithName> getIdsWithNames(Pageable pageable){
+        return service.getIdsWithNames(pageable);
     }
 }

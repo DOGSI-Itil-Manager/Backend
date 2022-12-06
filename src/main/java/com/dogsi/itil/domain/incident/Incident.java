@@ -101,21 +101,21 @@ public class Incident {
         name = "hardware_incident_relation", 
         joinColumns = @JoinColumn(name = "incident_id"), 
         inverseJoinColumns = @JoinColumn(name = "hardware_id"))
-    private List<Hardware> hardwares;
+    private List<Hardware> hardware;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinTable(
         name = "sla_incident_relation", 
         joinColumns = @JoinColumn(name = "incident_id"), 
         inverseJoinColumns = @JoinColumn(name = "sla_id"))
-    private List<SLA> slas;
+    private List<SLA> sla;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinTable(
         name = "software_incident_relation", 
         joinColumns = @JoinColumn(name = "incident_id"), 
         inverseJoinColumns = @JoinColumn(name = "software_id"))
-    private List<Software> softwares;
+    private List<Software> software;
 
     @Builder
     public Incident(String name, String category, Priority priority, Impact impact, State state, String assignee, String description,
@@ -130,20 +130,20 @@ public class Incident {
         this.reportedDate = reportedDate;
         this.closedDate = closedDate;
         this.satisfaction = satisfaction;
-        this.softwares = new ArrayList<>();
-        this.slas = new ArrayList<>();
-        this.hardwares = new ArrayList<>();
+        this.software = new ArrayList<>();
+        this.sla = new ArrayList<>();
+        this.hardware = new ArrayList<>();
     }
 
     public void addHardwares(List<Hardware> hardware) {
-        this.hardwares.addAll(hardware);
+        this.hardware.addAll(hardware);
     }
 
     public void addSoftwares(List<Software> softwares) {
-        this.softwares.addAll(softwares);
+        this.software.addAll(softwares);
     }
 
     public void addSlas(List<SLA> slas) {
-        this.slas.addAll(slas);
+        this.sla.addAll(slas);
     }
 }

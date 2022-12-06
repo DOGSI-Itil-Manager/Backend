@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.dogsi.itil.domain.configuration.Hardware;
 import com.dogsi.itil.domain.configuration.HardwareVersion;
 import com.dogsi.itil.dto.HardwareDto;
+import com.dogsi.itil.dto.IdWithName;
 import com.dogsi.itil.exceptions.ItemNotFoundException;
 import com.dogsi.itil.repositories.HardwareRepository;
 import com.dogsi.itil.services.configuration.HardwareService;
@@ -69,5 +70,10 @@ public class HardwareServiceImpl implements HardwareService{
     @Override
     public Hardware getHardwareById(Long id) {
         return repository.findById(id).orElseThrow(() -> {throw new ItemNotFoundException("Hardware with id " + id + " not found");});
+    }
+
+    @Override
+    public Page<IdWithName> getIdsWithNames(Pageable pageable) {
+        return repository.getIdsAndNames(pageable);
     }
 }
