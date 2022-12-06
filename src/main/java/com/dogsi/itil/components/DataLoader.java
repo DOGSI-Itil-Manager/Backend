@@ -151,10 +151,10 @@ public class DataLoader implements ApplicationRunner {
     
         
 
-        for(int i=0;i<27;i++){
+        for(int i=0;i<45;i++){
             var priority = Priority.values()[(int) (Math.random() * 100) % 4];
             var impact = Impact.values()[(int) (Math.random() * 100) % 4];
-            var daysToSubstract = (long) (Math.random() * 100) % 24;
+            var daysToSubstract = (long) (Math.random() * 100) % 34;
             var openedDate = LocalDate.now().minusDays(daysToSubstract+5);
             var category = "Example category " + String.valueOf((int)(Math.random() * 100) % 6);
             var name = "An incident name " + String.valueOf(i);
