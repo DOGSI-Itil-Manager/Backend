@@ -25,6 +25,7 @@ public class ProblemMetricsServiceImpl implements ProblemMetricsService {
         var totalIncidentsInProblems = (float)repository.countIncidentsInProblems();
         var incidentsPerProblem = totalIncidentsInProblems / totalProblems;
         var byState = repository.countProblemByState();
-        return new ProblemMetricsDto(totalProblems, countByUserInCharge, byPriority, byDay, byCategory,incidentsPerProblem,byState);
+        var lifetime = repository.averageProblemLifetime();
+        return new ProblemMetricsDto(totalProblems, countByUserInCharge, byPriority, byDay, byCategory,incidentsPerProblem,byState,lifetime);
     }
 }

@@ -17,4 +17,5 @@ public class ProblemMetricsDto {
     List<ItemByField> byCategory;
     float incidentPerProblems;
     List<ItemByState> byState;
+    Long lifetime;
 }
