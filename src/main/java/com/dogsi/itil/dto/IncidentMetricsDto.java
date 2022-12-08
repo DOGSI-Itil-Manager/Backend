@@ -20,4 +20,6 @@ public class IncidentMetricsDto {
     float averageHardware;
     float averageSla;
     float averageSoftware;
+
+    long lifetime;
 }

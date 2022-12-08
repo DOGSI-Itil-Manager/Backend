@@ -53,4 +53,7 @@ public interface ChangeRepository extends JpaRepository<Change, Long>{
         + " FROM Change c" 
         + " GROUP BY c.openedDate")
     List<ItemByDay> countChangeByDay();
+
+    @Query("SELECT avg(datediff(hour,openedDate,closedDate)) FROM Change c")
+    Long averageLifetime();
 }

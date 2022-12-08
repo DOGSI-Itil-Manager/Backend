@@ -68,4 +68,7 @@ public interface IncidentRepository extends JpaRepository<Incident, Long>{
 
     @Query("SELECT COUNT(s) FROM Incident i JOIN i.software s")
     Long countTotalSoftware();
+
+    @Query("SELECT avg(datediff(hour,reportedDate,closedDate)) FROM Incident i")
+    Long averageLifetime();
 }

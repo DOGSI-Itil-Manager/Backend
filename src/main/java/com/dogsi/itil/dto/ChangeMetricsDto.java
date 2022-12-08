@@ -19,6 +19,7 @@ public class ChangeMetricsDto {
     private List<ItemByField> changesByCategory;
     private List<ItemByPriority> changesByPriority;
     private List<ItemByDay> changesByDay;
+    long lifetime;
 
 
     
